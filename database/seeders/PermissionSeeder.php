@@ -25,45 +25,15 @@ class PermissionSeeder extends Seeder
             'user-edit',
             'user-delete',
 
-            'province-list',
-            'province-create',
-            'province-edit',
-            'province-delete',
+            'students-list',
+            'students-create',
+            'students-edit',
+            'students-delete',
 
-            'city-list',
-            'city-create',
-            'city-edit',
-            'city-delete',
-
-            'people-list',
-            'people-create',
-            'people-edit',
-            'people-delete',
-
-            'complaint_tag-list',
-            'complaint_tag-create',
-            'complaint_tag-edit',
-            'complaint_tag-delete',
-
-            'complaint-list',
-            'complaint-create',
-            'complaint-edit',
-            'complaint-delete',
-
-            'rating-list',
-            'rating-create',
-            'rating-edit',
-            'rating-delete',
-
-            'reason-list',
-            'reason-create',
-            'reason-edit',
-            'reason-delete',
-
-            'status-list',
-            'status-create',
-            'status-edit',
-            'status-delete'
+            'challan-list',
+            'challan-create',
+            'challan-edit',
+            'challan-delete'
 
          ];
          foreach ($permissions as $permission) {

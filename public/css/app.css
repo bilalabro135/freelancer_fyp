@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@import url(/../libs/plugins/custom/datatables/datatables.bundle.css);@import url(/../libs/plugins/custom/fullcalendar/fullcalendar.bundle.css);@import url(/../libs/plugins/global/plugins.bundle.css);@import url(/../libs/plugins/custom/prismjs/prismjs.bundle.css);@import url(/../libs/css/style.bundle.css);@charset "UTF-8";
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 /*!
  * Bootstrap v4.5.2 (https://getbootstrap.com/)
  * Copyright 2011-2020 The Bootstrap Authors

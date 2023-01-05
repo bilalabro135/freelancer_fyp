@@ -56,12 +56,12 @@
 		<!--
 			Tip 1: You can change the background color of the main header using: data-background-color="blue | purple | light-blue | green | orange | red"
 		-->
-		<div class="main-header" data-background-color="light-blue">
+		<div class="main-header" data-background-color="green">
 			<!-- Logo Header -->
 			<div class="logo-header">
 				
 				<a href="{{url('/home')}}" class="logo">
-					<img src="{{ asset('assets/img/logo.png') }}" alt="navbar brand" class="navbar-brand" style= "    width: 50%;">
+					<img src="{{ asset('/uploads/success.jpg') }}" alt="navbar brand" class="navbar-brand" style= "    width: 30%;">
 				</a>
 				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon">
@@ -193,13 +193,6 @@
 							</a>
 						</li>
 
-						<li class="nav-item @if('peoples' == url_explode(request()->path()) ) {{'active'}} @endif">
-							<a  href="{{url('/peoples')}}">
-								<i class="fas fa-users"></i>
-								<p>People</p>
-							</a>
-						</li>
-					
 
 						<li class="nav-section">
 							<span class="sidebar-mini-icon">
@@ -209,44 +202,20 @@
 						</li>
 
 						
-						<li class="nav-item @if('ratings' == url_explode(request()->path()) ) {{'active'}} @endif">
-							<a  href="{{url('/ratings')}}">
-								<i class="fas fa-star"></i>
-								<p>Ratings</p>
+						<li class="nav-item @if('students' == url_explode(request()->path()) ) {{'active'}} @endif">
+							<a  href="{{url('/students')}}">
+								<i class="fa fa-solid fa-user-graduate"></i>
+								<p>Students</p>
 							</a>
 						</li>
 
-
-
-						<li class="nav-item @if('cities' == url_explode(request()->path()) ) {{'active'}} @endif">
-							<a  href="{{url('/cities')}}">
-								<i class="fas fa-building"></i>
-								<p>Cities</p>
+						<li class="nav-item @if('challan' == url_explode(request()->path()) ) {{'active'}} @endif">
+							<a  href="{{url('/challan')}}">
+								<i class="fas fa-receipt"></i>
+								<p>Challan</p>
 							</a>
 						</li>
 
-						
-						<li class="nav-item @if('provinces' == url_explode(request()->path()) ) {{'active'}} @endif">
-							<a  href="{{url('/provinces')}}">
-								<i class="fas fa-building"></i>
-								<p>Provinces</p>
-							</a>
-						</li>
-
-						
-						<li class="nav-item @if('reasons' == url_explode(request()->path()) ) {{'active'}} @endif">
-							<a  href="{{url('/reasons')}}">
-								<i class="fas fa-info"></i>
-								<p>Reasons</p>
-							</a>
-						</li>
-
-						<li class="nav-item @if('statuses' == url_explode(request()->path()) ) {{'active'}} @endif">
-							<a  href="{{url('/statuses')}}">
-								<i class="fas fa-check"></i>
-								<p>Statuses</p>
-							</a>
-						</li>
 
 						<!-- <li class="nav-item @if('payment_methods' == url_explode(request()->path()) ) {{'active'}} @endif">
 							<a  href="{{url('/payment_methods')}}">
@@ -255,13 +224,6 @@
 							</a>
 						</li> -->
 
-						<li class="nav-item @if('complaint_tags' == url_explode(request()->path()) ) {{'active'}} @endif">
-							<a  href="{{url('/complaint_tags')}}">
-								<i class="fas fa-envelope"></i>
-								<p>Complaint Tags</p>
-							</a>
-						</li>
-						
 						<li class="nav-section">
 							<span class="sidebar-mini-icon">
 								<i class="fa fa-ellipsis-h"></i>
@@ -284,9 +246,6 @@
 								<p>Roles</p>
 							</a>
 						</li>
-
-						
-
 					</ul>
 				</div>
 			</div>
