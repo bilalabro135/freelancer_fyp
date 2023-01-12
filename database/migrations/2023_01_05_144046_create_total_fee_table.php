@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePaidRecietsTable extends Migration
+class CreateTotalFeeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreatePaidRecietsTable extends Migration
      */
     public function up()
     {
-        Schema::create('paid_reciets', function (Blueprint $table) {
+        Schema::create('total_fee', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('student_id');
-            $table->date('for_month');
-            $table->integer('fees_pay');
-            $table->unsignedInteger('amount');
+            $table->unsignedInteger('total');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreatePaidRecietsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('paid_reciets');
+        Schema::dropIfExists('total_fee');
     }
 }

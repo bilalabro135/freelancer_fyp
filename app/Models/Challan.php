@@ -13,11 +13,7 @@ class Challan extends Model
     protected $dates = ['deleted_at'];
     protected $fillable = [
             'student_id',
-            'admission_fee',
-            'annual_fee',
-            'transport_fee',
-            'others',
-            'monthly_fee',
+            'monthly_fee'
     ];
 
 }

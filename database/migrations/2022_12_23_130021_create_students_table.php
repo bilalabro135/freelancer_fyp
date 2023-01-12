@@ -47,6 +47,10 @@ class CreateStudentsTable extends Migration
             $table->string('forward_to')->nullable();
             $table->date('dated')->nullable();
             $table->string('student_pic')->nullable();
+            $table->string('recent_photograph')->nullable();
+            $table->string('birth_certificate')->nullable();
+            $table->string('leave_certificate')->nullable();
+            $table->string('father_cnic')->nullable();
             $table->boolean('active')->default(1);
             $table->softDeletes();
             $table->timestamps();

@@ -11,6 +11,7 @@ use App\Models\Student;
 use App\Models\PaidReciet;
 use App\Http\Requests\ChallanRequest;
 use Illuminate\Http\Request;
+use PDF;
 
 class ChallanController extends Controller
 {
@@ -112,7 +113,7 @@ class ChallanController extends Controller
             return response()->json(['error'=>'Challan already added for '.$student['name']]);
         }
 
-        $sum_fee = ($request->admission_fee + $request->annual_fee + $request->transport_fee + $request->others + $request->monthly_fee);
+        $sum_fee = ($request->admission_fee + $request->annual_fee + $request->transport_fee + $request->others + $student->student_fee);
 
         $fee_exists = TotalFee::where('student_id',$request->student_id)->first();
         
@@ -146,22 +147,23 @@ class ChallanController extends Controller
         $data       = Student::where('id', $challan->student_id)->first();
 
         $reciet     = PaidReciet::where('student_id',$data->id)->latest()->first();
-        
-        if ($reciet != null){
+        $all_reciet     = PaidReciet::where('student_id',$data->id)->get();
+
+        if (!empty($reciet)){
             if ($reciet->created_at) {
-                $reciet_date = date('M-Y',strtotime($reciet->created_at));
-                $date_now    = date('M-Y');
+                $reciet_date = date('m-Y',strtotime($reciet->created_at));
+                $date_now    = date('m-Y');
                 if ($reciet_date == $date_now) {
-                    $reciet_final = 1;
-                }else{
                     $reciet_final = 0;
+                }else{
+                    $reciet_final = 1;
                 }
             }
         }else{
-            $reciet_final = 0;
+            $reciet_final = 1;
         }
 
-        return view('challan.show',compact('data','challan','challans','total_fee','reciet_final'));
+        return view('challan.show',compact('data','challan','challans','total_fee','reciet_final','all_reciet'));
     }
 
     /**
@@ -211,13 +213,17 @@ class ChallanController extends Controller
      */
     public function destroy(Request $request)
     {
-        $challan  = Challan::where('id',$request->ids)->delete();
+        $challan        = Challan::where('id',$request->ids)->delete();
+        $total_fee      = TotalFee::where('student_id',$request->ids)->delete();
+        $paid_reciet    = PaidReciet::where('student_id',$request->ids)->delete();
+        
         return response()->json(['success'=>'Challan deleted successfully.']);
     }
 
     public function pay_challan(Request $request){
         $validated = $request->validate([
             'student_id'    => 'required',
+            'for_month'     => 'required',
             'fees_pay'      => 'required'
         ]);
 
@@ -234,16 +240,97 @@ class ChallanController extends Controller
                 }else{
                     $pay = PaidReciet::create([
                         'student_id' => $request->student_id,
+                        'for_month'   => $request->for_month,
+                        'amount'   => $student->student_fee,
                         'fees_pay'   => $request->fees_pay
                     ]);
+                }
+                $fee_exists = TotalFee::where('student_id',$request->student_id)->first();
+                if (!empty($fee_exists)) {
+                    $fee_exists = TotalFee::where('student_id',$request->student_id)->first();
+                    $fee_exists->total = ($fee_exists->total + $student->student_fee);
+                    $fee_exists->save();
                 }
             }
         }else{
             $pay = PaidReciet::create([
                 'student_id' => $request->student_id,
+                'for_month'   => $request->for_month,
+                'amount'      => $student->student_fee,
                 'fees_pay'   => $request->fees_pay
             ]);
+            $fee_exists = TotalFee::where('student_id',$request->student_id)->first();
+                if (!empty($fee_exists)) {
+                    $fee_exists = TotalFee::where('student_id',$request->student_id)->first();
+                    $fee_exists->total = ($fee_exists->total + $student->student_fee);
+                    $fee_exists->save();
+                }
         }
         return response()->json(['success'=>'Challan paid for '. $student['name'] .' successfully.']);
+    }
+
+    public function showChallan($id)
+    {
+        $challan    = Challan::findOrFail($id);
+        $challans   = Challan::all();
+        $total_fee  = TotalFee::where('student_id',$challan->student_id)->first();
+        $data       = Student::where('id', $challan->student_id)->first();
+
+        $reciet     = PaidReciet::where('student_id',$data->id)->latest()->first();
+        $all_reciet     = PaidReciet::where('student_id',$data->id)->get();
+
+        if (!empty($reciet)){
+            if ($reciet->created_at) {
+                $reciet_date = date('m-Y',strtotime($reciet->created_at));
+                $date_now    = date('m-Y');
+                if ($reciet_date == $date_now) {
+                    $reciet_final = 0;
+                }else{
+                    $reciet_final = 1;
+                }
+            }
+        }else{
+            $reciet_final = 1;
+        }
+
+      return view('pdf.index', compact('data','challan','challans','total_fee','reciet_final','all_reciet'));
+    }
+
+    public function generatePDF($id) 
+    {
+        $challan    = Challan::findOrFail($id);
+        $challans   = Challan::all();
+        $total_fee  = TotalFee::where('student_id',$challan->student_id)->first();
+        $data       = Student::where('id', $challan->student_id)->first();
+
+        $reciet     = PaidReciet::where('student_id',$data->id)->latest()->first();
+        $all_reciet     = PaidReciet::where('student_id',$data->id)->get();
+
+        if (!empty($reciet)){
+            if ($reciet->created_at) {
+                $reciet_date = date('m-Y',strtotime($reciet->created_at));
+                $date_now    = date('m-Y');
+                if ($reciet_date == $date_now) {
+                    $reciet_final = 0;
+                }else{
+                    $reciet_final = 1;
+                }
+            }
+        }else{
+            $reciet_final = 1;
+        }
+
+        $all_data = array(
+                            'challan' => $challan,
+                            'data' => $data,
+                            'challans' => $total_fee,
+                            'reciet_final' => $reciet_final,
+                            'all_reciet' => $all_reciet,
+                            'total_fee' => $total_fee
+                        );
+          
+        $pdf = PDF::loadView('pdf.index', $all_data,compact('data','challan','challans','total_fee','reciet_final','all_reciet'));
+    
+        return $pdf->download('itsolutionstuff.pdf');
     }
 }

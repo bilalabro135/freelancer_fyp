@@ -36,6 +36,11 @@
                     </div>
                     
                     <div class="card-body">
+                        <div class="row mb-4 justify-content-center">
+                            <div class="col-md-3 text-center">
+                                <img src="{{asset('uploads/'.$data->student_pic)}}" style="width:100%; height: 100%;object-fit: cover; object-position: center; border-radius: 120px;">
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-12 col-md-12">
                                 <div class="table-responsive">
@@ -80,6 +85,24 @@
                                         </tbody>
                                     </table>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-md-6 text-center">
+                                <h2>Recent Photograph</h2>
+                                <img src="{{asset('uploads/'.$data->recent_photograph)}}" style="width:100%; height: 85%;object-fit: cover; object-position: center;">
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <h2>Birth Certificate</h2>
+                                <img src="{{asset('uploads/'.$data->birth_certificate)}}" style="width:100%; height: 85%;object-fit: cover; object-position: center;">
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <h2>Father's CNIC</h2>
+                                <img src="{{asset('uploads/'.$data->father_cnic)}}" style="width:100%; height: 85%;object-fit: cover; object-position: center;">
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <h2>Leaving Certificate</h2>
+                                <img src="{{asset('uploads/'.$data->leave_certificate)}}" style="width:100%; height: 85%;object-fit: cover; object-position: center;">
                             </div>
                         </div>
                     </div>

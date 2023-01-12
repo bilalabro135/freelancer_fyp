@@ -86,6 +86,19 @@
                                         @endif
                                     </div>
                                 </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        {!! Html::decode(Form::label('fees_pay','Student fee <span class="text-danger">*</span>')) !!}
+                                        <select class="form-control py-0" name="fees_pay" required>
+                                            <option disabled selected>--Please Select--</option>
+                                            <option value="1">Paid</option>
+                                            <option value="0">Pending</option>
+                                        </select>
+                                        @if ($errors->has('fees_pay'))  
+                                            {!! "<span class='span_danger'>". $errors->first('fees_pay')."</span>"!!} 
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="card-footer">

@@ -2,6 +2,32 @@
 @section('title','Student')
 @section('content')
     @include( '../sweet_script')
+
+    <style type="text/css">
+        .file-card h3 {
+            font-size: 22px;
+            font-weight: 600;
+        }
+        .drop_box {
+            margin: 10px 0;
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border: 3px dotted #a3a3a3;
+            border-radius: 5px;
+        }
+        .file-card .btn {
+            text-decoration: none;
+            background-color: #005af0;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            outline: none;
+            transition: 0.3s;
+        }
+    </style>
     <div class="page-inner">
         <div class="page-header">
             <h4 class="page-title">@yield('title')</h4>
@@ -299,7 +325,6 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <hr style="width: 100%; opacity: 0.6;">
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                         <div class="form-group">
@@ -366,6 +391,59 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="card-header bg-success">
+                                <div class="d-flex align-items-center">
+                                    <h4 class="card-title text-light">Attachments</h4>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            {!! Html::decode(Form::label('recent_photograph','Recent photography')) !!}
+                                            <div class="profile-pic text-center">
+                                                <input type="file" class="form-control py-1" accept=".jpg,.png,.jpeg,.gif" name="recent_photograph">
+                                            </div>
+                                            @if ($errors->has('recent_photograph'))  
+                                                {!! "<span class='span_danger'>". $errors->first('recent_photograph')."</span>"!!} 
+                                            @endif
+                                        </div>
+                                    </div>
+                                   <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            {!! Html::decode(Form::label('recent_photograph','Birth certificate')) !!}
+                                            <div class="profile-pic text-center">
+                                                <input type="file" class="form-control py-1" accept=".jpg,.png,.jpeg,.gif" name="birth_certificate">
+                                            </div>
+                                            @if ($errors->has('birth_certificate'))  
+                                                {!! "<span class='span_danger'>". $errors->first('birth_certificate')."</span>"!!} 
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            {!! Html::decode(Form::label('recent_photograph','Leave certificate')) !!}
+                                            <div class="profile-pic text-center">
+                                                <input type="file" class="form-control py-1" accept=".jpg,.png,.jpeg,.gif" name="leave_certificate">
+                                            </div>
+                                            @if ($errors->has('leave_certificate'))  
+                                                {!! "<span class='span_danger'>". $errors->first('leave_certificate')."</span>"!!} 
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            {!! Html::decode(Form::label('recent_photograph','Father CNIC')) !!}
+                                            <div class="profile-pic text-center">
+                                                <input type="file" class="form-control py-1" accept=".jpg,.png,.jpeg,.gif" name="father_cnic">
+                                            </div>
+                                            @if ($errors->has('father_cnic'))  
+                                                {!! "<span class='span_danger'>". $errors->first('father_cnic')."</span>"!!} 
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="card-footer">
                                 <div class="row">
                                     <div class="col-lg-12 text-right">
@@ -383,7 +461,7 @@
     </div>
     
     <script type="text/javascript">
-        function previewFile() {
+            function previewFile() {
               var preview = document.getElementById('profile-image1');
               var file    = document.getElementById('profile-image-upload').files[0];
               var reader  = new FileReader();
@@ -403,6 +481,7 @@
                     $('#profile-image-upload').click();
                 });
             });
+
     </script>
     <script>
         $(document).ready(function () {                      

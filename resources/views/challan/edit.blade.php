@@ -78,10 +78,19 @@
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                     <div class="form-group">
-                                        {!! Html::decode(Form::label('monthly_fee','Monthly Fee <span class="text-danger">*</span>')) !!}
-                                        {{ Form::text('monthly_fee', null, array('placeholder' => 'Monthly Fee','class' => 'form-control','autofocus' => ''  )) }}
-                                        @if ($errors->has('monthly_fee'))  
-                                            {!! "<span class='span_danger'>". $errors->first('monthly_fee')."</span>"!!} 
+                                        {!! Html::decode(Form::label('fees_pay','Student fee <span class="text-danger">*</span>')) !!}
+                                        <select class="form-control py-0" id="fees_pay" name="fees_pay" required>
+                                            <option disabled>--Please select--</option>
+                                            @if($student_list->fees_pay == 1)
+                                                <option selected value="1">Paid</option>
+                                                <option value="0">Pending</option>
+                                            @else
+                                                <option value="1">Paid</option>
+                                                <option selected value="0">Pending</option>
+                                            @endif
+                                        </select>
+                                        @if ($errors->has('fees_pay'))  
+                                            {!! "<span class='span_danger'>". $errors->first('fees_pay')."</span>"!!} 
                                         @endif
                                     </div>
                                 </div>

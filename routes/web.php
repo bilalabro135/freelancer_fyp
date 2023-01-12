@@ -17,6 +17,9 @@
 		}
 	});
 
+	// PDF generator
+	Route::get('generate-pdf/{id}', [ChallanController::class, 'generatePDF']);
+
 	// Route::get('send_otp/{contact_no}/{code}', [TwilioSMSController::class, 'index']);
 
 	// Route::get('/send_sms/{contact_no}',[App\Http\Controllers\NotificationController::class, 'send_sms']);
