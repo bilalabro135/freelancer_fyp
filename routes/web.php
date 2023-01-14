@@ -36,7 +36,7 @@
 	// BEGIN::Challan
 		Route::resource('/challan', ChallanController::class);
 		Route::get('/lst_challan', [ChallanController::class, 'list']);
-		Route::post('/pay_challan', [ChallanController::class, 'pay_challan']);
+		Route::post('/pay_challan', [ChallanController::class, 'pay_challan'])->name('pay_challan');
 		Route::delete('/del_challan', [ChallanController::class, 'destroy']);
 	// BEGIN::Challan
 

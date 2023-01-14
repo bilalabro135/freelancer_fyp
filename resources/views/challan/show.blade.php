@@ -254,7 +254,6 @@
                                                 {!! Html::decode(Form::label('fees_pay','Pay for month')) !!}
                                                 <select class="form-control py-0" name="fees_pay">
                                                     <option disabled selected>--Please Select--</option>
-                                                    <option value="0">Due</option>
                                                     <option value="1">Paid</option>
                                                 </select>
                                                 @if ($errors->has('fees_pay'))
@@ -284,5 +283,46 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function () {  
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('#form').submit(function(e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('pay_challan') }}",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: (data) => {
+                        if(data.success){
+                            this.reset();
+                            toastr.success(data.success);
+                        }else if(data.error){
+                            toastr.error(data.error);
+                        }
+                    },
+                    error: function(data) {
+                        var txt         = '';
+                        console.log(data.responseJSON.errors[0])
+                        for (var key in data.responseJSON.errors) {
+                            txt += data.responseJSON.errors[key];
+                            txt +='<br>';
+                        }
+                        toastr.error(txt);
+                    }
+                });
+            });
+        });
+    </script>
 
 @endsection

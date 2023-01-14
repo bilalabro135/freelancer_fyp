@@ -12,6 +12,7 @@ use App\Models\PaidReciet;
 use App\Http\Requests\ChallanRequest;
 use Illuminate\Http\Request;
 use PDF;
+use Carbon\Carbon;
 
 class ChallanController extends Controller
 {
@@ -220,7 +221,8 @@ class ChallanController extends Controller
         return response()->json(['success'=>'Challan deleted successfully.']);
     }
 
-    public function pay_challan(Request $request){
+    public function pay_challan(Request $request)
+    {
         $validated = $request->validate([
             'student_id'    => 'required',
             'for_month'     => 'required',
@@ -229,7 +231,7 @@ class ChallanController extends Controller
 
         $student = Student::where('id',$request->student_id)->first();
 
-        $reciet     = PaidReciet::where('student_id',$request->student_id)->latest()->first();
+        $reciet  = PaidReciet::where('student_id',$request->student_id)->latest()->first();
 
         if ($reciet != null){
             if ($reciet->created_at) {
@@ -238,18 +240,42 @@ class ChallanController extends Controller
                 if ($reciet_date == $date_now) {
                     return response()->json(['error'=>'Challan already paid for '.$student['name']]);
                 }else{
-                    $pay = PaidReciet::create([
-                        'student_id' => $request->student_id,
-                        'for_month'   => $request->for_month,
-                        'amount'   => $student->student_fee,
-                        'fees_pay'   => $request->fees_pay
-                    ]);
-                }
-                $fee_exists = TotalFee::where('student_id',$request->student_id)->first();
-                if (!empty($fee_exists)) {
-                    $fee_exists = TotalFee::where('student_id',$request->student_id)->first();
-                    $fee_exists->total = ($fee_exists->total + $student->student_fee);
-                    $fee_exists->save();
+                    $date_compare = PaidReciet::select('*')
+                            ->whereBetween('created_at', 
+                            [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()]
+                        )
+                        ->get()
+                        ->toArray();
+
+                    $sum_fee = ($student->student_fee + $student->student_fee);
+
+                    if((isset($date_compare)) && (count($date_compare) >= 1)){
+                        $pay = PaidReciet::create([
+                            'student_id'    => $request->student_id,
+                            'for_month'     => $request->for_month,
+                            'amount'        => $student->student_fee,
+                            'fees_pay'      => $request->fees_pay
+                        ]);
+                        $fee_exists = TotalFee::where('student_id',$request->student_id)->first();
+                        if (!empty($fee_exists)) {
+                            $fee_exists = TotalFee::where('student_id',$request->student_id)->first();
+                            $fee_exists->total = ($fee_exists->total + $student->student_fee);
+                            $fee_exists->save();
+                        }
+                    }else{
+                        $fee_exists = TotalFee::where('student_id',$request->student_id)->first();
+                        if (!empty($fee_exists)) {
+                            $fee_exists = TotalFee::where('student_id',$request->student_id)->first();
+                            $fee_exists->total = ($fee_exists->total + $sum_fee);
+                            $fee_exists->save();
+                        }
+                        $pay = PaidReciet::create([
+                            'student_id'    => $request->student_id,
+                            'for_month'     => $request->for_month,
+                            'amount'        => $sum_fee,
+                            'fees_pay'      => $request->fees_pay
+                        ]);
+                    }
                 }
             }
         }else{
@@ -277,7 +303,7 @@ class ChallanController extends Controller
         $data       = Student::where('id', $challan->student_id)->first();
 
         $reciet     = PaidReciet::where('student_id',$data->id)->latest()->first();
-        $all_reciet     = PaidReciet::where('student_id',$data->id)->get();
+        $all_reciet = PaidReciet::where('student_id',$data->id)->get();
 
         if (!empty($reciet)){
             if ($reciet->created_at) {
@@ -331,6 +357,6 @@ class ChallanController extends Controller
           
         $pdf = PDF::loadView('pdf.index', $all_data,compact('data','challan','challans','total_fee','reciet_final','all_reciet'));
     
-        return $pdf->download('itsolutionstuff.pdf');
+        return $pdf->download($data['name'].' challan.pdf');
     }
 }
