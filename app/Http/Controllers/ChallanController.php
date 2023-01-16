@@ -355,7 +355,7 @@ class ChallanController extends Controller
                             'total_fee' => $total_fee
                         );
           
-        $pdf = PDF::loadView('pdf.index', $all_data,compact('data','challan','challans','total_fee','reciet_final','all_reciet'));
+        $pdf = PDF::loadView('pdf.index', $all_data,compact('data','challan','challans','total_fee','reciet_final','all_reciet'))->setPaper('a4', 'landscape');
     
         return $pdf->download($data['name'].' challan.pdf');
     }
