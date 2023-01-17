@@ -17,8 +17,11 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header bg-success">
-                        <div class="d-flex align-items-center">
-                            <h1 style="font-family: sans-serif;text-align: center;margin-bottom: 40px;border-bottom: 1px solid #000; width: 100%;padding-bottom: 20px;">The Hyderabad Academy</h1>
+                        <div style="display:flex;font-family: sans-serif;">
+                            <h2 style="margin: 0;font-size: 25px;">HBL</h2>
+                        </div>
+                        <div class="align-items-center">
+                            <h1 style="margin:0;font-family: sans-serif;margin-bottom: 40px;border-bottom: 1px solid #000; width: 100%;padding-bottom: 20px;">The Hyderabad Academy</h1>
                         </div>
                     </div>
                     
@@ -62,7 +65,7 @@
                         <div class="row">
                             <div class="col-12 col-md-12">
                                 <div class="table-responsive">
-                                    <table class="table dt-responsive table-two with-border" style="width: 100%;">
+                                    <table class="table dt-responsive table-two with-border" style="width: 100%;border: 1px solid #000;">
                                         <tbody>
                                             <tr style="border-top: 1px solid #ebedf2;">
                                                 <td width="50%">-</td>
@@ -155,8 +158,11 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header bg-success">
-                        <div class="d-flex align-items-center">
-                            <h1 style="font-family: sans-serif;text-align: center;margin-bottom: 40px;border-bottom: 1px solid #000; width: 100%;padding-bottom: 20px;">The Hyderabad Academy</h1>
+                        <div style="display:flex;font-family: sans-serif;">
+                            <h2 style="margin: 0;font-size: 25px;">HBL</h2>
+                        </div>
+                        <div class="align-items-center">
+                            <h1 style="margin:0;font-family: sans-serif;margin-bottom: 40px;border-bottom: 1px solid #000; width: 100%;padding-bottom: 20px;">The Hyderabad Academy</h1>
                         </div>
                     </div>
                     
@@ -200,7 +206,7 @@
                         <div class="row">
                             <div class="col-12 col-md-12">
                                 <div class="table-responsive">
-                                    <table class="table dt-responsive table-two with-border" style="width: 100%;">
+                                    <table class="table dt-responsive table-two with-border" style="width: 100%;border: 1px solid #000;">
                                         <tbody>
                                             <tr style="border-top: 1px solid #ebedf2;">
                                                 <td width="50%">-</td>
@@ -261,25 +267,25 @@
                                                 </tr>
                                             @endforeach
                                             <tr style="border-top: 1px solid #ebedf2;">
-                                                    <td width="50%">Net amount:</td>
-                                                    <td>
-                                                        @if(isset($total_fee->total))
-                                                            {{$total_fee->total}}
-                                                        @else
-                                                            -
-                                                        @endif
-                                                    </td>
-                                                </tr>
-                                                <tr style="border-top: 1px solid #ebedf2;">
-                                                    <td width="50%">Total:</td>
-                                                    <td>
-                                                        @if(isset($total_fee->total))
-                                                            {{$total_fee->total}}
-                                                        @else
-                                                            -
-                                                        @endif
-                                                    </td>
-                                                </tr>
+                                                <td width="50%">Net amount:</td>
+                                                <td>
+                                                    @if(isset($total_fee->total))
+                                                        {{$total_fee->total}}
+                                                    @else
+                                                        -
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                            <tr style="border-top: 1px solid #ebedf2;">
+                                                <td width="50%">Total:</td>
+                                                <td>
+                                                    @if(isset($total_fee->total))
+                                                        {{$total_fee->total}}
+                                                    @else
+                                                        -
+                                                    @endif
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -293,8 +299,11 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header bg-success">
-                        <div class="d-flex align-items-center">
-                            <h1 style="font-family: sans-serif;text-align: center;margin-bottom: 40px;border-bottom: 1px solid #000; width: 100%;padding-bottom: 20px;">The Hyderabad Academy</h1>
+                        <div style="display:flex;font-family: sans-serif;">
+                            <h2 style="margin: 0;font-size: 25px;">HBL</h2>
+                        </div>
+                        <div class="align-items-center">
+                            <h1 style="margin:0;font-family: sans-serif;margin-bottom: 40px;border-bottom: 1px solid #000; width: 100%;padding-bottom: 20px;">The Hyderabad Academy</h1>
                         </div>
                     </div>
                     
@@ -338,7 +347,7 @@
                         <div class="row">
                             <div class="col-12 col-md-12">
                                 <div class="table-responsive">
-                                    <table class="table dt-responsive table-two with-border" style="width: 100%;">
+                                    <table class="table dt-responsive table-two with-border" style="width: 100%;border: 1px solid #000;">
                                         <tbody>
                                             <tr style="border-top: 1px solid #ebedf2;">
                                                 <td width="50%">-</td>
