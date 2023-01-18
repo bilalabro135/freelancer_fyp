@@ -1,13 +1,6 @@
 <style type="text/css">
-        td{
-            font-size: 18px;
-            font-weight: 600;
-        }
-        .with-border td{
-            border: 1px solid;
-        }
-        @page {margin:0!important; padding:0!important;margin-left: 10px !important;margin-right: 30px !important}
-    </style>
+    @page {margin:0!important; padding:0!important;margin-left: 10px !important;margin-right: 30px !important}
+</style>
 
     <div class="page-inner">
         <div class="page-header">
@@ -17,8 +10,9 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header bg-success">
-                        <div style="display:flex;font-family: sans-serif;">
-                            <h2 style="margin: 0;font-size: 25px;">HBL</h2>
+                        <div style="display:flex;font-family: sans-serif;justify-content: space-between;align-items: center;">
+                            <h2 style="margin: 0;font-size: 25px;width: 49%;float: left;">HBL</h2>
+                            <h4 style="margin: 0;font-size: 20px;width: 49%;float: right;" align="right">Hyderabad</h4>
                         </div>
                         <div class="align-items-center">
                             <h1 style="margin:0;font-family: sans-serif;margin-bottom: 40px;border-bottom: 1px solid #000; width: 100%;padding-bottom: 20px;">The Hyderabad Academy</h1>
@@ -29,31 +23,31 @@
                         <div class="row">
                             <div class="col-12 col-md-12">
                                 <div class="table-responsive">
-                                    <table class="table dt-responsive table-main" style="width: 100%; margin-bottom: 40px;">
+                                    <table border="1" class="table dt-responsive table-main" style="width: 100%; margin-bottom: 40px;">
                                         <tbody>
                                             <tr style="border-top: 1px solid #ebedf2;">
-                                                <td width="35%">Challan no:</td>
-                                                <td width="35%">{{ isset($data->id) ? ($data->id) : ""}}</td>
+                                                <td>Challan no:</td>
+                                                <td>{{ isset($data->id) ? ($data->id) : ""}}</td>
                                             </tr>
                                             <tr>
                                                 <td>Issue Date:</td>
-                                                <td width="35%">{{date('d/m/Y')}}</td>
+                                                <td>{{date('d/m/Y')}}</td>
                                             </tr>
                                             <tr style="border-top: 1px solid #ebedf2;">
-                                                <td width="35%">Student Name:</td>
-                                                <td width="35%">{{ isset($data->name) ? ($data->name) : ""}}</td>
+                                                <td>Due Date:</td>
+                                                <td>{{date('10/M/Y')}}</td>
                                             </tr>
                                             <tr>
-                                                 <td width="35%">Due Date:</td>
-                                                <td width="35%">{{date('10/M/Y')}}</td>
+                                                <td>Class:</td>
+                                                <td>{{ isset($data->admission_class) ? ($data->admission_class) : ""}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Student Name:</td>
+                                                <td>{{ isset($data->name) ? ($data->name) : ""}}</td>
                                             </tr>
                                             <tr style="border-top: 1px solid #ebedf2;">
-                                                <td width="35%">Father's name:</td>
-                                                <td width="35%">{{ isset($data->f_name) ? ($data->f_name) : ""}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td width="35%">Class:</td>
-                                                <td width="35%">{{ isset($data->admission_class) ? ($data->admission_class) : ""}}</td>
+                                                <td>Father's name:</td>
+                                                <td>{{ isset($data->f_name) ? ($data->f_name) : ""}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -65,7 +59,7 @@
                         <div class="row">
                             <div class="col-12 col-md-12">
                                 <div class="table-responsive">
-                                    <table class="table dt-responsive table-two with-border" style="width: 100%;border: 1px solid #000;">
+                                    <table border="1" class="table dt-responsive table-two with-border table-bordered" style="width: 100%;">
                                         <tbody>
                                             <tr style="border-top: 1px solid #ebedf2;">
                                                 <td width="50%">-</td>
@@ -158,8 +152,9 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header bg-success">
-                        <div style="display:flex;font-family: sans-serif;">
-                            <h2 style="margin: 0;font-size: 25px;">HBL</h2>
+                        <div style="display:flex;font-family: sans-serif;justify-content: space-between;align-items: center;">
+                            <h2 style="margin: 0;font-size: 25px;width: 49%;float: left;">HBL</h2>
+                            <h4 style="margin: 0;font-size: 20px;width: 49%;float: right;" align="right">Hyderabad</h4>
                         </div>
                         <div class="align-items-center">
                             <h1 style="margin:0;font-family: sans-serif;margin-bottom: 40px;border-bottom: 1px solid #000; width: 100%;padding-bottom: 20px;">The Hyderabad Academy</h1>
@@ -170,31 +165,31 @@
                         <div class="row">
                             <div class="col-12 col-md-12">
                                 <div class="table-responsive">
-                                    <table class="table dt-responsive table-main" style="width: 100%; margin-bottom: 40px;">
+                                    <table border="1" class="table dt-responsive table-main" style="width: 100%; margin-bottom: 40px;">
                                         <tbody>
                                             <tr style="border-top: 1px solid #ebedf2;">
-                                                <td width="35%">Challan no:</td>
-                                                <td width="35%">{{ isset($data->id) ? ($data->id) : ""}}</td>
+                                                <td>Challan no:</td>
+                                                <td>{{ isset($data->id) ? ($data->id) : ""}}</td>
                                             </tr>
                                             <tr>
                                                 <td>Issue Date:</td>
-                                                <td width="35%">{{date('d/m/Y')}}</td>
+                                                <td>{{date('d/m/Y')}}</td>
                                             </tr>
                                             <tr style="border-top: 1px solid #ebedf2;">
-                                                <td width="35%">Student Name:</td>
-                                                <td width="35%">{{ isset($data->name) ? ($data->name) : ""}}</td>
+                                                <td>Due Date:</td>
+                                                <td>{{date('10/M/Y')}}</td>
                                             </tr>
                                             <tr>
-                                                 <td width="35%">Due Date:</td>
-                                                <td width="35%">{{date('10/M/Y')}}</td>
+                                                <td>Class:</td>
+                                                <td>{{ isset($data->admission_class) ? ($data->admission_class) : ""}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Student Name:</td>
+                                                <td>{{ isset($data->name) ? ($data->name) : ""}}</td>
                                             </tr>
                                             <tr style="border-top: 1px solid #ebedf2;">
-                                                <td width="35%">Father's name:</td>
-                                                <td width="35%">{{ isset($data->f_name) ? ($data->f_name) : ""}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td width="35%">Class:</td>
-                                                <td width="35%">{{ isset($data->admission_class) ? ($data->admission_class) : ""}}</td>
+                                                <td>Father's name:</td>
+                                                <td>{{ isset($data->f_name) ? ($data->f_name) : ""}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -206,7 +201,7 @@
                         <div class="row">
                             <div class="col-12 col-md-12">
                                 <div class="table-responsive">
-                                    <table class="table dt-responsive table-two with-border" style="width: 100%;border: 1px solid #000;">
+                                    <table border="1" class="table dt-responsive table-two with-border table-bordered" style="width: 100%;">
                                         <tbody>
                                             <tr style="border-top: 1px solid #ebedf2;">
                                                 <td width="50%">-</td>
@@ -299,8 +294,9 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header bg-success">
-                        <div style="display:flex;font-family: sans-serif;">
-                            <h2 style="margin: 0;font-size: 25px;">HBL</h2>
+                        <div style="display:flex;font-family: sans-serif;justify-content: space-between;align-items: center;">
+                            <h2 style="margin: 0;font-size: 25px;width: 49%;float: left;">HBL</h2>
+                            <h4 style="margin: 0;font-size: 20px;width: 49%;float: right;" align="right">Hyderabad</h4>
                         </div>
                         <div class="align-items-center">
                             <h1 style="margin:0;font-family: sans-serif;margin-bottom: 40px;border-bottom: 1px solid #000; width: 100%;padding-bottom: 20px;">The Hyderabad Academy</h1>
@@ -311,31 +307,31 @@
                         <div class="row">
                             <div class="col-12 col-md-12">
                                 <div class="table-responsive">
-                                    <table class="table dt-responsive table-main" style="width: 100%; margin-bottom: 40px;">
+                                    <table border="1" class="table dt-responsive table-main" style="width: 100%; margin-bottom: 40px;">
                                         <tbody>
                                             <tr style="border-top: 1px solid #ebedf2;">
-                                                <td width="35%">Challan no:</td>
-                                                <td width="35%">{{ isset($data->id) ? ($data->id) : ""}}</td>
+                                                <td>Challan no:</td>
+                                                <td>{{ isset($data->id) ? ($data->id) : ""}}</td>
                                             </tr>
                                             <tr>
                                                 <td>Issue Date:</td>
-                                                <td width="35%">{{date('d/m/Y')}}</td>
+                                                <td>{{date('d/m/Y')}}</td>
                                             </tr>
                                             <tr style="border-top: 1px solid #ebedf2;">
-                                                <td width="35%">Student Name:</td>
-                                                <td width="35%">{{ isset($data->name) ? ($data->name) : ""}}</td>
+                                                <td>Due Date:</td>
+                                                <td>{{date('10/M/Y')}}</td>
                                             </tr>
                                             <tr>
-                                                 <td width="35%">Due Date:</td>
-                                                <td width="35%">{{date('10/M/Y')}}</td>
+                                                <td>Class:</td>
+                                                <td>{{ isset($data->admission_class) ? ($data->admission_class) : ""}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Student Name:</td>
+                                                <td>{{ isset($data->name) ? ($data->name) : ""}}</td>
                                             </tr>
                                             <tr style="border-top: 1px solid #ebedf2;">
-                                                <td width="35%">Father's name:</td>
-                                                <td width="35%">{{ isset($data->f_name) ? ($data->f_name) : ""}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td width="35%">Class:</td>
-                                                <td width="35%">{{ isset($data->admission_class) ? ($data->admission_class) : ""}}</td>
+                                                <td>Father's name:</td>
+                                                <td>{{ isset($data->f_name) ? ($data->f_name) : ""}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -347,7 +343,7 @@
                         <div class="row">
                             <div class="col-12 col-md-12">
                                 <div class="table-responsive">
-                                    <table class="table dt-responsive table-two with-border" style="width: 100%;border: 1px solid #000;">
+                                    <table border="1" class="table dt-responsive table-two with-border table-bordered" style="width: 100%;">
                                         <tbody>
                                             <tr style="border-top: 1px solid #ebedf2;">
                                                 <td width="50%">-</td>
