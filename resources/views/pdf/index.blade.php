@@ -23,7 +23,7 @@
                         <div class="row">
                             <div class="col-12 col-md-12">
                                 <div class="table-responsive">
-                                    <table border="1" class="table dt-responsive table-main" style="width: 100%; margin-bottom: 40px;">
+                                    <table class="table dt-responsive table-main" style="width: 100%; margin-bottom: 40px;">
                                         <tbody>
                                             <tr style="border-top: 1px solid #ebedf2;">
                                                 <td>Challan no:</td>
@@ -165,7 +165,7 @@
                         <div class="row">
                             <div class="col-12 col-md-12">
                                 <div class="table-responsive">
-                                    <table border="1" class="table dt-responsive table-main" style="width: 100%; margin-bottom: 40px;">
+                                    <table class="table dt-responsive table-main" style="width: 100%; margin-bottom: 40px;">
                                         <tbody>
                                             <tr style="border-top: 1px solid #ebedf2;">
                                                 <td>Challan no:</td>
@@ -307,7 +307,7 @@
                         <div class="row">
                             <div class="col-12 col-md-12">
                                 <div class="table-responsive">
-                                    <table border="1" class="table dt-responsive table-main" style="width: 100%; margin-bottom: 40px;">
+                                    <table class="table dt-responsive table-main" style="width: 100%; margin-bottom: 40px;">
                                         <tbody>
                                             <tr style="border-top: 1px solid #ebedf2;">
                                                 <td>Challan no:</td>
