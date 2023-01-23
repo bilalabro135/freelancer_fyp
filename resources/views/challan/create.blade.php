@@ -41,7 +41,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                     <div class="form-group">
                                         {!! Html::decode(Form::label('admission_fee','Admission Fee')) !!}
                                         {{ Form::text('admission_fee', null, array('placeholder' => 'Admission Fee','class' => 'form-control','autofocus' => ''  )) }}
@@ -50,7 +50,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                     <div class="form-group">
                                         {!! Html::decode(Form::label('annual_fee','Annual Fee')) !!}
                                         {{ Form::text('annual_fee', null, array('placeholder' => 'Annual Fee','class' => 'form-control','autofocus' => ''  )) }}
@@ -59,7 +59,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                     <div class="form-group">
                                         {!! Html::decode(Form::label('transport_fee','Transport Fee')) !!}
                                         {{ Form::text('transport_fee', null, array('placeholder' => 'Transport Fee','class' => 'form-control','autofocus' => ''  )) }}
@@ -68,34 +68,12 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                     <div class="form-group">
                                         {!! Html::decode(Form::label('others','Others')) !!}
                                         {{ Form::text('others', null, array('placeholder' => 'Others','class' => 'form-control','autofocus' => ''  )) }}
                                         @if ($errors->has('others'))  
                                             {!! "<span class='span_danger'>". $errors->first('others')."</span>"!!} 
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                                    <div class="form-group">
-                                        {!! Html::decode(Form::label('monthly_fee','Monthly Fee <span class="text-danger">*</span>')) !!}
-                                        {{ Form::text('monthly_fee', null, array('placeholder' => 'Monthly Fee','class' => 'form-control','autofocus' => ''  )) }}
-                                        @if ($errors->has('monthly_fee'))  
-                                            {!! "<span class='span_danger'>". $errors->first('monthly_fee')."</span>"!!} 
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                                    <div class="form-group">
-                                        {!! Html::decode(Form::label('fees_pay','Student fee <span class="text-danger">*</span>')) !!}
-                                        <select class="form-control py-0" name="fees_pay" required>
-                                            <option disabled selected>--Please Select--</option>
-                                            <option value="1">Paid</option>
-                                            <option value="0">Pending</option>
-                                        </select>
-                                        @if ($errors->has('fees_pay'))  
-                                            {!! "<span class='span_danger'>". $errors->first('fees_pay')."</span>"!!} 
                                         @endif
                                     </div>
                                 </div>

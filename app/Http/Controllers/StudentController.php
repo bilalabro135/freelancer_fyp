@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 use DB;
 use DataTables;
 use App\Models\Student;
+use App\Models\Challan;
+use App\Models\PaidReciet;
+use App\Models\TotalFee;
 use Illuminate\Http\Request;
 use App\Http\Requests\StudentRequest;
 use App\Http\Controllers\Controller;
@@ -46,7 +49,7 @@ class StudentController extends Controller
                         </a>
                         <button
                             class="btn btn-danger btn-xs delete_all"
-                            data-url="'. url('del_rating') .'" data-id="'.$data->id.'">
+                            data-url="'. url('del_student') .'" data-id="'.$data->id.'">
                             <i class="fas fa-trash-alt"></i>
                         </button>
                     </div>';
@@ -130,13 +133,40 @@ class StudentController extends Controller
 
     public function update(StudentRequest $request, $id)
     {
-        $photo = null;
-        if (($request->hasFile('student_pic'))) {
+        // Student Pic
+        if ($request->hasFile('student_pic')) {
             $data = $request->input('student_pic');
-            $photo = $request->file('student_pic')->getClientOriginalName();
+            $student_pic = $request->file('student_pic')->getClientOriginalName();
             $destination = base_path() . '/public/uploads';
-            $photo = $photo;
-            $request->file('student_pic')->move($destination, $photo);
+            $request->file('student_pic')->move($destination, $student_pic);
+        }
+        // Recent Student photograhs
+        if ($request->hasFile('recent_photograph')) {
+            $data = $request->input('recent_photograph');
+            $recent_photograph = $request->file('recent_photograph')->getClientOriginalName();
+            $destination = base_path() . '/public/uploads';
+            $request->file('recent_photograph')->move($destination, $recent_photograph);
+        }
+        // Birth certificate
+        if ($request->hasFile('birth_certificate')) {
+            $data = $request->input('birth_certificate');
+            $birth_certificate = $request->file('birth_certificate')->getClientOriginalName();
+            $destination = base_path() . '/public/uploads';
+            $request->file('birth_certificate')->move($destination, $birth_certificate);
+        }
+        // Leave certificate
+        if ($request->hasFile('leave_certificate')) {
+            $data = $request->input('leave_certificate');
+            $leave_certificate = $request->file('leave_certificate')->getClientOriginalName();
+            $destination = base_path() . '/public/uploads';
+            $request->file('leave_certificate')->move($destination, $leave_certificate);
+        }
+        // Father CNIC
+        if ($request->hasFile('father_cnic')) {
+            $data = $request->input('father_cnic');
+            $father_cnic = $request->file('father_cnic')->getClientOriginalName();
+            $destination = base_path() . '/public/uploads';
+            $request->file('father_cnic')->move($destination, $father_cnic);
         }
         // Retrieve the validated input data...
         $validated  = $request->validated();
@@ -153,9 +183,23 @@ class StudentController extends Controller
         // update
         $upd        = $data->update($input);
         $data_update  = Student::where('id',$id)->first();
-        if ($photo != null) {
-            $data_update->student_pic = $photo;
+
+        if (isset($student_pic) && $student_pic != null) {
+            $data_update->student_pic = $student_pic;
         }
+        if (isset($recent_photograph) && $recent_photograph != null) {
+            $data_update->recent_photograph = $recent_photograph;
+        }
+        if (isset($leave_certificate) && $leave_certificate != null) {
+            $data_update->leave_certificate = $leave_certificate;
+        }
+        if (isset($father_cnic) && $father_cnic != null) {
+            $data_update->father_cnic = $father_cnic;
+        }
+        if (isset($birth_certificate) && $birth_certificate != null) {
+            $data_update->birth_certificate = $birth_certificate;
+        }
+
         $data_update->save();
         return response()->json(['success'=>$request['name']. ' updated successfully.']);
     }
@@ -163,7 +207,10 @@ class StudentController extends Controller
     public function destroy(Request $request)
     {
         $data   = Student::whereIn('id',explode(",", $request->ids))->delete();
-        return response()->json(['success'=>$data." rating deleted successfully."]);
+        $challan   = Challan::whereIn('student_id',explode(",", $request->ids))->delete();
+        $totalFee   = TotalFee::whereIn('student_id',explode(",", $request->ids))->delete();
+        $paidReciet   = PaidReciet::whereIn('student_id',explode(",", $request->ids))->delete();
+        return response()->json(['success'=>$data->name." record deleted successfully."]);
     }
 
 }

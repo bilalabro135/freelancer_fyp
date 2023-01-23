@@ -16,7 +16,6 @@ class CreatePaidRecietsTable extends Migration
         Schema::create('paid_reciets', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('student_id');
-            $table->date('for_month');
             $table->integer('fees_pay');
             $table->unsignedInteger('amount');
             $table->timestamps();

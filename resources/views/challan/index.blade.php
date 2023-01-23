@@ -13,8 +13,7 @@
                         <div class="d-flex align-items-center">
                             <h4 class="card-title">Manage @yield('title')</h4>
                             @can('challan-create')
-                                <a  href="{{ route('challan.create') }}" class="btn btn-success btn-xs ml-auto">
-                                <i class="fa fa-plus"></i>New</a>
+                                <a  href="{{ url('generate-pdf/all') }}" class="btn btn-success btn-xs ml-auto"><p class="m-0">Export challan PDF</p></a>
                             @endcan
                         </div>
                     </div>
@@ -25,9 +24,8 @@
                                     <tr>
                                         <th width="5%">#</th>
                                         <th width="35%">Student name</th>
-                                        <th width="20%"> Challan created</th>
                                         <th width="10%"> Monthly fee</th>
-                                        <th width="10%" >Action</th>
+                                        <th width="10%"> Status</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -51,9 +49,8 @@
                     "columns": [
                         {"data": "srno"},
                         {"data": "name"},
-                        {"data": "created_at"},
                         {"data": "student_fee",orderable:false,searchable:false},
-                        {"data": "action",orderable:false,searchable:false}
+                        {"data": "active",orderable:false,searchable:false},
 
                     ]
                 });

@@ -18,7 +18,7 @@
 	});
 
 	// PDF generator
-	Route::get('generate-pdf/{id}', [ChallanController::class, 'generatePDF']);
+	Route::get('generate-pdf/all', [ChallanController::class, 'generatePDF']);
 
 	// Route::get('send_otp/{contact_no}/{code}', [TwilioSMSController::class, 'index']);
 
@@ -38,6 +38,7 @@
 		Route::get('/lst_challan', [ChallanController::class, 'list']);
 		Route::post('/pay_challan', [ChallanController::class, 'pay_challan'])->name('pay_challan');
 		Route::delete('/del_challan', [ChallanController::class, 'destroy']);
+		Route::get('/pay_fee', [ChallanController::class, 'show_fee_pay']);
 	// BEGIN::Challan
 
 	// BEGIN::users

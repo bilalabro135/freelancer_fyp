@@ -387,6 +387,59 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="card-header bg-success">
+                                <div class="d-flex align-items-center">
+                                    <h4 class="card-title text-light">Attachments</h4>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            {!! Html::decode(Form::label('recent_photograph','Recent photography')) !!}
+                                            <div class="profile-pic text-center">
+                                                <input type="file" class="form-control py-1" accept=".jpg,.png,.jpeg,.gif" name="recent_photograph">
+                                            </div>
+                                            @if ($errors->has('recent_photograph'))  
+                                                {!! "<span class='span_danger'>". $errors->first('recent_photograph')."</span>"!!} 
+                                            @endif
+                                        </div>
+                                    </div>
+                                   <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            {!! Html::decode(Form::label('recent_photograph','Birth certificate')) !!}
+                                            <div class="profile-pic text-center">
+                                                <input type="file" class="form-control py-1" accept=".jpg,.png,.jpeg,.gif" name="birth_certificate">
+                                            </div>
+                                            @if ($errors->has('birth_certificate'))  
+                                                {!! "<span class='span_danger'>". $errors->first('birth_certificate')."</span>"!!} 
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            {!! Html::decode(Form::label('recent_photograph','Leave certificate')) !!}
+                                            <div class="profile-pic text-center">
+                                                <input type="file" class="form-control py-1" accept=".jpg,.png,.jpeg,.gif" name="leave_certificate">
+                                            </div>
+                                            @if ($errors->has('leave_certificate'))  
+                                                {!! "<span class='span_danger'>". $errors->first('leave_certificate')."</span>"!!} 
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            {!! Html::decode(Form::label('recent_photograph','Father CNIC')) !!}
+                                            <div class="profile-pic text-center">
+                                                <input type="file" class="form-control py-1" accept=".jpg,.png,.jpeg,.gif" name="father_cnic">
+                                            </div>
+                                            @if ($errors->has('father_cnic'))  
+                                                {!! "<span class='span_danger'>". $errors->first('father_cnic')."</span>"!!} 
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="card-footer">
                                 <div class="row">
                                     <div class="col-lg-12 text-right">

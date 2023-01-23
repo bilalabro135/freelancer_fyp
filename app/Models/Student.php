@@ -52,11 +52,21 @@ class Student extends Model
 
     public function getActiveAttribute($value)
     {
-        return ($value == 1) ? "Active" : "Inactive";
+        if ($value == 1) {
+            return "Active";
+        }else{
+            return "Inactive";
+        }
     }
 
     public function getNameAttribute($value)
     {
         return ucwords($value);
+    }
+    public function getCreatedAtAttribute($value){
+        if ($value) {
+            $value = date("d M Y",strtotime($value));
+            return $value;
+        }
     }
 }

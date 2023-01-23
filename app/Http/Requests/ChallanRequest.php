@@ -17,12 +17,10 @@ class ChallanRequest extends FormRequest
       if((isset($this->action)) && (($this->action) == "store") ){
         return [
             'student_id'    => 'required',
-            'monthly_fee'   => 'required|numeric|max:5000',
         ];
       }else{
         return [
             'student_id'    => 'required',
-            'monthly_fee'   => 'required|numeric|max:5000',
         ];
       }
         
@@ -33,7 +31,6 @@ class ChallanRequest extends FormRequest
     {
         return [
             'student_id.required' => 'You must select the student for challan',
-            'monthly_fee.required' => 'Monthly fee is mandatory',
         ];
     }
 }

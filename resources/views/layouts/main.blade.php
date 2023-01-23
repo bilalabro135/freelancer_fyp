@@ -216,6 +216,13 @@
 							</a>
 						</li>
 
+						<li class="nav-item @if('pay_fee' == url_explode(request()->path()) ) {{'active'}} @endif">
+							<a  href="{{url('/pay_fee')}}">
+								<i class="fas fa-receipt"></i>
+								<p>Pay Fee</p>
+							</a>
+						</li>
+
 
 						<!-- <li class="nav-item @if('payment_methods' == url_explode(request()->path()) ) {{'active'}} @endif">
 							<a  href="{{url('/payment_methods')}}">

@@ -47,37 +47,11 @@ class ChallanController extends Controller
     }
 
     public function list(){
-        $data   = DB::table('students')
-                    ->select('students.name','students.student_fee','students.admission_date','challans.id','challans.created_at')
-                    ->leftJoin('challans', 'challans.student_id', '=', 'students.id')
-                    ->where('challans.deleted_at','=',null)
-                    ->whereNotNull('challans.id')
-                    ->get();
-        foreach ($data as $key => $value) {
-            if ($value->admission_date) {
-                $value->admission_date = date("d M Y",strtotime($value->admission_date));
-            }
-            if ($value->created_at) {
-                $value->created_at = date("d M Y",strtotime($value->created_at));
-            }
-        }
+        $data   = Student::where('active',1)->get();
         return 
             DataTables::of($data)
                 ->addColumn('action',function($data){
-                    return '
-                    <div class="btn-group btn-group">
-                        <a class="btn btn-info btn-xs" href="challan/'.$data->id.'">
-                            <i class="fa fa-eye"></i>
-                        </a>
-                        <a class="btn btn-info btn-xs" href="challan/'.$data->id.'/edit" id="'.$data->id.'">
-                            <i class="fas fa-pencil-alt"></i>
-                        </a>
-                        <button
-                            class="btn btn-danger btn-xs delete_all"
-                            data-url="'. url('del_challan') .'" data-id="'.$data->id.'">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                    </div>';
+                    
                 })
                 ->addColumn('srno','')
                 ->rawColumns(['srno','','action'])
@@ -215,8 +189,8 @@ class ChallanController extends Controller
     public function destroy(Request $request)
     {
         $challan        = Challan::where('id',$request->ids)->delete();
-        $total_fee      = TotalFee::where('student_id',$request->ids)->delete();
-        $paid_reciet    = PaidReciet::where('student_id',$request->ids)->delete();
+        $total_fee      = TotalFee::where('student_id',$challan->student_id)->delete();
+        $paid_reciet    = PaidReciet::where('student_id',$challan->student_id)->delete();
         
         return response()->json(['success'=>'Challan deleted successfully.']);
     }
@@ -225,7 +199,6 @@ class ChallanController extends Controller
     {
         $validated = $request->validate([
             'student_id'    => 'required',
-            'for_month'     => 'required',
             'fees_pay'      => 'required'
         ]);
 
@@ -249,7 +222,7 @@ class ChallanController extends Controller
 
                     $sum_fee = ($student->student_fee + $student->student_fee);
 
-                    if((isset($date_compare)) && (count($date_compare) >= 1)){
+                    if((isset($date_compare)) && (count($date_compare) == 1)){
                         $pay = PaidReciet::create([
                             'student_id'    => $request->student_id,
                             'for_month'     => $request->for_month,
@@ -291,6 +264,10 @@ class ChallanController extends Controller
                     $fee_exists->total = ($fee_exists->total + $student->student_fee);
                     $fee_exists->save();
                 }
+            $create_total = TotalFee::create([
+                                'student_id' => $student->id,
+                                'total'      => $student->student_fee
+                            ]);
         }
         return response()->json(['success'=>'Challan paid for '. $student['name'] .' successfully.']);
     }
@@ -322,23 +299,20 @@ class ChallanController extends Controller
       return view('pdf.index', compact('data','challan','challans','total_fee','reciet_final','all_reciet'));
     }
 
-    public function generatePDF($id) 
+    public function generatePDF() 
     {
-        $challan    = Challan::findOrFail($id);
-        $challans   = Challan::all();
-        $total_fee  = TotalFee::where('student_id',$challan->student_id)->first();
-        $data       = Student::where('id', $challan->student_id)->first();
+        $data       = Student::where('active',1)->get();
 
-        $reciet     = PaidReciet::where('student_id',$data->id)->latest()->first();
-        $all_reciet     = PaidReciet::where('student_id',$data->id)->get();
+        $reciet     = PaidReciet::all();
 
+        $total     = TotalFee::all();
+
+        $reciet_final = 0;
         if (!empty($reciet)){
-            if ($reciet->created_at) {
-                $reciet_date = date('m-Y',strtotime($reciet->created_at));
-                $date_now    = date('m-Y');
-                if ($reciet_date == $date_now) {
-                    $reciet_final = 0;
-                }else{
+            foreach ($reciet as $key => $value) {
+                if ($value->created_at) {
+                    $reciet_date = date('m-Y',strtotime($value->created_at));
+                    $date_now    = date('m-Y');
                     $reciet_final = 1;
                 }
             }
@@ -346,17 +320,16 @@ class ChallanController extends Controller
             $reciet_final = 1;
         }
 
-        $all_data = array(
-                            'challan' => $challan,
-                            'data' => $data,
-                            'challans' => $total_fee,
-                            'reciet_final' => $reciet_final,
-                            'all_reciet' => $all_reciet,
-                            'total_fee' => $total_fee
-                        );
-          
-        $pdf = PDF::loadView('pdf.index', $all_data,compact('data','challan','challans','total_fee','reciet_final','all_reciet'))->setPaper('a4', 'landscape');
-    
-        return $pdf->download($data['name'].' challan.pdf');
+        $input      = $data->all();
+
+        $pdf = PDF::loadView('pdf.index', $input,compact('input','reciet_final','reciet','total'))->setPaper('a4', 'landscape');
+        
+        return $pdf->download("challan ".date('m-Y').'.pdf');
+    }
+
+    public function show_fee_pay()
+    {
+        $students = Student::pluck('name','id')->all();
+        return view('challan.show_fee',compact('students'));
     }
 }
