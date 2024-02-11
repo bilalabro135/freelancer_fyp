@@ -7,8 +7,7 @@
     <title>{{ config('app.name') }}</title>
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 	<link rel="icon" href="{{ asset('assets/img/icon.ico') }}" type="image/x-icon"/>
-	<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
-
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css">
 	<!-- Fonts and icons -->
 	<script src="{{ asset('assets/js/plugin/webfont/webfont.min.js') }}"></script>
 	<script src="{{asset('libs/jquery.min.js')}}" ></script>
@@ -32,14 +31,13 @@
 	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.5.1/sweetalert2.all.js" ></script> -->
 	<script src="{{ asset('assets/js/sweetalert2.all.js') }}" ></script>
 	<style>
-		@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
-		h1,h2,h3,h4,h5,h6,p,span,li,a,input,button{
-			font-family: 'Open-sans', sans-serif;
-		}
+  		@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap');
 		.span_danger{
 			color:red;
 		}
-		
+		h1,h2,h3,h4,h5,h6,p,span,li,a,input,button{
+			font-family: 'Jost' !important;
+		}
 		.add_image{
 			position: relative;
 		}
@@ -55,6 +53,11 @@
 			width: 0;
 			height: 0;
 		}
+		.signup-cta a {
+		    background-color: #1F4B3F;
+		    padding: 8px 20px;
+		    border-radius: 4px;
+		}
 	</style>
 </head>
 <body>
@@ -62,91 +65,51 @@
 		<!--
 			Tip 1: You can change the background color of the main header using: data-background-color="blue | purple | light-blue | green | orange | red"
 		-->
-		<div class="main-header" data-background-color="light-blue">
-			<!-- Logo Header -->
-			<div class="logo-header">
-				
-				<a href="{{url('/home')}}" class="logo">
-					<img src="{{ asset('/uploads/fyp.png') }}" alt="navbar brand" class="navbar-brand" style= "    width: 30%;">
-				</a>
-				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon">
-						<i class="fa fa-bars"></i>
-					</span>
-				</button>
-				<button class="topbar-toggler more"><i class="fa fa-ellipsis-v"></i></button>
-				<div class="navbar-minimize">
-					<button class="btn btn-minimize btn-rounded">
-						<i class="fa fa-bars"></i>
-					</button>
-				</div>
-			</div>
-			<!-- End Logo Header -->
+		<div class="main-header">
 
 			<!-- Navbar Header -->
-			<nav class="navbar navbar-header navbar-light bg-white shadow-sm  navbar-expand-lg">
-			<!-- navbar navbar-expand-md navbar-light bg-white shadow-sm -->
-				<div class="container-fluid">
-					<div class="collapse" id="search-nav">
-						<!-- <form class="navbar-left navbar-form nav-search mr-md-3">
-							<div class="input-group">
-								<div class="input-group-prepend">
-									<button type="submit" class="btn btn-search pr-1">
-										<i class="fa fa-search search-icon"></i>
-									</button>
-								</div>
-								<input type="text" placeholder="Search ..." class="form-control">
-							</div>
-						</form> -->
-					</div>
-					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
-					
-						<li class="nav-item dropdown hidden-caret">
-							<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
-								<div class="avatar-sm">
-									@if(Auth::user()->profile_pic)
-										<div class="avatar-lg"><img src="{{ asset('/uploads/users/'.Auth::user()->profile_pic) }}" alt="image profile" class="avatar-img rounded" style="width: 65%;height: 60%;"></div>
-									@else
-										<div class="avatar-lg"><img src="{{ asset('/uploads/no_image.png') }}" alt="image profile" class="avatar-img rounded" style="width: 65%;height: 60%;"></div>
-									@endif
-								</div>
-							</a>
-							<ul class="dropdown-menu dropdown-user animated fadeIn">
-								<li>
-									<div class="user-box">
-										@if(Auth::user()->profile_pic)
-											<div class="avatar-lg"><img src="{{ asset('/uploads/users/'.Auth::user()->profile_pic) }}" alt="image profile" class="avatar-img rounded" style="width: 65%;height: 60%;"></div>
-										@else
-											<div class="avatar-lg"><img src="{{ asset('/uploads/no_image.png') }}" alt="image profile" class="avatar-img rounded" ></div>
-										@endif
-										
-										<?php $editLink = "users/".Auth::user()->id ."/edit";  ?>
-										<!-- users/{{Auth::user()->id}}/edit -->
-
-										<div class="u-text">
-											<h4>{{Auth::user()->name}}</h4>
-											<p class="text-muted">{{Auth::user()->email}}</p><a  href="{{ url('users')}}/{{Auth::user()->id}}/edit"class="btn btn-rounded btn-danger btn-sm">View Profile</a>
-										</div>
-									</div>
-								</li>
-								<li>
-								
-									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" href="{{ route('logout') }}"
-										onclick="event.preventDefault();
-														document.getElementById('logout-form').submit();">
-										<i class="nav-icon fas fa-power-off"></i>
-										{{ __('Logout') }}
-									</a>
-									<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-										@csrf
-									</form>
-
-								</li>
-							</ul>
+			<nav class="navbar navbar-header navbar-light bg-white navbar-expand-lg">
+				<!-- navbar navbar-expand-md navbar-light bg-white shadow-sm -->
+				<div class="container-fluid" style="padding: 25px 20px;">
+					<ul class="navbar-nav topbar-nav align-items-center" style="gap: 16px;">
+				
+						<li class="nav-item" style="font-size: 16px;">
+							<a href="/" class="text-dark font-weight-normal">Home</a>
+						</li>
+						<li class="nav-item" style="font-size: 16px;">
+							<a href="{{route('front.services')}}" class="text-dark font-weight-normal">Browse Services</a>
+						</li>
+						<li class="nav-item" style="font-size: 16px;">
+							<a href="{{route('front.blog')}}" class="text-dark font-weight-normal">Blogs</a>
+						</li>
+						<li class="nav-item" style="font-size: 16px;">
+							<a href="#" class="text-dark font-weight-normal">Pages</a>
 						</li>
 						
 					</ul>
+					<div>
+						<ul class="navbar-nav topbar-nav align-items-center" style="gap: 16px;">
+							@if(!isset(Auth::user()->name))
+								<li class="nav-item" style="font-size: 16px;">
+									<a href="/register" class="text-dark font-weight-normal">Become a seller</a>
+								</li>
+								<li class="nav-item" style="font-size: 16px;">
+									<a href="/login" class="text-dark font-weight-normal">Login</a>
+								</li>
+
+								<li class="nav-item signup-cta" style="font-size: 16px;">
+									<a href="/register" class="text-light font-weight-normal">Sign Up</a>
+								</li>
+							@else
+								<li class="nav-item" style="font-size: 16px;">
+									<a href="#" class="text-dark font-weight-normal"><i class="far fa-user text-dark"></i></a>
+								</li>
+								<li class="nav-item">
+									<a href="/logout" class="text-dark font-weight-normal"><i class="fas fa-power-off text-dark" style="font-size: 20px;"></i></a>
+								</li>
+							@endif
+						</ul>
+					</div>
 				</div>
 			</nav>
 			<!-- End Navbar -->
@@ -167,129 +130,10 @@
 				}
 			}
 		?>
-		<!-- Sidebar -->
-		<div class="sidebar">
-			
-			<div class="sidebar-background"></div>
-			<div class="sidebar-wrapper scrollbar-inner">
-				<div class="sidebar-content">
-					<div class="user">
-						<div class="avatar-sm float-left mr-2">
-							@if(Auth::user()->profile_pic)
-								<div class="avatar-lg"><img src="{{ asset('/uploads/users/'.Auth::user()->profile_pic) }}" alt="image profile" class="avatar-img rounded" style="width: 65%;height: 60%;"></div>
-							@else
-								<div class="avatar-lg"><img src="{{ asset('/uploads/no_image.png') }}" alt="image profile" class="avatar-img rounded" style="width: 65%;height: 60%;"></div>
-							@endif
-						</div>
-						<div class="info">
-							<a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
-								<span>
-									{{Auth::user()->name}}
-									<span class="user-level">Administrator</span>
-								</span>
-							</a>
-						</div>
-					</div>
-					<ul class="nav">
-						
-						<li class="nav-item  @if('home' == url_explode(request()->path()) ) {{'active'}} @endif">
-							<a href="{{url('/home')}}">
-								<i class="fas fa-home"></i>
-								<p>Dashboard</p>
-							</a>
-						</li>
 
-
-						<li class="nav-section">
-							<span class="sidebar-mini-icon">
-								<i class="fa fa-ellipsis-h"></i>
-							</span>
-							<h4 class="text-section">Customize</h4>
-						</li>
-
-						<li class="nav-item @if('jobs' == url_explode(request()->path()) ) {{'active'}} @endif">
-							<a  href="{{url('/jobs')}}">
-								<i class="fa fa-tasks" aria-hidden="true"></i>
-								<p>Jobs</p>
-							</a>
-						</li>
-
-						<li class="nav-item @if('my-jobs' == url_explode(request()->path()) ) {{'active'}} @endif">
-							<a  href="{{url('/my-jobs')}}">
-								<i class="fa fa-tasks" aria-hidden="true"></i>
-								<p>My Jobs</p>
-							</a>
-						</li>
-
-						<li class="nav-item @if('categories' == url_explode(request()->path()) ) {{'active'}} @endif">
-							<a  href="{{url('/categories')}}">
-								<i class="fas fa-list-alt"></i>
-								<p>Categories</p>
-							</a>
-						</li>
-
-						<li class="nav-item @if('blogs' == url_explode(request()->path()) ) {{'active'}} @endif">
-							<a  href="{{url('/blogs')}}">
-								<i class='fas fa-blog'></i>
-								<p>Blogs</p>
-							</a>
-						</li>
-
-						<li class="nav-item @if('testimonials' == url_explode(request()->path()) ) {{'active'}} @endif">
-							<a  href="{{url('/testimonials')}}">
-								<i class="fa fa-quote-left" aria-hidden="true"></i>
-								<p>Testimonials</p>
-							</a>
-						</li>
-
-
-						<!-- <li class="nav-item @if('payment_methods' == url_explode(request()->path()) ) {{'active'}} @endif">
-							<a  href="{{url('/payment_methods')}}">
-								<i class="fas fa-credit-card"></i>
-								<p>Payment method</p>
-							</a>
-						</li> -->
-
-						<li class="nav-section">
-							<span class="sidebar-mini-icon">
-								<i class="fa fa-ellipsis-h"></i>
-							</span>
-							<h4 class="text-section">System</h4>
-						</li> 
-						
-						<li class="nav-item @if('payment-methods' == url_explode(request()->path()) ) {{'active'}} @endif">
-							<a  href="{{url('/payment-methods')}}">
-								<i class="fas fa-money-check-alt"></i>
-								<p>Payment Methods</p>
-							</a>
-						</li>
-
-						<li class="nav-item @if('users' == url_explode(request()->path()) ) {{'active'}} @endif">
-							<a  href="{{url('/users')}}">
-								<i class="fas fa-users"></i>
-								<p>Users</p>
-							</a>
-						</li>
-
-						@can('role-list')
-						<li class="nav-item @if('roles' == url_explode(request()->path()) ) {{'active'}} @endif">
-							<a  href="{{url('/roles')}}">
-								<i class="fas fa-key"></i>
-								<p>Roles</p>
-							</a>
-						</li>
-						@endcan
-					</ul>
-				</div>
-			</div>
-		</div>
-		<!-- End Sidebar -->
-
-		<div class="main-panel">
-			<div class="content">
-                @yield('content')
-			</div>
-		</div>
+        <section class="">
+        	@yield('content')
+        </section>
 	</div>
 </div>
 <!--   Core JS Files   -->

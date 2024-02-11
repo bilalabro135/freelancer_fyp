@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePaidRecietsTable extends Migration
+class CreateBlogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreatePaidRecietsTable extends Migration
      */
     public function up()
     {
-        Schema::create('paid_reciets', function (Blueprint $table) {
+        Schema::create('blogs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('student_id');
-            $table->integer('fees_pay');
-            $table->unsignedInteger('amount');
+            $table->text('title')->nullable();
+            $table->text('description')->nullable();
+            $table->string('blog_image')->nullable();
+            $table->unsignedInteger('user_id')->default(1);
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class CreatePaidRecietsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('paid_reciets');
+        Schema::dropIfExists('blogs');
     }
 }

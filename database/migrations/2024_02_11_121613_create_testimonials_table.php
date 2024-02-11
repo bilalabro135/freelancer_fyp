@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTotalFeeTable extends Migration
+class CreateTestimonialsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateTotalFeeTable extends Migration
      */
     public function up()
     {
-        Schema::create('total_fee', function (Blueprint $table) {
+        Schema::create('testimonials', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('student_id');
-            $table->unsignedInteger('total');
+            $table->string('name');
+            $table->string('brand');
+            $table->text('description');
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateTotalFeeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('total_fee');
+        Schema::dropIfExists('testimonials');
     }
 }

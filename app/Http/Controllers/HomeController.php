@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Student;
-use App\Models\PaidReciet;
 
 use DB;
 class HomeController extends Controller
@@ -21,13 +19,13 @@ class HomeController extends Controller
 
     public function index()
     {
-        $date               = date("Y-m-d");
+        // $date               = date("Y-m-d");
 
-        $students = Student::where('deleted_at',null)->get();
-        $input      = $students->all();
-        $students_count = count($input);
+        // $students = Student::where('deleted_at',null)->get();
+        // $input      = $students->all();
+        // $students_count = count($input);
 
-        $fee_sum = PaidReciet::where('student_id','<>',null)->sum('amount');
+        // $fee_sum = PaidReciet::where('student_id','<>',null)->sum('amount');
 
         // $rec['oSell']       = DB::table('customer_has_transactions')
         //                         ->whereDate('customer_has_transactions.created_at','<', $date)
@@ -45,7 +43,7 @@ class HomeController extends Controller
         //                         ->whereDate('company_has_transactions.created_at', $date)
         //                         ->sum('debit');
 
-        return view('home',compact('students','students_count','fee_sum'));
+        return view('home');
 
         // return view('home');
     }
