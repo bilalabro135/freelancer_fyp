@@ -24,7 +24,11 @@
 	// BEGIN::frontPage
 		Route::get('/', [HomeFrontController::class, 'index']);
 		Route::get('front/services', [HomeFrontController::class, 'service'])->name('front.services');
-		Route::get('front/blogs', [HomeFrontController::class, 'blog'])->name('front.blog');
+		Route::get('front/blogs', [HomeFrontController::class, 'blog'])->name('front.blogs');
+		Route::get('front/category/{category}', [HomeFrontController::class, 'singleCategory'])->name('front.category');
+		Route::get('front/blog/{blog}', [HomeFrontController::class, 'singleBlog'])->name('front.blog');
+		Route::get('front/service/{service}', [HomeFrontController::class, 'singleService'])->name('front.service');
+
 	// 
 
 	// PDF generator

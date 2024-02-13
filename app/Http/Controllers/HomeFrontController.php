@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Testimonial;
 use App\Models\Blog;
+use App\Models\User;
 use App\Models\Project;
 use App\Models\Category;
 
@@ -21,7 +22,7 @@ class HomeFrontController extends Controller
     {
         $testimonials   = Testimonial::where('active',1)->get();
         $blogs          = Blog::where('active',1)->limit(4)->get();
-        $categories = Category::where('active', 1)
+        $categories     = Category::where('active', 1)
                         ->withCount('projects') 
                         ->limit(4)
                         ->get();
@@ -52,6 +53,26 @@ class HomeFrontController extends Controller
 
         $blogs   = Blog::where('active',1)->paginate(10);
         return view('frontEnd.blogs',compact('blogs'));
+    }
+
+    public function singleCategory($categoryName){
+        $category = Category::where('name',$categoryName)->firstOrFail();
+        $projects = Project::where('job_category',$category->id)->where('active',1)->paginate(10);
+        return view('frontEnd.category_project',compact('category','projects'));
+    }
+
+    public function singleBlog($blogName){
+        $blog = Blog::where('title',$blogName)->firstOrFail();
+        $user = User::where('id',$blog->user_id)->firstOrFail();
+        $blogs= Blog::where('active',1)->limit(4)->get();
+        return view('frontEnd.single_blog',compact('blog','user','blogs'));
+    }
+
+    public function singleService($serviceName){
+        $job  = Project::where('job_title',$serviceName)->firstOrFail();
+        $user = User::where('id',$job->user_id)->firstOrFail();
+        $jobs = Project::where('active',1)->limit(4)->get();
+        return view('frontEnd.single_service',compact('job','user','jobs'));
     }
 
 }

@@ -80,7 +80,7 @@
 							<a href="{{route('front.services')}}" class="text-dark font-weight-normal">Browse Services</a>
 						</li>
 						<li class="nav-item" style="font-size: 16px;">
-							<a href="{{route('front.blog')}}" class="text-dark font-weight-normal">Blogs</a>
+							<a href="{{route('front.blogs')}}" class="text-dark font-weight-normal">Blogs</a>
 						</li>
 						<li class="nav-item" style="font-size: 16px;">
 							<a href="#" class="text-dark font-weight-normal">Pages</a>
@@ -91,9 +91,6 @@
 						<ul class="navbar-nav topbar-nav align-items-center" style="gap: 16px;">
 							@if(!isset(Auth::user()->name))
 								<li class="nav-item" style="font-size: 16px;">
-									<a href="/register" class="text-dark font-weight-normal">Become a seller</a>
-								</li>
-								<li class="nav-item" style="font-size: 16px;">
 									<a href="/login" class="text-dark font-weight-normal">Login</a>
 								</li>
 
@@ -102,10 +99,10 @@
 								</li>
 							@else
 								<li class="nav-item" style="font-size: 16px;">
-									<a href="#" class="text-dark font-weight-normal"><i class="far fa-user text-dark"></i></a>
+									<a href="#" class="text-dark font-weight-normal"><i class="m-0 far fa-user text-dark"></i></a>
 								</li>
 								<li class="nav-item">
-									<a href="/logout" class="text-dark font-weight-normal"><i class="fas fa-power-off text-dark" style="font-size: 20px;"></i></a>
+									<a href="/logout" class="text-dark font-weight-normal"><i class="m-0 fas fa-power-off text-dark" style="font-size: 20px;"></i></a>
 								</li>
 							@endif
 						</ul>

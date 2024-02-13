@@ -81,19 +81,19 @@
 			<div class="services mt-5">
 				<div class="row">
 					@foreach($blogs as $key => $value)
-					<div class="col-md-3">
-						<div class="blog-wrapper">
-							<div class="blog-img">
-								<img width="100%" src="{{ asset('/uploads/'.$value->blog_image) }}">
-							</div>
-							<div class="blog-content">
-								<p>{{date('M,d,Y',strtotime($value->created_at))}}</p>
-								<h4><a href="#">{{$value->title}}</a></h4>
-								<p>{!! Str::limit($value->description, 100) !!}</p>
+						<div class="col-md-3">
+							<div class="blog-wrapper">
+								<div class="blog-img">
+									<img width="100%" src="{{ asset('/uploads/'.$value->blog_image) }}">
+								</div>
+								<div class="blog-content">
+									<p>{{date('M,d,Y',strtotime($value->created_at))}}</p>
+									<h4><a href="{{ route('front.blog', ['blog' => $value->title]) }}">{{$value->title}}</a></h4>
+									<p>{!! Str::limit($value->description, 100) !!}</p>
+								</div>
 							</div>
 						</div>
-					</div>
-				@endforeach
+					@endforeach
 				</div>
 				<!-- Pagination Links -->
 				<div class="row">

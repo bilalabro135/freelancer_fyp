@@ -140,10 +140,11 @@
 					@foreach($categories as $key => $value)
 						<div class="col-md-3 mb-5 ">
 							<div class="category-block">
-								<a href="#">
-									<h4>{{$value->name}}</h4>
-									<p>{{$value->projects_count}} Services</p>
+								<a href="{{ route('front.category', ['category' => $value->name]) }}">
+								    <h4>{{ $value->name }}</h4>
+								    <p>{{ $value->projects_count }} Services</p>
 								</a>
+
 							</div>
 						</div>
 					@endforeach
@@ -169,7 +170,7 @@
 								<div class="col-md-6"><img width="100%" style="height: 190px;object-fit: cover;object-position: center;;" src="{{ asset('/uploads/'.$value->job_image) }}"></div>
 								<div class="col-md-6">
 									<p>{{$value->category_name}}</p>
-									<h4><a href="#">{{$value->job_title}}</a></h4>
+									<h4><a href="{{ route('front.service', ['service' => $value->job_title]) }}">{{$value->job_title}}</a></h4>
 									<hr class="mr-4 my-2">
 									{!! Str::limit($value->description, 60) !!}
 									<hr class="mr-4 my-2">
@@ -201,7 +202,7 @@
 							</div>
 							<div class="blog-content">
 								<p>{{date('M,d,Y',strtotime($value->created_at))}}</p>
-								<h4><a href="#">{{$value->title}}</a></h4>
+								<h4><a href="{{ route('front.blog', ['blog' => $value->title]) }}">{{$value->title}}</a></h4>
 								<p>{!! Str::limit($value->description, 100) !!}</p>
 							</div>
 						</div>

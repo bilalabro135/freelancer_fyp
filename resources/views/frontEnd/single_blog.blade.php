@@ -69,62 +69,81 @@
 	.pagination{
 		justify-content: center;
 	}
-	.banner-sec{
-		background-image: url('{{ asset("uploads/bg-filter1.jpg") }}');
-		background-position: center right;
-		background-repeat: no-repeat;
-		object-fit: cover;
+	.blogs-sec{
 		padding: 200px 0 100px 0;
+	}
+	.blogs .col-md-12 img{
+		width: 100%;
+		height: 500px;
+		border-radius: 20px;
+		object-fit: cover;
+	}
+	.blog-by img{
+		width: 40px;
+		height: 38px;
+		border-radius: 50px;
+	}
+	.related-sec{
+		background-color: #F1FCFA;
 	}
 </style>
 <div class="home-page">
-	<!-- Banner Section -->
-	<section class="banner-sec">
-		<div class="container-fluid">
-			<div class="row justify-content-between align-items-center">
-				<div class="col-md-6">
-					<div class="banner-main">
-						<h1 style="font-size: 35px; color: #1F4B3F; font-weight: 600;">Design & Creative</b></h1>
-						<p class="py-4" style="font-size: 16px;">Millions of people use freeio.com to turn their ideas into reality.</p>
+
+	<!-- Services Section -->
+	<section class="blogs-sec pb-0">
+		<div class="container">
+			<div class="blogs-head">
+				<h2>{{$blog->title}}</h2>
+				<div class="blog-by d-flex">
+					<p class="mt-4">
+						@if(isset($user->profile_pic))
+							<img width="100%" src="{{asset('uploads/'.$user->profile_pic)}}">
+						@else
+							<img width="100%" src="{{asset('uploads/no_image.png')}}">
+						@endif
+						&nbsp;<span>{{$user->name}}</span> &nbsp;|&nbsp;
+						<span>{{date('M,d,Y',strtotime($blog->created_at))}}</span>
+					</p>
+				</div>
+				<hr class="mr-4 my-4">
+			</div>
+			<div class="blogs mt-5">
+				<div class="row">
+					<div class="col-md-12">
+						<img src="{{asset('uploads/'.$blog->blog_image)}}">
+					</div>
+					<div class="col-12 p-5">
+						{!! ($blog->description) !!}
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-	<!-- Banner Section -->
+	<!-- Services Section -->
 
 	<!-- Services Section -->
-	<section class="services-sec pb-0">
+	<section class="related-sec py-5 mt-5">
 		<div class="container">
 			<div class="services-head">
-				<h2>Services</h2>
+				<h2>Related Posts</h2>
 				<hr class="mr-4 my-4">
 			</div>
 			<div class="services mt-5">
 				<div class="row">
-					@foreach($projects as $key => $value)
-					    <div class="col-md-3 mb-5">
-					        <div style="padding: 15px; border: 1px solid #e9e9e9;">
-					            <div>
-					                <div><img width="100%" style="height: 190px;object-fit: cover;object-position: center;;" src="{{ asset('/uploads/'.$value->job_image) }}"></div>
-					                <div class="py-4">
-					                    <p>{{$value->category_name}}</p>
-					                    <h4><a href="{{ route('front.service', ['service' => $value->job_title]) }}">{{$value->job_title}}</a></h4>
-					                    <hr class="mr-4 my-2">
-					                    {!! Str::limit($value->description, 60) !!}
-					                    <hr class="mr-4 my-2">
-					                    <span><a href="#">{{$value->creator}}</a> Starting at: {{'PKR'.$value->price}}</span>
-					                </div>
-					            </div>
-					        </div>
-					    </div>
+					@foreach($blogs as $key => $value)
+						<div class="col-md-3">
+							<div class="blog-wrapper">
+								<div class="blog-img">
+									<img width="100%" src="{{ asset('/uploads/'.$value->blog_image) }}">
+								</div>
+								<div class="blog-content">
+									<p>{{date('M,d,Y',strtotime($value->created_at))}}</p>
+									<h4><a href="{{ route('front.blog', ['blog' => $value->title]) }}">{{$value->title}}</a></h4>
+									<p>{!! Str::limit($value->description, 100) !!}</p>
+								</div>
+							</div>
+						</div>
 					@endforeach
-				</div>
-				<!-- Pagination Links -->
-				<div class="row">
-				    <div class="col-12">
-				        {{ $projects->links() }}
-				    </div>
 				</div>
 			</div>
 		</div>
@@ -132,7 +151,7 @@
 	<!-- Services Section -->
 
 	<!-- Footer Section -->
-	<section class="footer-sec mt-5 py-5">
+	<section class="footer-sec py-5">
 		<div>
 			<div class="container-fluid">
 				<div class="row pb-5 subfoot">

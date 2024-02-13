@@ -35,6 +35,14 @@ class CategoryController extends Controller
                                 'categories.active'
                             )
                     ->get();
+
+        foreach ($data as $key => $value) {
+            if ($value->active == 1) {
+                $value->active = "".'<span class="badge badge-success">Active</span>'."";
+            }else{
+                $value->active = "".'<span class="badge badge-danger">Inactive</span>'."";
+            }
+        }
         return 
             DataTables::of($data)
                 ->addColumn('action',function($data){
@@ -54,7 +62,7 @@ class CategoryController extends Controller
                     </div>';
                 })
                 ->addColumn('srno','')
-                ->rawColumns(['srno','','action'])
+                ->rawColumns(['srno','','action', 'active'])
                 ->make(true);
     }
 

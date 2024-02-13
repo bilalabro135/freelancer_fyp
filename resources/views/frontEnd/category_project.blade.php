@@ -97,7 +97,7 @@
 	<section class="services-sec pb-0">
 		<div class="container">
 			<div class="services-head">
-				<h2>Services</h2>
+				<h2>{{$category->name}} jobs</h2>
 				<hr class="mr-4 my-4">
 			</div>
 			<div class="services mt-5">
@@ -109,7 +109,7 @@
 					                <div><img width="100%" style="height: 190px;object-fit: cover;object-position: center;;" src="{{ asset('/uploads/'.$value->job_image) }}"></div>
 					                <div class="py-4">
 					                    <p>{{$value->category_name}}</p>
-					                    <h4><a href="{{ route('front.service', ['service' => $value->job_title]) }}">{{$value->job_title}}</a></h4>
+					                    <h4><a href="#">{{$value->job_title}}</a></h4>
 					                    <hr class="mr-4 my-2">
 					                    {!! Str::limit($value->description, 60) !!}
 					                    <hr class="mr-4 my-2">

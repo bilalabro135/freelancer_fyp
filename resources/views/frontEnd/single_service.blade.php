@@ -69,23 +69,60 @@
 	.pagination{
 		justify-content: center;
 	}
-	.banner-sec{
-		background-image: url('{{ asset("uploads/bg-filter1.jpg") }}');
-		background-position: center right;
-		background-repeat: no-repeat;
+	.blogs .col-md-12 img{
+		width: 100%;
+		height: 500px;
+		border-radius: 6px;
 		object-fit: cover;
-		padding: 200px 0 100px 0;
+	}
+	.blog-by img{
+		width: 40px;
+		height: 38px;
+		border-radius: 50px;
+	}
+	.related-sec{
+		background-color: #F1FCFA;
+	}
+	.banner-sec{
+		background-image: url('{{ asset("uploads/service-detail.jpg") }}');
+		background-position: center center;
+		background-repeat: no-repeat;
+		padding: 200px 0 50px 0;
+	}
+	.pricing-area{
+		border: 1px solid #E9E9E9;
+		padding: 20px 20px;
+		box-shadow: 0 6px 15px 0 rgba(64, 79, 104, 0.05);
+		border-radius: 6px;
+	}
+	.pricing-area button{
+		background-color: #5bbb7b;
+		width: 100%;
+		color: #fff;
+		font-size: 17px;
+		font-family: inherit !important;
+		border-radius: 10px !important;
 	}
 </style>
 <div class="home-page">
 	<!-- Banner Section -->
 	<section class="banner-sec">
-		<div class="container-fluid">
+		<div class="container">
 			<div class="row justify-content-between align-items-center">
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<div class="banner-main">
-						<h1 style="font-size: 35px; color: #1F4B3F; font-weight: 600;">Design & Creative</b></h1>
-						<p class="py-4" style="font-size: 16px;">Millions of people use freeio.com to turn their ideas into reality.</p>
+						<h1 style="font-size: 35px; color: #1F4B3F; font-weight: 600;"><b>{{$job->job_title}}</b></h1>
+						<div class="blog-by d-flex">
+							<p class="mt-4">
+								@if(isset($user->profile_pic))
+									<img width="100%" src="{{asset('uploads/'.$user->profile_pic)}}">
+								@else
+									<img width="100%" src="{{asset('uploads/no_image.png')}}">
+								@endif
+								&nbsp;<span>{{$user->name}}</span> &nbsp;|&nbsp;
+								<span>{{date('M,d,Y',strtotime($job->created_at))}}</span>
+							</p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -94,37 +131,103 @@
 	<!-- Banner Section -->
 
 	<!-- Services Section -->
-	<section class="services-sec pb-0">
+	<section class="blogs-sec pb-0">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					<div class="blogs-head">
+						<div class="simple-det row">
+							<div class="d-flex col-md-3" style="gap: 30px;">
+								<i class="fa fa-regular fa-calendar-check text-dark"></i>
+								<div>
+									<p class="m-0">Delivery Time</p>
+									<p class="m-0">{{$job->delivery_time}} Days</p>
+								</div>
+							</div>
+							<div class="d-flex col-md-3" style="gap: 30px;">
+								<i class="fa fa-map-marker text-dark" aria-hidden="true"></i>
+								<div>
+									<p class="m-0">Location</p>
+									<p class="m-0">{{$job->location}}</p>
+								</div>
+							</div>
+						</div>
+						<hr class="mr-4 my-4">
+					</div>
+					<div class="blogs mt-5">
+						<div class="row">
+							<div class="col-md-12">
+								<img src="{{asset('uploads/'.$job->job_image)}}">
+							</div>
+							<div class="col-12 p-5">
+								<h3>Service Description</h3>
+								<hr class="mr-4 my-4">
+								{!! ($job->description) !!}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4" style="margin-top: 128px;">
+					<div class="pricing-area">
+						<h3>PKR {{$job->price}}</h3>
+						<div>
+							<hr class="mr-4 my-4">
+							<h4>About the seller</h4>
+							<div class="d-flex my-5" style="gap: 10px;">
+								@if($user->profile_pic)
+									<img src="{{asset('uploads/'.$user->profile_pic)}}" style="width: 60px;border-radius: 30px;">
+								@else
+									<img src="{{asset('uploads/no_image.png')}}" style="width: 60px;border-radius: 30px;">
+								@endif
+								<p>{{$user->name}}</p>
+							</div>
+							<hr class="mr-4 my-4">
+							<div class="row mb-3">
+								<div class="col-md-6">
+									<p>
+										Location: <br>
+										Los Angeles
+									</p>
+								</div>
+								<div class="col-md-6">
+									<p>
+										Rate: <br>
+										$15 - $25 / hr
+									</p>
+								</div>
+							</div>
+						</div>
+						<button class="btn text-center">Buy Now {{$job->price}}</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Services Section -->
+
+	<!-- Services Section -->
+	<section class="related-sec py-5 mt-5">
 		<div class="container">
 			<div class="services-head">
-				<h2>Services</h2>
+				<h2>Related Jobs</h2>
 				<hr class="mr-4 my-4">
 			</div>
 			<div class="services mt-5">
 				<div class="row">
-					@foreach($projects as $key => $value)
-					    <div class="col-md-3 mb-5">
-					        <div style="padding: 15px; border: 1px solid #e9e9e9;">
-					            <div>
-					                <div><img width="100%" style="height: 190px;object-fit: cover;object-position: center;;" src="{{ asset('/uploads/'.$value->job_image) }}"></div>
-					                <div class="py-4">
-					                    <p>{{$value->category_name}}</p>
-					                    <h4><a href="{{ route('front.service', ['service' => $value->job_title]) }}">{{$value->job_title}}</a></h4>
-					                    <hr class="mr-4 my-2">
-					                    {!! Str::limit($value->description, 60) !!}
-					                    <hr class="mr-4 my-2">
-					                    <span><a href="#">{{$value->creator}}</a> Starting at: {{'PKR'.$value->price}}</span>
-					                </div>
-					            </div>
-					        </div>
-					    </div>
+					@foreach($jobs as $key => $value)
+						<div class="col-md-3">
+							<div class="blog-wrapper">
+								<div class="blog-img">
+									<img width="100%" src="{{ asset('/uploads/'.$value->job_image) }}">
+								</div>
+								<div class="blog-content">
+									<p>{{date('M,d,Y',strtotime($value->created_at))}}</p>
+									<h4><a href="{{ route('front.service', ['service' => $value->job_title]) }}">{{$value->job_title}}</a></h4>
+									<p>{!! Str::limit($value->description, 100) !!}</p>
+								</div>
+							</div>
+						</div>
 					@endforeach
-				</div>
-				<!-- Pagination Links -->
-				<div class="row">
-				    <div class="col-12">
-				        {{ $projects->links() }}
-				    </div>
 				</div>
 			</div>
 		</div>
@@ -132,7 +235,7 @@
 	<!-- Services Section -->
 
 	<!-- Footer Section -->
-	<section class="footer-sec mt-5 py-5">
+	<section class="footer-sec py-5">
 		<div>
 			<div class="container-fluid">
 				<div class="row pb-5 subfoot">
