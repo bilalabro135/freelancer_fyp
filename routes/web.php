@@ -48,6 +48,10 @@
 		Route::delete('/del_job', [ProjectController::class, 'destroy']);
 	// END::Jobs
 
+	// Appy for job
+		Route::get('front/service/{service}/apply', [HomeFrontController::class, 'applyJob'])->name('front.service.apply');
+	// Appy for job
+
 	// BEGIN::Category
 		Route::resource('/categories', CategoryController::class);
 		Route::get('/lst_category', [CategoryController::class, 'list']);

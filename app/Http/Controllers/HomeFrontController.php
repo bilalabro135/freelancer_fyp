@@ -64,15 +64,22 @@ class HomeFrontController extends Controller
     public function singleBlog($blogName){
         $blog = Blog::where('title',$blogName)->firstOrFail();
         $user = User::where('id',$blog->user_id)->firstOrFail();
-        $blogs= Blog::where('active',1)->limit(4)->get();
+        $blogs= Blog::where('active',1)->whereNotIn('id', [$blog->id])->limit(4)->get();
         return view('frontEnd.single_blog',compact('blog','user','blogs'));
     }
 
     public function singleService($serviceName){
         $job  = Project::where('job_title',$serviceName)->firstOrFail();
         $user = User::where('id',$job->user_id)->firstOrFail();
-        $jobs = Project::where('active',1)->limit(4)->get();
+        $jobs = Project::where('active',1)->whereNotIn('id', [$job->id])->limit(4)->get();
         return view('frontEnd.single_service',compact('job','user','jobs'));
+    }
+
+    public function applyJob($serviceName){
+        $job  = Project::where('job_title',$serviceName)->firstOrFail();
+        $user = User::where('id',$job->user_id)->firstOrFail();
+        $jobs = Project::where('active',1)->whereNotIn('id', [$job->id])->limit(4)->get();
+        return view('frontEnd.job_form',compact('job','user','jobs'));
     }
 
 }

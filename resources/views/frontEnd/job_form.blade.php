@@ -69,10 +69,13 @@
 	.pagination{
 		justify-content: center;
 	}
-	.blogs .col-md-12 img{
+	.apply-sec{
+		padding: 150px 0 100px 0;
+	}
+	.apply .col-md-12 img{
 		width: 100%;
 		height: 500px;
-		border-radius: 6px;
+		border-radius: 20px;
 		object-fit: cover;
 	}
 	.blog-by img{
@@ -83,19 +86,7 @@
 	.related-sec{
 		background-color: #F1FCFA;
 	}
-	.banner-sec{
-		background-image: url('{{ asset("uploads/service-detail.jpg") }}');
-		background-position: center center;
-		background-repeat: no-repeat;
-		padding: 200px 0 50px 0;
-	}
-	.pricing-area{
-		border: 1px solid #E9E9E9;
-		padding: 20px 20px;
-		box-shadow: 0 6px 15px 0 rgba(64, 79, 104, 0.05);
-		border-radius: 6px;
-	}
-	.pricing-area button, .pricing-area a{
+	.apply button{
 		background-color: #5bbb7b;
 		width: 100%;
 		color: #fff;
@@ -105,104 +96,64 @@
 	}
 </style>
 <div class="home-page">
-	<!-- Banner Section -->
-	<section class="banner-sec">
-		<div class="container">
-			<div class="row justify-content-between align-items-center">
-				<div class="col-md-12">
-					<div class="banner-main">
-						<h1 style="font-size: 35px; color: #1F4B3F; font-weight: 600;"><b>{{$job->job_title}}</b></h1>
-						<div class="blog-by d-flex">
-							<p class="mt-4">
-								@if(isset($user->profile_pic))
-									<img width="100%" src="{{asset('uploads/'.$user->profile_pic)}}">
-								@else
-									<img width="100%" src="{{asset('uploads/no_image.png')}}">
-								@endif
-								&nbsp;<span>{{$user->name}}</span> &nbsp;|&nbsp;
-								<span>{{date('M,d,Y',strtotime($job->created_at))}}</span>
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- Banner Section -->
 
 	<!-- Services Section -->
-	<section class="blogs-sec pb-0">
+	<section class="apply-sec pb-0 mb-5">
 		<div class="container">
-			<div class="row">
-				<div class="col-md-8">
-					<div class="blogs-head">
-						<div class="simple-det row">
-							<div class="d-flex col-md-3" style="gap: 30px;">
-								<i class="fa fa-regular fa-calendar-check text-dark"></i>
-								<div>
-									<p class="m-0">Delivery Time</p>
-									<p class="m-0">{{$job->delivery_time}} Days</p>
-								</div>
-							</div>
-							<div class="d-flex col-md-3" style="gap: 30px;">
-								<i class="fa fa-map-marker text-dark" aria-hidden="true"></i>
-								<div>
-									<p class="m-0">Location</p>
-									<p class="m-0">{{$job->location}}</p>
-								</div>
-							</div>
-						</div>
-						<hr class="mr-4 my-4">
-					</div>
-					<div class="blogs mt-5">
-						<div class="row">
-							<div class="col-md-12">
-								<img src="{{asset('uploads/'.$job->job_image)}}">
-							</div>
-							<div class="col-12 p-5">
-								<h3>Service Description</h3>
-								<hr class="mr-4 my-4">
-								{!! ($job->description) !!}
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4" style="margin-top: 128px;">
-					<div class="pricing-area">
-						<h3>PKR {{$job->price}}</h3>
-						<div>
-							<hr class="mr-4 my-4">
-							<h4>About the seller</h4>
-							<div class="d-flex my-5" style="gap: 10px;">
-								@if($user->profile_pic)
-									<img src="{{asset('uploads/'.$user->profile_pic)}}" style="width: 60px;border-radius: 30px;">
-								@else
-									<img src="{{asset('uploads/no_image.png')}}" style="width: 60px;border-radius: 30px;">
-								@endif
-								<p>{{$user->name}}</p>
-							</div>
-							<hr class="mr-4 my-4">
-							<div class="row mb-3">
-								<div class="col-md-6">
-									<p>
-										Location: <br>
-										Los Angeles
-									</p>
-								</div>
-								<div class="col-md-6">
-									<p>
-										Rate: <br>
-										$15 - $25 / hr
-									</p>
-								</div>
-							</div>
-						</div>
-						@if(isset(Auth::user()->id))
-							<a href="{{ route('front.service.apply', ['service' => $job->job_title]) }}" class="btn text-center">Buy Now {{$job->price}}</a>
+			<div class="apply-head">
+				<h2>{{$job->job_title}}</h2>
+				<div class="blog-by d-flex">
+					<p class="mt-4">
+						@if(isset($user->profile_pic))
+							<img width="100%" src="{{asset('uploads/'.$user->profile_pic)}}">
 						@else
-							<button class="btn text-center">Buy Now {{$job->price}}</button>
-							<p class="text-center mt-4 text-danger">Please login to apply for this job</p>
+							<img width="100%" src="{{asset('uploads/no_image.png')}}">
 						@endif
+						&nbsp;<span>{{$user->name}}</span> &nbsp;|&nbsp;
+						<span>{{date('M,d,Y',strtotime($job->created_at))}}</span>
+					</p>
+				</div>
+				<hr class="mr-4 my-4">
+			</div>
+			<div class="apply mt-5">
+				<div class="row">
+					<div class="col-12 p-5">
+						{!! ($job->description) !!}
+						<hr class="mt-5 mb-5">
+						<h3>Empower Your Professional Journey: Connect with Excellence</h3>
+						<p class="mt-5 px-5">
+							<b>Description:</b> At this platform, we bridge the gap between talent and opportunity, catering to a diverse community of professionals, freelancers, and vendors. Our platform is designed to facilitate seamless connections, empowering you to showcase your expertise, discover projects, and collaborate with businesses seeking your unique skills.
+						</p>
+					</div>
+					<form action="#" method="POST" class="col-md-12 row">
+						@csrf
+						<input type="hidden" name="project_name" value="{{$job->job_title}}">
+						<div class="col-md-6">
+							<div>
+								<p class="mb-2">Duration <span class="text-danger">*</span></p>
+								<select class="form-control py-0 " name="duration">
+									<option disabled selected>--Please select--</option>
+									<option value="1">1 Day</option>
+									<option value="2">2 Days</option>
+									<option value="3">3 Days</option>
+									<option value="4">4 Days</option>
+									<option value="5">5 Days</option>
+									<option value="6">6 Days</option>
+									<option value="7">7 Days</option>
+									<option value="1x">About a Month</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<p class="mb-2">Upload your portfolio <span class="text-danger">*</span></p>
+							<input type="file" name="portfolio" class="form-control py-0" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+						</div>
+						<div class="col-md-12">
+							<p class="mb-2 mt-4">Cover Letter <span class="text-danger">*</span></p>
+							<textarea class="form-control" name="cover_letter" placeholder="Cover Letter"></textarea>
+							<button class="btn text-center mt-4">SUBMIT PROPOSAL</button>
+						</div>
+					</form>
 					</div>
 				</div>
 			</div>
@@ -211,10 +162,10 @@
 	<!-- Services Section -->
 
 	<!-- Services Section -->
-	<section class="related-sec py-5 mt-5">
+	<!-- <section class="related-sec py-5 mt-5">
 		<div class="container">
 			<div class="services-head">
-				<h2>Related Jobs</h2>
+				<h2>Related Posts</h2>
 				<hr class="mr-4 my-4">
 			</div>
 			<div class="services mt-5">
@@ -236,7 +187,7 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> -->
 	<!-- Services Section -->
 
 	<!-- Footer Section -->
