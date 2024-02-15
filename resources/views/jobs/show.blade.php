@@ -4,13 +4,13 @@
     @include( '../sweet_script')
     <div class="page-inner">
         <div class="page-header">
-            <h4 class="page-title">{{$project->job_title}}</h4>
+            <h4 class="page-title">@yield('title')</h4>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card card-space">
                    <div class="card-header">
-                      <h4 class="card-title">@yield('title')</h4>
+                      <h4 class="card-title">{{$project->job_title}}</h4>
                    </div>
                    <div class="card-body">
                       <div class="row">
@@ -56,7 +56,7 @@
                                             <hr class="m-0">
                                             <div class="p-3 d-flex justify-content-between align-items-center">
                                                 <h3>Location:<br/><br/> <b>{{$project->location}}</b></h3>
-                                                <a href="{{route('applicant',['id'=> $project->id])}}" class="badge badge-success">(0) Applicants</a>
+                                                <a href="{{route('applicants',['id'=> $project->id])}}" class="badge badge-success">{{$applicants}} Applicants</a>
                                             </div>
                                         </div>
                                   </div>

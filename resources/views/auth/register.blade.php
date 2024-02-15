@@ -52,6 +52,23 @@
                         </div>
 
 
+                        <div class="form-group form-floating-label">
+                            <select class="p-0 form-control input-border-bottom @error('roles') is-invalid @enderror" id="roles[]" name="roles[]">
+                                <option disabled selected>-- Select your role --</option>
+                                @foreach(\Spatie\Permission\Models\Role::all() as $role)
+                                    @if($role->name != 'Super-Admin' && $role->id != 1)
+                                        <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                            @error('roles')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">

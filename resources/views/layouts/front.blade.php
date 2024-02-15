@@ -8,6 +8,7 @@
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 	<link rel="icon" href="{{ asset('assets/img/icon.ico') }}" type="image/x-icon"/>
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css">
+	<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 	<!-- Fonts and icons -->
 	<script src="{{ asset('assets/js/plugin/webfont/webfont.min.js') }}"></script>
 	<script src="{{asset('libs/jquery.min.js')}}" ></script>

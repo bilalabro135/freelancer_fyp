@@ -23,7 +23,7 @@ class BlogController extends Controller
     }
 
     public function index(){
-        $blogs = Blog::where('active',1)->get();
+        $blogs = Blog::where('active',1)->where('user_id',Auth::user()->id)->get();
         return view('blogs.index',compact('blogs'));
     }
 
@@ -57,7 +57,7 @@ class BlogController extends Controller
             'title' => $request->title,
             'blog_image' => $blog_image,
             'description' => $request->description,
-            'user_id' => Auth::user()->id
+            'user_id'   => Auth::user()->id
         ]);
 
         if ($data) {
@@ -75,7 +75,7 @@ class BlogController extends Controller
      */
     public function show(Blog $blog)
     {
-        $blog = Blog::where('id',$blog->id)->first();
+        $blog = Blog::where('id',$blog->id)->where('user_id', Auth::user()->id)->first();
         return view('blogs.show',compact('blog'));
     }
 
@@ -87,7 +87,7 @@ class BlogController extends Controller
      */
     public function edit(Blog $blog)
     {
-        $blog = Blog::where('id',$blog->id)->first();
+        $blog = Blog::where('id',$blog->id)->where('user_id', Auth::user()->id)->first();
         return view('blogs.edit',compact('blog'));
     }
 
@@ -108,7 +108,7 @@ class BlogController extends Controller
             $request->file('blog_image')->move($destination, $blog_image);
         }
 
-        $blog = Blog::where('id',$blog->id)->first();
+        $blog = Blog::where('id',$blog->id)->where('user_id', Auth::user()->id)->first();
         $blog->title = $request->title;
         $blog->blog_image = $blog_image;
         $blog->description = $request->description;

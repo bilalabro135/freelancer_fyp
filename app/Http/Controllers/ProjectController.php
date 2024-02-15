@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\PaymentMethod;
 use App\Models\Category;
+use App\Models\Applicants;
+use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use DataTables;
 use Auth;
@@ -41,8 +43,9 @@ class ProjectController extends Controller
     public function create()
     {
         $payment_method = PaymentMethod::pluck('method_title','id');
-        $categories = Category::pluck('name','id');
-        return view('jobs.create',compact('payment_method','categories'));
+        $categories     = Category::pluck('name','id');
+        $roles          = Role::where('id','<>',1)->pluck('name','id');
+        return view('jobs.create',compact('payment_method','categories','roles'));
     }
 
     /**
@@ -88,12 +91,17 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        $project = Project::where('id',$id)->first();
-        $job_category = Category::where('id',$project->job_category)->first();
+        $project        = Project::where('id',$id)->where('user_id', Auth::user()->id)->first();
+        
+        $applicants     = Applicants::where('project_id',$id)->count();
+        
+        $job_category   = Category::where('id',$project->job_category)->first();
+        
         $payment_method = PaymentMethod::where('id',$project->payment_method)->first();
+        
         $project->job_category = $job_category;
         $project->payment_method = $payment_method;
-        return view('jobs.show',compact('project'));
+        return view('jobs.show',compact('project','applicants'));
     }
 
     /**
@@ -104,7 +112,7 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-        $project = Project::where('id',$id)->first();
+        $project = Project::where('id',$id)->where('user_id', Auth::user()->id)->first();
         $job_category = Category::where('id',$project->job_category)->first();
         $payment_method = PaymentMethod::where('id',$project->payment_method)->first();
         $payment_method = PaymentMethod::pluck('method_title','id');
@@ -136,7 +144,7 @@ class ProjectController extends Controller
             $request->file('job_image')->move($destination, $job_image);
         }
 
-        $project = Project::where('id',$request->project_id)->first();
+        $project = Project::where('id',$request->project_id)->where('user_id', Auth::user()->id)->first();
         if (!empty($project)) {
             $project->job_title     = $request->job_title;
             $project->delivery_time = $request->delivery_time;

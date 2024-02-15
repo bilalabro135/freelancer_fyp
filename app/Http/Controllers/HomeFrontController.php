@@ -7,7 +7,9 @@ use App\Models\Testimonial;
 use App\Models\Blog;
 use App\Models\User;
 use App\Models\Project;
+use App\Models\Applicants;
 use App\Models\Category;
+use Auth;
 
 use DB;
 class HomeFrontController extends Controller
@@ -76,10 +78,11 @@ class HomeFrontController extends Controller
     }
 
     public function applyJob($serviceName){
-        $job  = Project::where('job_title',$serviceName)->firstOrFail();
-        $user = User::where('id',$job->user_id)->firstOrFail();
-        $jobs = Project::where('active',1)->whereNotIn('id', [$job->id])->limit(4)->get();
-        return view('frontEnd.job_form',compact('job','user','jobs'));
+        $job        = Project::where('job_title',$serviceName)->firstOrFail();
+        $user       = User::where('id',$job->user_id)->firstOrFail();
+        $applicant  = Applicants::where('user_id',Auth::user()->id)->first();
+        $jobs       = Project::where('active',1)->whereNotIn('id', [$job->id])->limit(4)->get();
+        return view('frontEnd.job_form',compact('job','user','jobs','applicant'));
     }
 
 }

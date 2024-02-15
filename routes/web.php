@@ -5,6 +5,7 @@
 	use App\Http\Controllers\RoleController;
 	use App\Http\Controllers\BlogController;
 	use App\Http\Controllers\PaymentMethodController;
+	use App\Http\Controllers\ApplicantsController;
 	use App\Http\Controllers\TestimonialController;
 	use App\Http\Controllers\ProjectController;
 	use App\Http\Controllers\CategoryController;
@@ -79,6 +80,13 @@
 		Route::delete('/del_blogs', [BlogController::class, 'destroy']);
 		// Route::get('/pay_fee', [ChallanController::class, 'show_fee_pay']);
 	// END::Category
+
+	// BEGIN::Applicants
+		Route::get('/applicant/{id}', [ApplicantsController::class, 'applicant_list'])->name('applicants');
+		Route::get('/view-applicant/{id}', [ApplicantsController::class, 'view_applicant'])->name('view_applicant');
+		Route::post('/applicant/add', [ApplicantsController::class, 'applicant_add'])->name('applicants.add');
+		Route::get('/applicant/hire/{applicant_id}', [ApplicantsController::class, 'applicant_hire'])->name('applicants.hire');
+	// END::Applicants
 
 	// BEGIN::users
 		Route::resource('/users', UserController::class);

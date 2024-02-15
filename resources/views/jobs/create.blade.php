@@ -25,13 +25,24 @@
                         <div class="card-body">
                             <div class=" row">
                                 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 row">
-                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <div class="form-group">
                                             {!! Html::decode(Form::label('job_title','Title <span class="text-danger">*</span>')) !!}
                                             {{ Form::text('job_title', null, array('placeholder' => 'Title','class' => 'form-control','autofocus' => ''  )) }}
                                             @if ($errors->has('job_title'))
                                                 {!! "<span class='span_danger'>". $errors->first('job_title')."</span>"!!} 
                                             @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            {!! Html::decode(Form::label('role_id','Roles<span class="text-danger">*</span>')) !!}
+                                            <select class="form-control py-0" name="role_id" id="role_id">
+                                                <option selected disabled>--Please select--</option>
+                                                @foreach($roles as $key => $value)
+                                                    <option value="{{$key}}">{{$value}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">

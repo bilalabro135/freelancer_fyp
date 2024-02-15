@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Applicants;
 use Illuminate\Http\Request;
+use Auth;
 
 class ApplicantsController extends Controller
 {
@@ -14,7 +15,7 @@ class ApplicantsController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -81,5 +82,48 @@ class ApplicantsController extends Controller
     public function destroy(Applicants $applicants)
     {
         //
+    }
+
+    public function applicant_list($id){
+        $applicants = Applicants::where('project_id', $id)
+                       ->with('user') 
+                       ->orderBy('created_at', 'desc')
+                       ->get();
+
+
+        return view('jobs/applicants', compact('applicants'));
+    }
+
+    public function view_applicant($id)
+    {
+        $applicant = Applicants::where('id',$id)->firstOrFail();
+        return view('jobs.view_applicant',compact('applicant'));
+    }
+
+    public function applicant_add(Request $request){
+        $portfolio = "";
+        if ($request->hasFile('portfolio')) {
+            $data = $request->input('portfolio');
+            $portfolio = $request->file('portfolio')->getClientOriginalName();
+            $destination = base_path() . '/public/uploads';
+            $request->file('portfolio')->move($destination, $portfolio);
+        }
+
+        $applicant  = Applicants::where('user_id',Auth::user()->id)->first();
+
+        if (empty($applicant)) {
+            $add_applicants = Applicants::create([
+                'user_id'       => Auth::user()->id,
+                'duration'      => $request->duration,
+                'cover_letter'  => $request->cover_letter,
+                'project_id'    => $request->project_id,
+                'experience'    => $request->experience,
+                'portfolio'     => $portfolio
+            ]);
+        }else{
+            return back()->with('error', 'You have already applied for this job');
+        }
+
+        return back()->with('success', 'Proposal submitted successfully');
     }
 }

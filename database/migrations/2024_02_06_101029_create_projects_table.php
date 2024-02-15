@@ -21,6 +21,7 @@ class CreateProjectsTable extends Migration
             $table->text("description")->nullable();
             $table->integer("payment_method")->nullable();
             $table->string("price")->nullable();
+            $table->integer("role_id")->nullable();
             $table->string("job_category")->nullable();
             $table->integer("user_id")->nullable();
             $table->boolean('active')->default(1);

@@ -46,4 +46,14 @@ class User extends Authenticatable
     {
         return ucwords($value);
     }
+
+    public function applicant()
+    {
+        return $this->hasOne(Applicant::class, 'user_id');
+    }
+
+    public function applicants()
+    {
+        return $this->hasMany(Applicant::class, 'user_id');
+    }
 }
