@@ -199,6 +199,13 @@
 							</a>
 						</li>
 
+						<li class="nav-item  @if('chats' == url_explode(request()->path()) ) {{'active'}} @endif">
+							<a href="{{url('/chats')}}">
+								<i class="far fa-paper-plane"></i>
+								<p>Messages</p>
+							</a>
+						</li>
+
 
 						<li class="nav-section">
 							<span class="sidebar-mini-icon">
@@ -207,12 +214,14 @@
 							<h4 class="text-section">Customize</h4>
 						</li>
 
+						@can('job-list')
 						<li class="nav-item @if('jobs' == url_explode(request()->path()) ) {{'active'}} @endif">
 							<a  href="{{url('/jobs')}}">
 								<i class="fa fa-tasks" aria-hidden="true"></i>
 								<p>Jobs</p>
 							</a>
 						</li>
+						@endcan
 
 						<li class="nav-item @if('my-jobs' == url_explode(request()->path()) ) {{'active'}} @endif">
 							<a  href="{{url('/my-jobs')}}">
@@ -221,26 +230,32 @@
 							</a>
 						</li>
 
+						@can('category-list')
 						<li class="nav-item @if('categories' == url_explode(request()->path()) ) {{'active'}} @endif">
 							<a  href="{{url('/categories')}}">
 								<i class="fas fa-list-alt"></i>
 								<p>Categories</p>
 							</a>
 						</li>
+						@endcan
 
+						@can('blogs-list')
 						<li class="nav-item @if('blogs' == url_explode(request()->path()) ) {{'active'}} @endif">
 							<a  href="{{url('/blogs')}}">
 								<i class='fas fa-blog'></i>
 								<p>Blogs</p>
 							</a>
 						</li>
+						@endcan
 
+						@can('testimonials-list')
 						<li class="nav-item @if('testimonials' == url_explode(request()->path()) ) {{'active'}} @endif">
 							<a  href="{{url('/testimonials')}}">
 								<i class="fa fa-quote-left" aria-hidden="true"></i>
 								<p>Testimonials</p>
 							</a>
 						</li>
+						@endcan
 
 
 						<!-- <li class="nav-item @if('payment_methods' == url_explode(request()->path()) ) {{'active'}} @endif">
@@ -249,27 +264,37 @@
 								<p>Payment method</p>
 							</a>
 						</li> -->
-
 						<li class="nav-section">
 							<span class="sidebar-mini-icon">
 								<i class="fa fa-ellipsis-h"></i>
 							</span>
 							<h4 class="text-section">System</h4>
 						</li> 
+
+						<li class="nav-item @if('account-book' == url_explode(request()->path()) ) {{'active'}} @endif">
+							<a  href="{{url('/account-book')}}">
+								<i class="fas fa-money-check-alt"></i>
+								<p>Account Book</p>
+							</a>
+						</li>
 						
+						@can('payment-methods-list')
 						<li class="nav-item @if('payment-methods' == url_explode(request()->path()) ) {{'active'}} @endif">
 							<a  href="{{url('/payment-methods')}}">
 								<i class="fas fa-money-check-alt"></i>
 								<p>Payment Methods</p>
 							</a>
 						</li>
+						@endcan
 
+						@can('user-list')
 						<li class="nav-item @if('users' == url_explode(request()->path()) ) {{'active'}} @endif">
 							<a  href="{{url('/users')}}">
 								<i class="fas fa-users"></i>
 								<p>Users</p>
 							</a>
 						</li>
+						@endcan
 
 						@can('role-list')
 						<li class="nav-item @if('roles' == url_explode(request()->path()) ) {{'active'}} @endif">

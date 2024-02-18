@@ -66,25 +66,25 @@
 		<!--
 			Tip 1: You can change the background color of the main header using: data-background-color="blue | purple | light-blue | green | orange | red"
 		-->
-		<div class="main-header">
+		<div class="main-header" style="background: #00000096;">
 
 			<!-- Navbar Header -->
-			<nav class="navbar navbar-header navbar-light bg-white navbar-expand-lg">
+			<nav class="navbar navbar-header navbar-light navbar-expand-lg">
 				<!-- navbar navbar-expand-md navbar-light bg-white shadow-sm -->
-				<div class="container-fluid" style="padding: 25px 20px;">
+				<div class="container-fluid" style="padding: 25px 20px; border-bottom: 1px solid #ffffff4f;">
 					<ul class="navbar-nav topbar-nav align-items-center" style="gap: 16px;">
 				
 						<li class="nav-item" style="font-size: 16px;">
-							<a href="/" class="text-dark font-weight-normal">Home</a>
+							<a href="/" class="text-white font-weight-normal">Home</a>
 						</li>
 						<li class="nav-item" style="font-size: 16px;">
-							<a href="{{route('front.services')}}" class="text-dark font-weight-normal">Browse Services</a>
+							<a href="{{route('front.services')}}" class="text-white font-weight-normal">Browse Services</a>
 						</li>
 						<li class="nav-item" style="font-size: 16px;">
-							<a href="{{route('front.blogs')}}" class="text-dark font-weight-normal">Blogs</a>
+							<a href="{{route('front.blogs')}}" class="text-white font-weight-normal">Blogs</a>
 						</li>
 						<li class="nav-item" style="font-size: 16px;">
-							<a href="#" class="text-dark font-weight-normal">Pages</a>
+							<a href="#" class="text-white font-weight-normal">Pages</a>
 						</li>
 						
 					</ul>
@@ -92,7 +92,7 @@
 						<ul class="navbar-nav topbar-nav align-items-center" style="gap: 16px;">
 							@if(!isset(Auth::user()->name))
 								<li class="nav-item" style="font-size: 16px;">
-									<a href="/login" class="text-dark font-weight-normal">Login</a>
+									<a href="/login" class="text-white font-weight-normal">Login</a>
 								</li>
 
 								<li class="nav-item signup-cta" style="font-size: 16px;">
@@ -100,10 +100,10 @@
 								</li>
 							@else
 								<li class="nav-item" style="font-size: 16px;">
-									<a href="#" class="text-dark font-weight-normal"><i class="m-0 far fa-user text-dark"></i></a>
+									<a href="#" class="text-white font-weight-normal"><i class="m-0 far fa-user text-dark"></i></a>
 								</li>
 								<li class="nav-item">
-									<a href="/logout" class="text-dark font-weight-normal"><i class="m-0 fas fa-power-off text-dark" style="font-size: 20px;"></i></a>
+									<a href="/logout" class="text-white font-weight-normal"><i class="m-0 fas fa-power-off text-dark" style="font-size: 20px;"></i></a>
 								</li>
 							@endif
 						</ul>

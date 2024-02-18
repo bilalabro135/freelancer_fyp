@@ -16,6 +16,7 @@ class CreateApplicantsTable extends Migration
         Schema::create('applicants', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
+            $table->integer('project_id');
             $table->integer('duration')->nullable();
             $table->text('cover_letter')->nullable();
             $table->integer('experience')->nullable();

@@ -1,4 +1,16 @@
+import Echo from "laravel-echo";
 window._ = require('lodash');
+window.Pusher = require('pusher-js');
+
+
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: 'local',
+    wsHost: window.location.hostname,
+    wsPort: 6001,
+    disableStats: true,
+    encrypted: false
+});
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support

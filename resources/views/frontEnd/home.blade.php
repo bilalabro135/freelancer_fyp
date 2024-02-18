@@ -66,34 +66,80 @@
 		border-bottom: 1px solid #6b717785;
 		margin: 0;
 	}
+	.banner-sec{
+		background-image: url('{{asset("uploads/banner-image-main.jpg")}}');
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: cover;
+		height: 100vh;
+	}
+	.banner-sec:after{
+		content: "";
+		display: block;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		width: 100%;
+		height: auto;
+		background-color: #0000008c;
+	}
+	@keyframes typewriter {
+	  from { width: 0; }
+	  to { width: 100%; }
+	}
+	@keyframes blinkCursor {
+	  from { border-right-color: rgba(255,255,255,.75); }
+	  to { border-right-color: transparent; }
+	}
+	.typewriter h1 {
+	  overflow: hidden;
+	  border-right: .15em solid rgba(255,255,255,.75);
+	  white-space: nowrap;
+	  margin: 0 auto;
+	  letter-spacing: .15em;
+	  animation: typewriter 4s steps(40, end) forwards,
+	             blinkCursor 500ms steps(40, end) infinite;
+	  max-width: 100%;
+	}
+	.typewriter p {
+	  opacity: 0;
+	  transition: opacity 2s ease;
+	}
+	.show {
+	  opacity: 1 !important;
+	}
+	.heading-group {
+	  display: none;
+	}
 </style>
 <div class="home-page">
 	<!-- Banner Section -->
-	<section class="banner-sec" style="padding: 85px 0 0 0;">
-		<div class="container-fluid">
-			<div class="row justify-content-between align-items-center">
-				<div class="col-md-6">
-					<div class="banner-main">
-						<h1 style="font-size: 45px; color: #1F4B3F; font-weight: 600;">With talented <b style="color: #5bbb7b;">Freelancers</b> and <b style="color: #5bbb7b;">Vendors</b> do more work.</h1>
-						<p class="py-4" style="font-size: 16px;">Millions of people use freeio.com to turn their ideas into reality.</p>
-						<div style="position: relative;">
-							<input placeholder="What are you looking for?" type="text" class="form-control p-5" style="font-size:16px; border-radius: 5px; border: 1px solid #1F4B3F;" name="">
-							<button style="position: absolute; top: 0; right: 0; bottom: 0; color: #fff; padding: 30px 30px; background-color: #1F4B3F; font-size: 16px; border-bottom-right-radius: 5px;border-top-right-radius: 5px;" class="btn">Search</button>
-						</div>
-						<div>
-							<p style="font-size: 16px;" class="py-4">Popular Searches : Designer, Developer, Web, IOS, PHP, Senior, Engineer</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="banner-img">
-						<img width="100%" src="{{ asset('/uploads/clientsFreelancers.png') }}">
-					</div>
-				</div>
-			</div>
-		</div>
+	<section class="banner-sec d-flex align-items-center" style="padding: 85px 0 0 0;">
+	  <div class="container-fluid">
+	    <div class="row justify-content-between align-items-center" style="position: relative; z-index: 9;">
+	      <div class="col-md-12">
+	        <div class="banner-main">
+	          <div class="heading-group typewriter" id="group1">
+	            <h1 style="text-align: left;font-size: 45px; color: #fff; font-weight: 600;">Welcome to the Future of Creation!</h1>
+	            <p style="font-size: 20px; color: #fff;">Emphasizes the innovative aspect of your service and warmly welcomes visitors.</p>
+	          </div>
+	          <div class="heading-group typewriter" id="group2">
+	            <h1 style="text-align: left;font-size: 45px; color: #fff; font-weight: 600;">Design Your Dreams with Top 3D Designers</h1>
+	            <p style="font-size: 20px; color: #fff;">Highlights the creative process and the expertise of your 3D designers in bringing ideas to life.</p>
+	          </div>
+	          <div class="heading-group typewriter" id="group3">
+	            <h1 style="text-align: left;font-size: 45px; color: #fff; font-weight: 600;">Bring Design to Reality with 3D Printing Vendors</h1>
+	            <p style="font-size: 20px; color: #fff;">Focuses on the practical aspect of making designs tangible, showcasing the role of vendors in the 3D printing process to deliver final products to clients.</p>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
 	</section>
 	<!-- Banner Section -->
+
 
 	<!-- Offer Section -->
 	<section class="offer-sec">
@@ -345,6 +391,33 @@
 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 	<script type="text/javascript">
+		
+		document.addEventListener("DOMContentLoaded", function() {
+		  const groups = document.querySelectorAll('.heading-group');
+		  let current = 0;
+
+		  function showGroup(index) {
+		    if(index < groups.length) {
+		      groups.forEach((g, i) => {
+		        if(i === index) {
+		          g.style.display = 'block'; // Show the current group
+		          setTimeout(() => {
+		            g.querySelector('p').classList.add('show'); // Show paragraph after typewriter effect
+		          }, 4000); // Adjust based on typewriter animation duration
+		        } else {
+		          g.style.display = 'none'; // Hide other groups
+		          g.querySelector('p').classList.remove('show'); // Hide paragraph
+		        }
+		      });
+		      setTimeout(() => {
+		        showGroup((index + 1) % groups.length); // Move to next group or loop back
+		      }, 8000); // Adjust based on how long you want each group to be displayed
+		    }
+		  }
+
+		  showGroup(current);
+		});
+
 		$('.owl-carousel').owlCarousel({
 		    loop:true,
 		    margin:10,

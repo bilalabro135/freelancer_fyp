@@ -11,6 +11,7 @@
 	use App\Http\Controllers\CategoryController;
 	use App\Http\Controllers\PermissionController;
 	use App\Http\Controllers\HomeFrontController;
+	use App\Http\Controllers\ChatController;
 
 	Auth::routes();
 
@@ -48,6 +49,12 @@
 		Route::get('/applicant/{id}', [ProjectController::class, 'applicant_list'])->name('applicant');
 		Route::delete('/del_job', [ProjectController::class, 'destroy']);
 	// END::Jobs
+
+
+		Route::get('/chat/{user_id}', [ChatController::class, 'chatStart'])->name('chat');
+		Route::post('/send-message', [ChatController::class, 'sendMessage'])->name('send.message');
+		Route::get('/chats', [ChatController::class, 'index'])->name('chats');
+		Route::get('/fetch-messages/{userId}', [ChatController::class, 'fetchMessages'])->name('fetch.messages');
 
 	// Appy for job
 		Route::get('front/service/{service}/apply', [HomeFrontController::class, 'applyJob'])->name('front.service.apply');
