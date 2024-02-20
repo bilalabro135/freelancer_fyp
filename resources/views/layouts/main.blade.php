@@ -268,6 +268,7 @@
 								<p>Payment method</p>
 							</a>
 						</li> -->
+						@can('payment-methods-list')
 						@if((Auth::user()->roles[0]->id != 4))
 							
 							<li class="nav-section">
@@ -285,7 +286,6 @@
 							</li> -->
 						@endif
 						
-						@can('payment-methods-list')
 						<li class="nav-item @if('payment-methods' == url_explode(request()->path()) ) {{'active'}} @endif">
 							<a  href="{{url('/payment-methods')}}">
 								<i class="fas fa-money-check-alt"></i>

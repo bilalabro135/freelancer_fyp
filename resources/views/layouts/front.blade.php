@@ -80,7 +80,7 @@
 				<div class="container-fluid" style="padding: 25px 20px; border-bottom: 1px solid #ffffff4f;">
 					<div class="d-flex">
 						<div class="web-logo">
-							<img src="{{asset('uploads/logo3-01.png')}}" width="80px">&nbsp;&nbsp;
+							<a href="/" class="text-white font-weight-normal"><img src="{{asset('uploads/logo3-01.png')}}" width="80px"></a>&nbsp;&nbsp;
 						</div>
 						<ul class="navbar-nav topbar-nav align-items-center" style="gap: 16px;">
 					

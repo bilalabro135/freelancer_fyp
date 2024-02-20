@@ -16,6 +16,7 @@ class Project extends Model
         'description',
         'payment_method',
         'price',
+        'role_id',
         'job_category',
         'job_image',
         'project_file',

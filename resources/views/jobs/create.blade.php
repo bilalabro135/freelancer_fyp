@@ -155,7 +155,7 @@
                                 $('#job_category').empty();
                                 $('#job_category').append('<option selected disabled>--Please select--</option>'); 
                                 $.each(data, function(key, value){
-                                    $('#job_category').append('<option value="'+ key +'">'+ value.name +'</option>');
+                                    $('#job_category').append('<option value="'+ value.id +'">'+ value.name +'</option>');
                                 });
                             } else {
                                 $('#job_category').empty();

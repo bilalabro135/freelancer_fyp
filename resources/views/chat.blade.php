@@ -319,7 +319,7 @@
                   <span aria-hidden="true" class="d-block">&times;</span>
                 </button>
               </div>
-                <form action="{{route('request_completion')}}" method="POST">
+                <form action="{{route('payment_completion')}}" method="POST">
                 <div class="modal-body mx-3">
                     <div class="md-form">
                         @csrf

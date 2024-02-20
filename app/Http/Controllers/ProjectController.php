@@ -128,7 +128,7 @@ class ProjectController extends Controller
 
         $applicants     = Applicants::where('project_id',$id)->count();
         
-        $job_category   = Category::where('id',$project->job_category)->first();
+        $job_category   = Category::where('id',$project->job_category)->firstOrFail();
         
         $payment_method = PaymentMethod::where('id',$project->payment_method)->first();
         
@@ -206,10 +206,29 @@ class ProjectController extends Controller
         $project = Project::where('id',$request->project_id)->first();
         
         if ($project) {
+
+            Message::create([
+                'from_user_id'  => Auth::user()->id,
+                'to_user_id'    => $request->user_id,
+                'message'       => "<i>Greetings, I wanted to commit that your given task has been completed please provide me the amount of the project and close this project.</i>",
+                'project_name'  => $project->job_title
+            ]);
+        }
+        return redirect()->route('chat',['user_id' => $request->user_id]);
+
+    }
+
+
+    public function payment_completion(Request $request)
+    {
+
+        $project = Project::where('id',$request->project_id)->first();
+        
+        if ($project) {
             $user = User::where('id',$request->user_id)->first();
 
             $number_price = str_replace(",", "", $request->price);
-            $user->balance = ($number_price + $user->balance);
+            $user->balance = ((int)$number_price + (int)$user->balance);
             $user->save();
 
             if ($user) {
@@ -266,7 +285,7 @@ class ProjectController extends Controller
     {
         $data   = Project::where('id',explode(",", $request->ids))->delete();
         if ($data) {
-            return response()->json(['project'=>'Project deleted successfully.']);
+            return response()->route('jobs');
         }
     }
 }

@@ -49,6 +49,7 @@
 		Route::get('/my_jobs', [ProjectController::class, 'my_list'])->name('my_list');
 		Route::post('/hire_person', [ProjectController::class, 'hire_person'])->name('hire_person');
 		Route::post('/request_completion', [ProjectController::class, 'request_completion'])->name('request_completion');
+		Route::post('/payment_completion', [ProjectController::class, 'payment_completion'])->name('payment_completion');
 		Route::delete('/del_job', [ProjectController::class, 'destroy']);
 	// END::Jobs
 
