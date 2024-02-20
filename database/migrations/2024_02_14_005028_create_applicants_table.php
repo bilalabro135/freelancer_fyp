@@ -20,6 +20,7 @@ class CreateApplicantsTable extends Migration
             $table->integer('duration')->nullable();
             $table->text('cover_letter')->nullable();
             $table->integer('experience')->nullable();
+            $table->string('cost')->nullable();
             $table->string('portfolio')->nullable();
             $table->timestamps();
         });

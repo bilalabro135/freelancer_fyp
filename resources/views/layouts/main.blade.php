@@ -11,6 +11,7 @@
 
 	<!-- Fonts and icons -->
 	<script src="{{ asset('assets/js/plugin/webfont/webfont.min.js') }}"></script>
+
 	<script src="{{asset('libs/jquery.min.js')}}" ></script>
 	<script>
 		WebFont.load({
@@ -66,8 +67,8 @@
 			<!-- Logo Header -->
 			<div class="logo-header">
 				
-				<a href="{{url('/home')}}" class="logo">
-					<img src="{{ asset('/uploads/fyp.png') }}" alt="navbar brand" class="navbar-brand" style= "    width: 30%;">
+				<a href="{{url('/home')}}" class="logo" style= "width: 60px;">
+					<img src="{{ asset('/uploads/logo.png') }}" alt="navbar brand" class="navbar-brand" style= "width: 100%;">
 				</a>
 				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon">
@@ -105,7 +106,7 @@
 							<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
 								<div class="avatar-sm">
 									@if(Auth::user()->profile_pic)
-										<div class="avatar-lg"><img src="{{ asset('/uploads/users/'.Auth::user()->profile_pic) }}" alt="image profile" class="avatar-img rounded" style="width: 65%;height: 60%;"></div>
+										<div class="avatar-lg"><img src="{{ asset('/uploads/'.Auth::user()->profile_pic) }}" alt="image profile" class="avatar-img rounded" style="width: 65%;height: 60%;"></div>
 									@else
 										<div class="avatar-lg"><img src="{{ asset('/uploads/no_image.png') }}" alt="image profile" class="avatar-img rounded" style="width: 65%;height: 60%;"></div>
 									@endif
@@ -115,7 +116,7 @@
 								<li>
 									<div class="user-box">
 										@if(Auth::user()->profile_pic)
-											<div class="avatar-lg"><img src="{{ asset('/uploads/users/'.Auth::user()->profile_pic) }}" alt="image profile" class="avatar-img rounded" style="width: 65%;height: 60%;"></div>
+											<div class="avatar-lg"><img src="{{ asset('/uploads/'.Auth::user()->profile_pic) }}" alt="image profile" class="avatar-img rounded" style="width: 65%;height: 60%;"></div>
 										@else
 											<div class="avatar-lg"><img src="{{ asset('/uploads/no_image.png') }}" alt="image profile" class="avatar-img rounded" ></div>
 										@endif
@@ -176,7 +177,7 @@
 					<div class="user">
 						<div class="avatar-sm float-left mr-2">
 							@if(Auth::user()->profile_pic)
-								<div class="avatar-lg"><img src="{{ asset('/uploads/users/'.Auth::user()->profile_pic) }}" alt="image profile" class="avatar-img rounded" style="width: 65%;height: 60%;"></div>
+								<div class="avatar-lg"><img src="{{ asset('/uploads/'.Auth::user()->profile_pic) }}" alt="image profile" class="avatar-img rounded" style="width: 65%;height: 60%;"></div>
 							@else
 								<div class="avatar-lg"><img src="{{ asset('/uploads/no_image.png') }}" alt="image profile" class="avatar-img rounded" style="width: 65%;height: 60%;"></div>
 							@endif
@@ -184,8 +185,9 @@
 						<div class="info">
 							<a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
 								<span>
-									{{Auth::user()->name}}
-									<span class="user-level">Administrator</span>
+									{{Auth::user()->name}} &nbsp;&nbsp;
+									<span class="font-weight-bold text-success">PKR {{Auth::user()->balance ? Auth::user()->balance : 0}}</span>
+									<span class="user-level">{{Auth::user()->roles[0]->name}}</span>
 								</span>
 							</a>
 						</div>
@@ -223,12 +225,14 @@
 						</li>
 						@endcan
 
-						<li class="nav-item @if('my-jobs' == url_explode(request()->path()) ) {{'active'}} @endif">
-							<a  href="{{url('/my-jobs')}}">
-								<i class="fa fa-tasks" aria-hidden="true"></i>
-								<p>My Jobs</p>
-							</a>
-						</li>
+						@if((Auth::user()->roles[0]->id != 4))
+							<li class="nav-item @if('my_jobs' == url_explode(request()->path()) ) {{'active'}} @endif">
+								<a  href="{{route('my_list')}}">
+									<i class="fa fa-tasks" aria-hidden="true"></i>
+									<p>My Jobs</p>
+								</a>
+							</li>
+						@endif
 
 						@can('category-list')
 						<li class="nav-item @if('categories' == url_explode(request()->path()) ) {{'active'}} @endif">
@@ -240,12 +244,12 @@
 						@endcan
 
 						@can('blogs-list')
-						<li class="nav-item @if('blogs' == url_explode(request()->path()) ) {{'active'}} @endif">
+						<!-- <li class="nav-item @if('blogs' == url_explode(request()->path()) ) {{'active'}} @endif">
 							<a  href="{{url('/blogs')}}">
 								<i class='fas fa-blog'></i>
 								<p>Blogs</p>
 							</a>
-						</li>
+						</li> -->
 						@endcan
 
 						@can('testimonials-list')
@@ -264,19 +268,22 @@
 								<p>Payment method</p>
 							</a>
 						</li> -->
-						<li class="nav-section">
-							<span class="sidebar-mini-icon">
-								<i class="fa fa-ellipsis-h"></i>
-							</span>
-							<h4 class="text-section">System</h4>
-						</li> 
+						@if((Auth::user()->roles[0]->id != 4))
+							
+							<li class="nav-section">
+								<span class="sidebar-mini-icon">
+									<i class="fa fa-ellipsis-h"></i>
+								</span>
+								<h4 class="text-section">System</h4>
+							</li> 
 
-						<li class="nav-item @if('account-book' == url_explode(request()->path()) ) {{'active'}} @endif">
-							<a  href="{{url('/account-book')}}">
-								<i class="fas fa-money-check-alt"></i>
-								<p>Account Book</p>
-							</a>
-						</li>
+							<!-- <li class="nav-item @if('account-book' == url_explode(request()->path()) ) {{'active'}} @endif">
+								<a  href="{{url('/account-book')}}">
+									<i class="fas fa-money-check-alt"></i>
+									<p>Account Book</p>
+								</a>
+							</li> -->
+						@endif
 						
 						@can('payment-methods-list')
 						<li class="nav-item @if('payment-methods' == url_explode(request()->path()) ) {{'active'}} @endif">

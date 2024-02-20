@@ -6,58 +6,49 @@
         <div class="page-header">
             <h4 class="page-title">@yield('title')</h4>
         </div>
-        <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
+        <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+          aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header text-center">
-                <h4 class="modal-title w-100 font-weight-bold">Write to us</h4>
-                <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close">
+                <h4 class="modal-title w-100 font-weight-bold">Hire them</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true" class="d-block">&times;</span>
                 </button>
               </div>
               <div class="modal-body mx-3">
-                <div class="md-form mb-5">
-                  <i class="fas fa-user prefix grey-text"></i>
-                  <input type="text" id="form34" class="form-control validate">
-                  <label data-error="wrong" data-success="right" for="form34">Your name</label>
-                </div>
-
-                <div class="md-form mb-5">
-                  <i class="fas fa-envelope prefix grey-text"></i>
-                  <input type="email" id="form29" class="form-control validate">
-                  <label data-error="wrong" data-success="right" for="form29">Your email</label>
-                </div>
-
-                <div class="md-form mb-5">
-                  <i class="fas fa-tag prefix grey-text"></i>
-                  <input type="text" id="form32" class="form-control validate">
-                  <label data-error="wrong" data-success="right" for="form32">Subject</label>
-                </div>
-
                 <div class="md-form">
-                  <i class="fas fa-pencil prefix grey-text"></i>
-                  <textarea type="text" id="form8" class="md-textarea form-control" rows="4"></textarea>
-                  <label data-error="wrong" data-success="right" for="form8">Your message</label>
+                    <h2 class="text-center" style="font-size: 22px;">Are you sure?</h2>
                 </div>
 
               </div>
-              <div class="modal-footer d-flex justify-content-center">
-                <button class="btn btn-unique">Send <i class="fas fa-paper-plane-o ml-1"></i></button>
+              <div class="modal-footer d-flex justify-content-end">
+                <button class="btn btn-danger" data-dismiss="modal" aria-label="Close">No</button>
+                <form action="{{route('hire_person')}}" method="POST">
+                    @csrf
+                    <input type="hidden" value="{{$applicant->project_id}}" name="project_id">
+                    <input type="hidden" value="{{$applicant->user_id}}" name="user_id">
+                    <input type="hidden" value="{{$applicant->cost}}" name="cost">
+                    <button class="btn btn-primary">Yes</button>
+                </form>
               </div>
             </div>
           </div>
         </div>
+
         <div class="row">
             <div class="col-md-12">
                 <div class="card card-space">
                    <div class="card-header row justify-content-between align-items-center">
                       <h4 class="pl-3 card-title">@yield('title')</h4>
-                      <a href="{{asset('uploads/'.$applicant->portfolio)}}" target="_blank" class="mr-3 btn btn-primary">Portfolio</a>
+                      <div>
+                        <a href="{{route('chat',[$applicant->user_id])}}" class="mr-3 btn btn-primary">Start Chat <i class="fas fa-comment"></i></a>
+                        <a href="{{asset('uploads/'.$applicant->portfolio)}}" target="_blank" class="mr-3 btn btn-primary">Portfolio</a>
+                      </div>
                    </div>
                     <div class="card-body">
                       <div class="row align-items-baseline">
-                        <div class="col-12 col-md-10">
+                        <div class="col-12 col-md-9">
                             <div class="tab-content" id="v-pills-tabContent">
                                <div class="tab-pane fade active show" id="v-pills-home-icons" role="tabpanel" aria-labelledby="v-pills-home-tab-icons">
                                   <div class="accordion accordion-secondary">
@@ -70,7 +61,9 @@
                                                 <div class="col-md-3 col-sm-3">
                                                     <p><i class="fa fa-envelope text-primary" aria-hidden="true"></i> {{$applicant->user->email ?? ''}}</p>
                                                     <p><i class="fa fa-phone text-primary" aria-hidden="true" style="transform: rotate(90deg);"></i> {{$applicant->user->contact_no ?? ''}}</p>
-                                                    <button class="btn btn-primary" data-toggle="modal" data-target="#modalContactForm">Hire Now</button>
+                                                    <div class="text-center">
+                                                      <a href="" class="mr-3 btn btn-primary" data-toggle="modal" data-target="#modalLoginForm">Hire Now</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <p class="text-muted"></p>
@@ -84,13 +77,18 @@
                                </div>
                             </div>
                          </div>
-                         <div class="col-12 col-md-2">
+                         <div class="col-12 col-md-3">
                             <div class="text-center">
                                 @if($applicant->profile_pic)
                                     <img src="{{asset('uploads/'.$applicant->profile_pic)}}">
                                 @else
                                     <img src="{{asset('uploads/no_image.png')}}" width="120px">
                                 @endif
+                            </div>
+                            <div class="mt-5 p-3" style="border: 1px solid rgb(235 236 236);">
+                                <p class="mb-5"><i class="fas fa-solid fa-money-bill"></i> Estimated cost: <br><b class="pull-right">{{$applicant->cost}} PKR</b></p>
+                                <p class="mb-5"><i class="fas fa-history"></i> Experience: <br><b class="pull-right">{{$applicant->experience}} Years</b></p>
+                                <p class="mb-5"><i class="far fa-clock"></i> Estimated time: <br><b class="pull-right">{{$applicant->duration}}</b></p>
                             </div>
                          </div>
                       </div>

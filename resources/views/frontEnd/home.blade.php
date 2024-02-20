@@ -21,7 +21,6 @@
 		font-size: 16px;
 	}
 	.offer-sec{
-		background-color: #1F4B3F;
 		color: #fff;
 		padding: 80px 0;
 	}
@@ -37,8 +36,12 @@
 	    display: flex;
 	    justify-content: center;
 	    align-items: center;
-	    box-shadow: 0px 0px 7px 0px #c9c9c9;
 	    padding: 12px 10px;
+	    border: 1px solid #c9c9c9;
+	    transition: 0.2s;
+	}
+	.category-block:hover{
+		transform: scale(1.1);
 	}
 	.testi-content {
 	    width: 80%;
@@ -59,8 +62,8 @@
 	.blog-wrapper .blog-content{
 		padding: 20px;
 	}
-	.footer-sec{
-		background-color: #1F4B3F;
+	.testimonials-sec{
+		padding: 70px 0;
 	}
 	.subfoot{
 		border-bottom: 1px solid #6b717785;
@@ -72,6 +75,13 @@
 		background-position: center;
 		background-size: cover;
 		height: 100vh;
+	}
+	.row-globe-bg{
+		background-image: url('{{asset("uploads/global-technologies-data-world-map-banner-background-3d-computer-network-covering-planet_90380-4552.jpg")}}');
+		background-repeat: no-repeat;
+		background-position: center left;
+		background-size: 38%;
+		height: auto;
 	}
 	.banner-sec:after{
 		content: "";
@@ -93,7 +103,7 @@
 	  from { border-right-color: rgba(255,255,255,.75); }
 	  to { border-right-color: transparent; }
 	}
-	.typewriter h1 {
+	.typewriter h1, .typewriter h2 {
 	  overflow: hidden;
 	  border-right: .15em solid rgba(255,255,255,.75);
 	  white-space: nowrap;
@@ -113,6 +123,16 @@
 	.heading-group {
 	  display: none;
 	}
+	.category-sec{
+		padding: 70px 0;
+	}
+	.my-steps-col{
+		border: 1px solid #ffffff4f;
+		padding: 30px;
+	}
+	.how-its-sec{
+		padding: 70px 0;
+	}
 </style>
 <div class="home-page">
 	<!-- Banner Section -->
@@ -126,11 +146,11 @@
 	            <p style="font-size: 20px; color: #fff;">Emphasizes the innovative aspect of your service and warmly welcomes visitors.</p>
 	          </div>
 	          <div class="heading-group typewriter" id="group2">
-	            <h1 style="text-align: left;font-size: 45px; color: #fff; font-weight: 600;">Design Your Dreams with Top 3D Designers</h1>
+	            <h2 style="text-align: left;font-size: 45px; color: #fff; font-weight: 600;">Design Your Dreams with Top 3D Designers</h2>
 	            <p style="font-size: 20px; color: #fff;">Highlights the creative process and the expertise of your 3D designers in bringing ideas to life.</p>
 	          </div>
 	          <div class="heading-group typewriter" id="group3">
-	            <h1 style="text-align: left;font-size: 45px; color: #fff; font-weight: 600;">Bring Design to Reality with 3D Printing Vendors</h1>
+	            <h2 style="text-align: left;font-size: 45px; color: #fff; font-weight: 600;">Bring Design to Reality with 3D Printing Vendors</h2>
 	            <p style="font-size: 20px; color: #fff;">Focuses on the practical aspect of making designs tangible, showcasing the role of vendors in the 3D printing process to deliver final products to clients.</p>
 	          </div>
 	        </div>
@@ -144,30 +164,35 @@
 	<!-- Offer Section -->
 	<section class="offer-sec">
 		<div class="container-fluid">
-			<div class="head mb-5">
-				<h2>Need something done?</h2>
-				<p>Most viewed and all-time top-selling services</p>
-			</div>
-			<div class="row">
-				<div class="col-md-3">
-					<i class="fa fa-file" aria-hidden="true"></i>
+			<div class="row row-globe-bg">
+				<div class="col-md-6">
+					
+				</div>
+				<div class="col-md-6">
+					<div class="head mb-5">
+						<h2>Need something done?</h2>
+						<p>Most viewed and all-time top-selling services</p>
+					</div>
 					<h3>Post a job</h3>
-					<p>It’s free and easy to post a job. Simply fill in a title, description.</p>
-				</div>
-				<div class="col-md-3">
-					<i class="fa fa-users" aria-hidden="true"></i>
-					<h3>Choose freelancers</h3>
-					<p>It’s free and easy to post a job. Simply fill in a title, description.</p>
-				</div>
-				<div class="col-md-3">
-					<i class="fas fa-money-check-alt"></i>
-					<h3>Pay safely</h3>
-					<p>It’s free and easy to post a job. Simply fill in a title, description.</p>
-				</div>
-				<div class="col-md-3">
-					<i class="fa fa-phone" aria-hidden="true"></i>
-					<h3>We’re here to help</h3>
-					<p>It’s free and easy to post a job. Simply fill in a title, description.</p>
+					<ul>
+						<li><p>Free and easy job posting.</p></li>
+						<li><p>Connect instantly with expert 3D designers and vendors.</p></li>
+						<li><p>Share your project’s title and details to start.</p></li>
+					</ul>
+
+					<h3>Choose designers and vendors</h3>
+					<ul>
+						<li><p>Browse and select skilled 3D designers and vendors effortlessly.</p></li>
+						<li><p>Access portfolios and reviews to make informed choices.</p></li>
+						<li><p>Ideal for custom 3D designs and printing projects.</p></li>
+					</ul>
+
+					<h3>We’re Here to Help</h3>
+					<ul>
+						<li><p>Dedicated support for your project’s success.</p></li>
+						<li><p>Guidance on posting jobs and selecting the right freelancers.</p></li>
+						<li><p>Seamless experience from start to finish.</p></li>
+					</ul>
 				</div>
 			</div>
 		</div>
@@ -175,18 +200,35 @@
 	<!-- Offer Section -->
 
 	<!-- Category Section -->
-	<section class="category-sec" style="margin-top: 70px;">
+	<section class="category-sec bg-color-theme" style="margin-top: 70px;">
 		<div class="container-fluid">
-			<div class="categories-head">
+			<div class="categories-head text-white">
 				<h2>Browse talent by category</h2>
 				<p>Get some Inspirations from 100+ skills</p>
 			</div>
 			<div class="categories mt-5">
 				<div class="row">
-					@foreach($categories as $key => $value)
+					<div class="col-md-12 mb-5 ">
+						<h3 class="text-center text-white">3D designer categories</h3>
+					</div>
+					@foreach($categories_designers as $key => $value)
 						<div class="col-md-3 mb-5 ">
 							<div class="category-block">
-								<a href="{{ route('front.category', ['category' => $value->name]) }}">
+								<a class="text-white" href="{{ route('front.category', ['category' => $value->name]) }}">
+								    <h4>{{ $value->name }}</h4>
+								    <p>{{ $value->projects_count }} Services</p>
+								</a>
+
+							</div>
+						</div>
+					@endforeach
+					<div class="col-md-12 mb-5 ">
+						<h3 class="text-center text-white">3D vendor categories</h3>
+					</div>
+					@foreach($categories_vendors as $key => $value)
+						<div class="col-md-3 mb-5 ">
+							<div class="category-block">
+								<a class="text-white" href="{{ route('front.category', ['category' => $value->name]) }}">
 								    <h4>{{ $value->name }}</h4>
 								    <p>{{ $value->projects_count }} Services</p>
 								</a>
@@ -203,7 +245,7 @@
 	<!-- Services Section -->
 	<section class="services-sec">
 		<div class="container-fluid">
-			<div class="services-head">
+			<div class="services-head text-white">
 				<h2>Popular Services</h2>
 				<p>Most viewed and all-time top-selling services</p>
 			</div>
@@ -214,13 +256,13 @@
 						<div style="padding: 15px; border: 1px solid #e9e9e9;">
 							<div class="row">
 								<div class="col-md-6"><img width="100%" style="height: 190px;object-fit: cover;object-position: center;;" src="{{ asset('/uploads/'.$value->job_image) }}"></div>
-								<div class="col-md-6">
+								<div class="col-md-6 text-white">
 									<p>{{$value->category_name}}</p>
-									<h4><a href="{{ route('front.service', ['service' => $value->job_title]) }}">{{$value->job_title}}</a></h4>
+									<h3><a class="text-white" href="{{ route('front.service', ['service' => $value->job_title]) }}">{{$value->job_title}}</a></h3>
 									<hr class="mr-4 my-2">
 									{!! Str::limit($value->description, 60) !!}
 									<hr class="mr-4 my-2">
-									<span><a href="#">{{$value->creator}}</a> Starting at: {{'PKR'.$value->price}}</span>
+									<span><a href="#" class="text-white">{{$value->creator}}</a> Starting at: {{'PKR '.$value->price}}</span>
 								</div>
 							</div>
 						</div>
@@ -232,42 +274,50 @@
 	</section>
 	<!-- Services Section -->
 
-	<!-- Blogs Section -->
-	<section class="blog-sec">
-		<div class="container-fluid">
-			<div class="blogs-head">
-				<h2>Our Blog</h2>
-				<p>See how you can up your career status</p>
+	<!-- How it works Section -->
+	<section class="how-its-sec bg-color-theme">
+		<div class="container">
+			<div class="head text-white text-center">
+				<h2>How it works</h2>
+				<p class="text-muted">3 easy steps to get your printed model</p>
 			</div>
-			<div class="row mt-5">
-				@foreach($blogs as $key => $value)
-					<div class="col-md-3">
-						<div class="blog-wrapper">
-							<div class="blog-img">
-								<img width="100%" src="{{ asset('/uploads/'.$value->blog_image) }}">
-							</div>
-							<div class="blog-content">
-								<p>{{date('M,d,Y',strtotime($value->created_at))}}</p>
-								<h4><a href="{{ route('front.blog', ['blog' => $value->title]) }}">{{$value->title}}</a></h4>
-								<p>{!! Str::limit($value->description, 100) !!}</p>
-							</div>
-						</div>
+			<div class="row">
+				<div class="col-md-4 my-steps-col mt-5">
+					<div><img src="{{asset('uploads/illustration_modelConfiguration.svg')}}" width="100%"></div>
+					<div class="p-4 text-white">
+						<h3>Upload your 3D models and start configuring</h3>
+						<p>We support over 35 file formats including STL, OBJ, STEP, ZIP. All uploads are secure and confidential.</p>
 					</div>
-				@endforeach
+				</div>
+				<div class="col-md-4 my-steps-col mt-5">
+					<div><img src="{{asset('uploads/illustration_modelProduction.svg')}}" width="100%"></div>
+					<div class="p-4 text-white">
+						<h3>Choose the material, finish and color</h3>
+						<p>Our catalog contains more than 20 different technologies and over 100 materials, with a variety of different finish and color options.</p>
+					</div>
+				</div>
+				<div class="col-md-4 my-steps-col mt-5">
+					<div><img src="{{asset('uploads/illustration_modelDelivery.svg')}}" width="100%"></div>
+					<div class="p-4 text-white">
+						<h3>Select the best offer and get your parts delivered</h3>
+						<p>Choose your preferred manufacturer from more than 150 professional services worldwide and receive your order fast and hassle-free.</p>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
-	<!-- Blogs Section -->
+	<!-- How it works Section -->
+
 	<!-- Testimonials Section -->
-	<section class="testimonials-sec mt-5">
+	<section class="testimonials-sec">
 		<div class="container-fluid">
-			<div class="testi-head text-center">
+			<div class="testi-head text-center text-white">
 				<h2>Testimonials</h2>
 				<p>Interdum et malesuada fames ac ante ipsum</p>
 			</div>
 			<div class="text-center owl-carousel owl-theme mt-5">
 				@foreach($testimonials as $key => $value)
-					<div class="item">
+					<div class="item text-white">
 						<div class="testi-content">
 							<div class="testi-description">
 								<h3>{{$value->description}}</h3>
@@ -284,7 +334,7 @@
 	</section>
 	<!-- Testimonials Section -->
 	<!-- Footer Section -->
-	<section class="footer-sec mt-5 py-5">
+	<section class="footer-sec py-5">
 		<div>
 			<div class="container-fluid">
 				<div class="row pb-5 subfoot">
@@ -324,30 +374,32 @@
 					<div class="col-md-3">
 						<h4 class="text-white mb-4">Categories</h4>
 						<ul class="p-0">
-							<li class="list-unstyled mb-3"><a href="#" class="text-light" style="opacity: 0.7;">
-								<p class="m-0">Design & Creative</p>
-							</a></li>
-							<li class="list-unstyled mb-3"><a href="#" class="text-light" style="opacity: 0.7;">
-								<p class="m-0">Development & IT</p>
-							</a></li>
-							<li class="list-unstyled mb-3"><a href="#" class="text-light" style="opacity: 0.7;">
-								<p class="m-0">Music & Audio</p>
-							</a></li>
-							<li class="list-unstyled mb-3"><a href="#" class="text-light" style="opacity: 0.7;">
-								<p class="m-0">Programming & Tech</p>
-							</a></li>
-							<li class="list-unstyled mb-3"><a href="#" class="text-light" style="opacity: 0.7;">
-								<p class="m-0">Digital Marketing</p>
-							</a></li>
-							<li class="list-unstyled mb-3"><a href="#" class="text-light" style="opacity: 0.7;">
-								<p class="m-0">Finance & Accounting</p>
-							</a></li>
-							<li class="list-unstyled mb-3"><a href="#" class="text-light" style="opacity: 0.7;">
-								<p class="m-0">Writing & Translation</p>
-							</a></li>
-							<li class="list-unstyled mb-3"><a href="#" class="text-light" style="opacity: 0.7;">
-								<p class="m-0">Trending</p>
-							</a></li>
+							<?php $i = 1; ?>
+							@foreach($categories_designers as $key => $value)
+								<li class="list-unstyled mb-3">
+									<a href="{{ route('front.category', ['category' => $value->name]) }}" class="text-light" style="opacity: 0.7;">
+										<p class="m-0">{{$value->name}}</p>
+									</a>
+								</li>
+								<?php if ($i >= 6) {
+									break;
+								}else{
+									$i++;
+								} ?>
+							@endforeach
+
+							@foreach($categories_vendors as $key => $value)
+								<li class="list-unstyled mb-3">
+									<a href="{{ route('front.category', ['category' => $value->name]) }}" class="text-light" style="opacity: 0.7;">
+										<p class="m-0">{{$value->name}}</p>
+									</a>
+								</li>
+								<?php if ($i >= 6) {
+									break;
+								}else{
+									$i++;
+								} ?>
+							@endforeach
 						</ul>
 					</div>
 					<div class="col-md-3">

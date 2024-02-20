@@ -24,28 +24,91 @@ class HomeFrontController extends Controller
     {
         $testimonials   = Testimonial::where('active',1)->get();
         $blogs          = Blog::where('active',1)->limit(4)->get();
-        $categories     = Category::where('active', 1)
+        $categories_designers     = Category::where('active', 1)
                         ->withCount('projects') 
-                        ->limit(4)
+                        ->where('role_id',2)
+                        ->limit(8)
                         ->get();
-        $projects       = $projects = Project::where('projects.active', 1)
-                            ->join('categories', 'categories.id', '=', 'projects.job_category')
-                            ->join('users', 'users.id', '=', 'projects.user_id')
-                            ->orderBy('projects.created_at', 'desc')
-                            ->limit(4)
-                            ->get(['projects.*', 'categories.name as category_name', 'users.name as creator']);
 
-    	return view('frontEnd.home',compact('testimonials','blogs','projects','categories'));
+        $categories_vendors     = Category::where('active', 1)
+                        ->withCount('projects')
+                        ->where('role_id',3)
+                        ->limit(8)
+                        ->get();
+
+
+        if(isset(Auth::user()->id) && Auth::user()->roles[0]->id == 4){
+            $projects = Project::where('projects.active', 1)
+                        ->where('projects.user_id', Auth::user()->id)
+                        ->join('categories', 'categories.id', '=', 'projects.job_category')
+                        ->join('users', 'users.id', '=', 'projects.user_id')
+                        ->orderBy('projects.created_at', 'desc')
+                        ->limit(4)
+                        ->get(['projects.*', 'categories.name as category_name', 'users.name as creator']);
+        
+        }elseif(isset(Auth::user()->id) && Auth::user()->roles[0]->id == 2){
+            $projects = Project::where('projects.active', 1)
+                        ->where('projects.role_id', 2)
+                        ->join('categories', 'categories.id', '=', 'projects.job_category')
+                        ->join('users', 'users.id', '=', 'projects.user_id')
+                        ->orderBy('projects.created_at', 'desc')
+                        ->limit(4)
+                        ->get(['projects.*', 'categories.name as category_name', 'users.name as creator']);
+        
+        }elseif(isset(Auth::user()->id) && Auth::user()->roles[0]->id == 3){
+            $projects = Project::where('projects.active', 1)
+                        ->where('projects.role_id', 3)
+                        ->join('categories', 'categories.id', '=', 'projects.job_category')
+                        ->join('users', 'users.id', '=', 'projects.user_id')
+                        ->orderBy('projects.created_at', 'desc')
+                        ->limit(4)
+                        ->get(['projects.*', 'categories.name as category_name', 'users.name as creator']);
+        }else{
+            $projects = Project::where('projects.active', 1)
+                        ->join('categories', 'categories.id', '=', 'projects.job_category')
+                        ->join('users', 'users.id', '=', 'projects.user_id')
+                        ->orderBy('projects.created_at', 'desc')
+                        ->limit(4)
+                        ->get(['projects.*', 'categories.name as category_name', 'users.name as creator']);
+        }
+
+    	return view('frontEnd.home',compact('testimonials','blogs','projects','categories_designers','categories_vendors'));
     }
 
     public function service(){
 
         $testimonials   = Testimonial::where('active',1)->get();
-        $projects = Project::where('projects.active', 1)
-                    ->join('categories', 'categories.id', '=', 'projects.job_category')
-                    ->join('users', 'users.id', '=', 'projects.user_id')
-                    ->orderBy('projects.created_at', 'desc')
-                    ->paginate(10, ['projects.*', 'categories.name as category_name', 'users.name as creator']);
+
+        if(isset(Auth::user()->id) && Auth::user()->roles[0]->id == 4){
+            $projects = Project::where('projects.active', 1)
+                        ->where('projects.user_id', Auth::user()->id)
+                        ->join('categories', 'categories.id', '=', 'projects.job_category')
+                        ->join('users', 'users.id', '=', 'projects.user_id')
+                        ->orderBy('projects.created_at', 'desc')
+                        ->paginate(10, ['projects.*', 'categories.name as category_name', 'users.name as creator']);
+        }elseif(isset(Auth::user()->id) && Auth::user()->roles[0]->id == 2){
+            $projects = Project::where('projects.active', 1)
+                        ->where('projects.role_id', 2)
+                        ->join('categories', 'categories.id', '=', 'projects.job_category')
+                        ->join('users', 'users.id', '=', 'projects.user_id')
+                        ->orderBy('projects.created_at', 'desc')
+                        ->paginate(10, ['projects.*', 'categories.name as category_name', 'users.name as creator']);
+        }
+        elseif(isset(Auth::user()->id) && Auth::user()->roles[0]->id == 3){
+            $projects = Project::where('projects.active', 1)
+                        ->where('projects.role_id', 3)
+                        ->join('categories', 'categories.id', '=', 'projects.job_category')
+                        ->join('users', 'users.id', '=', 'projects.user_id')
+                        ->orderBy('projects.created_at', 'desc')
+                        ->paginate(10, ['projects.*', 'categories.name as category_name', 'users.name as creator']);
+        }
+        else{
+            $projects = Project::where('projects.active', 1)
+                        ->join('categories', 'categories.id', '=', 'projects.job_category')
+                        ->join('users', 'users.id', '=', 'projects.user_id')
+                        ->orderBy('projects.created_at', 'desc')
+                        ->paginate(10, ['projects.*', 'categories.name as category_name', 'users.name as creator']);
+        }
 
 
         return view('frontEnd.services',compact('projects','testimonials'));
@@ -80,7 +143,7 @@ class HomeFrontController extends Controller
     public function applyJob($serviceName){
         $job        = Project::where('job_title',$serviceName)->firstOrFail();
         $user       = User::where('id',$job->user_id)->firstOrFail();
-        $applicant  = Applicants::where('user_id',Auth::user()->id)->first();
+        $applicant  = Applicants::where('project_id', $job->id)->where('user_id',Auth::user()->id)->first();
         $jobs       = Project::where('active',1)->whereNotIn('id', [$job->id])->limit(4)->get();
         return view('frontEnd.job_form',compact('job','user','jobs','applicant'));
     }

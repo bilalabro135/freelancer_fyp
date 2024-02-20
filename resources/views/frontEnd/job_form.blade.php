@@ -143,7 +143,7 @@
 							@csrf
 							<input type="hidden" name="project_name" value="{{$job->job_title}}">
 							<input type="hidden" name="project_id" value="{{$job->id}}">
-							<div class="col-md-4">
+							<div class="col-md-3">
 								<div>
 									<p class="mb-2">Duration <span class="text-danger">*</span></p>
 									<select class="form-control py-0 " name="duration" required>
@@ -161,13 +161,17 @@
 									</select>
 								</div>
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-3">
 								<p class="mb-2">Upload your portfolio <span class="text-danger">*</span></p>
 								<input type="file" name="portfolio" class="form-control py-0" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-3">
 								<p class="mb-2">Experience? <span class="text-danger">*</span></p>
 								<input type="number" min="0" max="10" name="experience" class="form-control py-0" required>
+							</div>
+							<div class="col-md-3">
+								<p class="mb-2">Estimated cost? <span class="text-danger">*</span></p>
+								<input type="text"name="cost" class="form-control py-0" required>
 							</div>
 							<div class="col-md-12">
 								<p class="mb-2 mt-4">Cover Letter <span class="text-danger">*</span></p>

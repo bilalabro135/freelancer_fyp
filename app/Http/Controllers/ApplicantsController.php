@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Applicants;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -86,18 +87,21 @@ class ApplicantsController extends Controller
 
     public function applicant_list($id){
         $applicants = Applicants::where('project_id', $id)
-                       ->with('user') 
+                       ->with('user')
                        ->orderBy('created_at', 'desc')
                        ->get();
 
+        $project = Project::where('id',$id)->where('active', 1)->firstOrFail();
 
-        return view('jobs/applicants', compact('applicants'));
+
+        return view('jobs.applicants', compact('applicants'));
     }
 
     public function view_applicant($id)
     {
         $applicant = Applicants::where('id',$id)->firstOrFail();
-        return view('jobs.view_applicant',compact('applicant'));
+        $project = Project::where('id',$applicant->project_id)->where('active', 1)->firstOrFail();
+        return view('jobs.view_applicant',compact('applicant','project'));
     }
 
     public function applicant_add(Request $request){
@@ -109,7 +113,7 @@ class ApplicantsController extends Controller
             $request->file('portfolio')->move($destination, $portfolio);
         }
 
-        $applicant  = Applicants::where('user_id',Auth::user()->id)->first();
+        $applicant  = Applicants::where('user_id', Auth::user()->id)->first();
 
         if (empty($applicant)) {
             $add_applicants = Applicants::create([
@@ -118,6 +122,7 @@ class ApplicantsController extends Controller
                 'cover_letter'  => $request->cover_letter,
                 'project_id'    => $request->project_id,
                 'experience'    => $request->experience,
+                'cost'          => $request->cost,
                 'portfolio'     => $portfolio
             ]);
         }else{

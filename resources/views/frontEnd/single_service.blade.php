@@ -106,14 +106,14 @@
 </style>
 <div class="home-page">
 	<!-- Banner Section -->
-	<section class="banner-sec">
+	<section class="banner-sec bg-color-theme">
 		<div class="container">
 			<div class="row justify-content-between align-items-center">
 				<div class="col-md-12">
 					<div class="banner-main">
-						<h1 style="font-size: 35px; color: #1F4B3F; font-weight: 600;"><b>{{$job->job_title}}</b></h1>
+						<h1 style="font-size: 35px; color: #fff; font-weight: 600;"><b>{{$job->job_title}}</b></h1>
 						<div class="blog-by d-flex">
-							<p class="mt-4">
+							<p class="mt-4 text-white">
 								@if(isset($user->profile_pic))
 									<img width="100%" src="{{asset('uploads/'.$user->profile_pic)}}">
 								@else
@@ -131,24 +131,31 @@
 	<!-- Banner Section -->
 
 	<!-- Services Section -->
-	<section class="blogs-sec pb-0">
+	<section class="blogs-sec pb-0 mt-5">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8">
 					<div class="blogs-head">
-						<div class="simple-det row">
+						<div class="simple-det row align-items-center text-white">
 							<div class="d-flex col-md-3" style="gap: 30px;">
-								<i class="fa fa-regular fa-calendar-check text-dark"></i>
+								<i class="text-white fa fa-regular fa-calendar-check"></i>
 								<div>
 									<p class="m-0">Delivery Time</p>
 									<p class="m-0">{{$job->delivery_time}} Days</p>
 								</div>
 							</div>
 							<div class="d-flex col-md-3" style="gap: 30px;">
-								<i class="fa fa-map-marker text-dark" aria-hidden="true"></i>
+								<i class="text-white fa fa-map-marker" aria-hidden="true"></i>
 								<div>
 									<p class="m-0">Location</p>
 									<p class="m-0">{{$job->location}}</p>
+								</div>
+							</div>
+							<div class="d-flex col-md-4" style="gap: 30px;">
+								<i class="fa fa-download" aria-hidden="true"></i>
+								<div>
+									<p class="m-0">Project File</p>
+									<p><a href="{{asset('uploads/'.$job->project_file)}}">Download here</a></p>
 								</div>
 							</div>
 						</div>
@@ -159,7 +166,7 @@
 							<div class="col-md-12">
 								<img src="{{asset('uploads/'.$job->job_image)}}">
 							</div>
-							<div class="col-12 p-5">
+							<div class="col-12 p-5 text-white">
 								<h3>Service Description</h3>
 								<hr class="mr-4 my-4">
 								{!! ($job->description) !!}
@@ -168,7 +175,7 @@
 					</div>
 				</div>
 				<div class="col-md-4" style="margin-top: 128px;">
-					<div class="pricing-area">
+					<div class="pricing-area text-white">
 						<h3>PKR {{$job->price}}</h3>
 						<div>
 							<hr class="mr-4 my-4">
@@ -182,25 +189,11 @@
 								<p>{{$user->name}}</p>
 							</div>
 							<hr class="mr-4 my-4">
-							<div class="row mb-3">
-								<div class="col-md-6">
-									<p>
-										Location: <br>
-										Los Angeles
-									</p>
-								</div>
-								<div class="col-md-6">
-									<p>
-										Rate: <br>
-										$15 - $25 / hr
-									</p>
-								</div>
-							</div>
 						</div>
 						@if(isset(Auth::user()->id))
-							<a href="{{ route('front.service.apply', ['service' => $job->job_title]) }}" class="btn text-center">Buy Now {{$job->price}}</a>
+							<a href="{{ route('front.service.apply', ['service' => $job->job_title]) }}" class="text-white btn bg-color-theme text-center">Apply Now {{$job->price}} PKR</a>
 						@else
-							<button class="btn text-center">Buy Now {{$job->price}}</button>
+							<button class="text-white bg-color-theme btn text-center">Apply Now {{$job->price}} PKR</button>
 							<p class="text-center mt-4 text-danger">Please login to apply for this job</p>
 						@endif
 					</div>
@@ -211,9 +204,9 @@
 	<!-- Services Section -->
 
 	<!-- Services Section -->
-	<section class="related-sec py-5 mt-5">
+	<section class="related-sec bg-color-theme py-5 mt-5">
 		<div class="container">
-			<div class="services-head">
+			<div class="services-head text-white">
 				<h2>Related Jobs</h2>
 				<hr class="mr-4 my-4">
 			</div>
@@ -225,7 +218,7 @@
 								<div class="blog-img">
 									<img width="100%" src="{{ asset('/uploads/'.$value->job_image) }}">
 								</div>
-								<div class="blog-content">
+								<div class="blog-content text-white">
 									<p>{{date('M,d,Y',strtotime($value->created_at))}}</p>
 									<h4><a href="{{ route('front.service', ['service' => $value->job_title]) }}">{{$value->job_title}}</a></h4>
 									<p>{!! Str::limit($value->description, 100) !!}</p>

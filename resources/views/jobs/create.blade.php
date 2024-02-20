@@ -25,13 +25,19 @@
                         <div class="card-body">
                             <div class=" row">
                                 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 row">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-group">
                                             {!! Html::decode(Form::label('job_title','Title <span class="text-danger">*</span>')) !!}
                                             {{ Form::text('job_title', null, array('placeholder' => 'Title','class' => 'form-control','autofocus' => ''  )) }}
                                             @if ($errors->has('job_title'))
                                                 {!! "<span class='span_danger'>". $errors->first('job_title')."</span>"!!} 
                                             @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            {!! Html::decode(Form::label('project_file','Project File <span class="text-danger">*</span>')) !!}
+                                            <input type="file" id="project_file" class="form-control" name="project_file">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -56,6 +62,9 @@
                                                 <option value="5">5 Days</option>
                                                 <option value="6">6 Days</option>
                                                 <option value="7">7 Days</option>
+                                                <option value="1x">Abount 1 month</option>
+                                                <option value="3x">Abount 3 month</option>
+                                                <option value="6x">Abount 6 month</option>
                                             </select>
                                         </div>
                                     </div>
@@ -84,9 +93,6 @@
                                             {!! Html::decode(Form::label('job_category','Job category<span class="text-danger">*</span>')) !!}
                                             <select class="form-control py-0" name="job_category" id="job_category">
                                                 <option selected disabled>--Please select--</option>
-                                                @foreach($categories as $key => $value)
-                                                    <option value="{{$key}}">{{$value}}</option>
-                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -135,6 +141,31 @@
     
     <script>
         $(document).ready(function () {  
+
+            $('#role_id').change(function(){
+                var roleId = $(this).val();
+                if(roleId) {
+                    $.ajax({
+                        url: '/categories/'+roleId,
+                        type: "POST",
+                        data: {"role_id":roleId},
+                        dataType: "json",
+                        success:function(data) {
+                            if(data){
+                                $('#job_category').empty();
+                                $('#job_category').append('<option selected disabled>--Please select--</option>'); 
+                                $.each(data, function(key, value){
+                                    $('#job_category').append('<option value="'+ key +'">'+ value.name +'</option>');
+                                });
+                            } else {
+                                $('#job_category').empty();
+                            }
+                        }
+                    });
+                }else{
+                    $('#job_category').empty();
+                }
+            });
 
             $.ajaxSetup({
                 headers: {

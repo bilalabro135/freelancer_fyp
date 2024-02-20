@@ -19,6 +19,7 @@ class CreateMessagesTable extends Migration
             $table->unsignedInteger('to_user_id');
             $table->text('message')->nullable();
             $table->text('file_path')->nullable();
+            $table->text('project_name')->nullable();
             $table->timestamps();
         });
 

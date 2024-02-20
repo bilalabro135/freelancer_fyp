@@ -29,7 +29,7 @@
 
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                     {!! Html::decode(Form::label('name','Full Name <span class="text-danger">*</span>')) !!}
                                     {{ Form::text('name', null, array('placeholder' => 'Enter full name','class' => 'form-control','autofocus' => ''  )) }}
                                         @if ($errors->has('name'))  
@@ -37,11 +37,20 @@
                                         @endif
 
                                     </div>
+
+                                    <div class="col-lg-6 col-md-6">
+                                    {!! Html::decode(Form::label('tagline','Tagline <span class="text-danger">*</span>')) !!}
+                                    {{ Form::text('tagline', null, array('placeholder' => 'I am 3D designer/vendor','class' => 'form-control','autofocus' => ''  )) }}
+                                        @if ($errors->has('tagline'))  
+                                            {!! "<span class='span_danger'>". $errors->first('tagline')."</span>"!!} 
+                                        @endif
+
+                                    </div>
                                 </div>
                         
 
                                 <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                         <div class="form-group">
                                             {!! Html::decode(Form::label('email','Email <span class="text-danger">*</span>')) !!}
                                             {!! Form::text('email', null, array('placeholder' => 'Enter valid mail','class' => 'form-control')) !!}
@@ -50,7 +59,16 @@
                                             @endif
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            {!! Html::decode(Form::label('roles','roles <span class="text-danger">*</span>')) !!}
+                                            {!! Form::select('roles[]', $roles,null, array('class' => 'form-control')) !!}
+                                            @if ($errors->has('roles'))  
+                                                {!! "<span class='span_danger'>". $errors->first('email')."</span>"!!} 
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                         <div class="form-group">
                                             {!! Html::decode(Form::label('password','Password <span class="text-danger">*</span>')) !!}
                                             {!! Form::password('password', array('placeholder' => 'Enter password','class' => 'form-control')) !!}
@@ -64,10 +82,10 @@
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-group">
-                                            {!! Html::decode(Form::label('roles[]','Roles <span class="text-danger">*</span>')) !!}
-                                            {!! Form::select('roles[]', $roles,[], array('class' => 'form-control')) !!}
-                                            @if ($errors->has('roles'))  
-                                                {!! "<span class='span_danger'>". $errors->first('roles')."</span>"!!} 
+                                            {!! Html::decode(Form::label('skills[]','Skills <span class="text-danger">*</span>')) !!}
+                                            {!! Form::select('skills[]', $categories, null, ['class' => 'form-control', 'multiple' => 'multiple', 'id'=>'multiple_select']) !!}
+                                            @if ($errors->has('skills'))  
+                                                {!! "<span class='span_danger'>". $errors->first('skills')."</span>"!!} 
                                             @endif
                                         </div>
                                     </div>
@@ -104,6 +122,14 @@
                                         </div>
                                         
                                     </div>
+
+                                    <div class="col-lg-12 mt-5">
+                                        {!! Html::decode(Form::label('education','Education ')) !!}
+                                        {!! Form::textarea('education', null, array('rows'=>5, 'id' => 'editor', 'class' => 'form-control')) !!}
+                                        @if ($errors->has('education'))  
+                                            {!! "<span class='span_danger'>". $errors->first('education')."</span>"!!} 
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
 
@@ -125,8 +151,24 @@
             </div>
         </div>
     </div>
-  
+     <!-- Include jQuery first -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Then include Select2 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+    <!-- Don't forget the Select2 CSS for styling -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <script>
+        jQuery.noConflict();
+            jQuery(document).ready(function ($) {
+                setTimeout(function() {
+                    $('#multiple_select').select2({
+                        placeholder: "Select roles",
+                        allowClear: true
+                    });
+                }, 1000);
+            });
         $(document).ready(function () {  
 
             $.ajaxSetup({
@@ -176,6 +218,9 @@
                 });
             });
         });
+    </script>
+     <script>
+        CKEDITOR.replace('editor');
     </script>
 
 @endsection

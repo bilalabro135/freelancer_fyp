@@ -16,8 +16,19 @@ class UserSeeder extends Seeder
         	'email'     => 'admin@gmail.com',
         	'password'  => Hash::make('rootroot')
         ]);
-  
-        $role           = Role::create(['name' => 'Super-Admin']);
+
+        $roles_defined = [
+            'Super-Admin',
+            '3D Designer',
+            '3D Vendor',
+            'User'
+        ];
+
+        foreach($roles_defined as $roles_single){
+            $role_add = Role::create(['name' => $roles_single]);
+        }
+        
+        $role = Role::where('name','Super-Admin')->where('id',1)->first();
         $permissions    = Permission::pluck('id','id')->all();
   
         $role->syncPermissions($permissions);

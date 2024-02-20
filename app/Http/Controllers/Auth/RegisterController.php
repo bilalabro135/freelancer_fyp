@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -67,10 +68,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $request = request(); // Get the current request instance
+
+        $profile_pic = null;
+        if ($request->hasFile('profile_pic')) {
+            $file = $request->file('profile_pic');
+            $profile_pic = time() . '_' . $file->getClientOriginalName();
+            $destination = public_path('/uploads');
+            $file->move($destination, $profile_pic);
+        }
+
         $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'name'       => $data['name'],
+            'email'      => $data['email'],
+            'profile_pic' => $profile_pic, // Save the profile picture filename or null if not uploaded
+            'password'   => Hash::make($data['password']),
         ]);
 
         // Assign role to user

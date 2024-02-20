@@ -27,12 +27,18 @@
                                 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 row">
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-group">
+                                            <input type="hidden" id="project_id" class="form-control" value="{{$project->id}}" name="project_id">
                                             {!! Html::decode(Form::label('job_title','Title <span class="text-danger">*</span>')) !!}
                                             {{ Form::text('job_title', null, array('placeholder' => 'Title','class' => 'form-control','autofocus' => ''  )) }}
                                             @if ($errors->has('job_title'))
                                                 {!! "<span class='span_danger'>". $errors->first('job_title')."</span>"!!} 
                                             @endif
-                                            <input type="hidden" name="project_id" value="{{$project->id}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            {!! Html::decode(Form::label('project_file','Project File <span class="text-danger">*</span>')) !!}
+                                            <input type="file" id="project_file" class="form-control" name="project_file">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -80,21 +86,21 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <div class="form-group">
-                                            {!! Html::decode(Form::label('location','Location <span class="text-danger">*</span>')) !!}
-                                            <textarea class="form-control" name="location" placeholder="Location & address">{{$project->location}}</textarea>
+                                            {!! Html::decode(Form::label('location','Location ')) !!}
+                                            <textarea class="form-control" name="location" placeholder="Location & address"></textarea>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                                    <div class="input-file input-file-image float-right">
-                                        @if(isset($project->job_image))
-                                        <img src="{{asset('uploads/'.$project->job_image)}}" style="border-radius: 5px; object-fit: cover;" width="100%" height="300">
+                                    <div class="input-file input-file-image float-right" id="kt_profile_avatar" >
+                                        @if(!isset($project->job_image))
+                                            <img src="{{asset('uploads/elementor-placeholder-image.webp')}}" style="border-radius: 5px; object-fit: cover;" width="100%" height="300" class="img-upload-preview">
                                         @else
-                                        <img src="{{asset('uploads/elementor-placeholder-image.webp')}}" style="border-radius: 5px; object-fit: cover;" width="100%" height="300">
+                                            <img src="{{asset('uploads/'.$project->job_image)}}" style="border-radius: 5px; object-fit: cover;" width="100%" height="300" class="img-upload-preview">
                                         @endif
-                                        <input type="file" class="form-control form-control-file" id="uploadImg2" name="job_image" accept="image/*">
+                                        <input type="file" class="form-control form-control-file" id="uploadImg2" name="job_image" accept="image/*" >
                                         <label for="uploadImg2" class="label-input-file btn btn-default btn-round">
                                             <span class="btn-label">
                                                 <i class="fa fa-file-image"></i>
@@ -131,6 +137,31 @@
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('#role_id').change(function(){
+                var roleId = $(this).val();
+                if(roleId) {
+                    $.ajax({
+                        url: '/categories/'+roleId,
+                        type: "POST",
+                        data: {"role_id":roleId},
+                        dataType: "json",
+                        success:function(data) {
+                            if(data){
+                                $('#job_category').empty();
+                                $('#job_category').append('<option selected disabled>--Please select--</option>'); 
+                                $.each(data, function(key, value){
+                                    $('#job_category').append('<option value="'+ key +'">'+ value.name +'</option>');
+                                });
+                            } else {
+                                $('#job_category').empty();
+                            }
+                        }
+                    });
+                }else{
+                    $('#job_category').empty();
                 }
             });
 

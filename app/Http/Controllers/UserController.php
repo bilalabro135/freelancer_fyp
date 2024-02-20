@@ -6,6 +6,7 @@ use Hash;
 use Auth;
 use DataTables;
 use App\Models\User;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Spatie\Permission\Models\Role;
@@ -66,8 +67,13 @@ class UserController extends Controller
     }
     public function create()
     {
-        $roles  = Role::where('id','!=',1)->pluck('name','name')->all();
-        return view('users.create',compact('roles'));
+        $roles      = Role::where('id','!=',1)->pluck('name','name')->all();
+        if (Auth::user()->roles[0]->id == 1) {
+            $categories  = Category::pluck('name','id')->all();
+        }else{
+            $categories  = Category::where('role_id', Auth::user()->roles[0]->id)->pluck('name','id')->all();
+        }
+        return view('users.create',compact('roles','categories'));
     }
 
     public function store(UserRequest $request)
@@ -76,7 +82,8 @@ class UserController extends Controller
         $validated    = $request->validated();
 
         // get all request
-        $input       = $request->all();
+        $input          = $request->all();
+        $input['skills'] = implode(",", $input['skills']);
 
         // uploading image
         if(isset($request['profile_pic'])){
@@ -97,6 +104,13 @@ class UserController extends Controller
 
         return response()->json(['success'=>$request['name']. ' added successfully.']);
     }
+
+    public function getCategoriesByRole(Request $role)
+    {
+        $categories = Category::where('role_id', $role->role_id)->get();
+        return response()->json($categories);
+    }
+
 
     public function show($id)
     {
@@ -134,25 +148,30 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $data           = User::findorFail($id);
-        $roles          = array();
-   
-        if($id == 1){       // user id = 1 ==> Super Admin
-            $roles      = Role::pluck('name','name')->all();
-        }else{
-            $roles      = Role::where('id','!=',1)->pluck('name','name')->all();
-            $userRoleId = $data->roles->pluck('id')->first();
+        if (Auth::user()->id == $id || Auth::user()->roles[0]->id == 1) {
+            $data           = User::findorFail($id);
+            $roles          = array();
+       
+            if($id == 1){       // user id = 1 ==> Super Admin
+                $roles      = Role::pluck('name','name')->all();
+            }else{
+                $roles      = Role::where('id', Auth::user()->roles[0]->id)->pluck('name','name')->all();
+               if (Auth::user()->roles[0]->id == 1) {
+                    $categories  = Category::pluck('name','id')->all();
+                }else{
+                    $categories  = Category::where('role_id', Auth::user()->roles[0]->id)->pluck('name','id')->all();
+                }
+                $userRoleId = $data->roles->pluck('id')->first();
 
-            if($userRoleId !=2){  // role id = 2 ==> Admin
-                $roles      = Role::where('id',$userRoleId)->pluck('name','name')->all();
             }
 
-        }
-        
-   
-        $userRole        = $data->roles->pluck('name','name')->all();
 
-        return view('users.edit',compact('data','roles','userRole'));
+            $userRole        = $data->roles->pluck('name','name')->all();
+
+            return view('users.edit',compact('data','roles','userRole','categories'));
+        }else{
+            return view('404');
+        }
     }
 
 
@@ -163,47 +182,57 @@ class UserController extends Controller
 
         // get all request
         $data       = User::findOrFail($id);
-        $input      = $request->all();
-
-        // if active is not set, make it in-active
-        if(!(isset($input['active']))){
-            $input['active'] = 0;
+        
+        $input       = $request->all();
+        if (Auth::user()->roles[0]->id != 4) {
+            $input['skills'] = implode(",", $input['skills']);
         }
 
-        // password 
-        if(!empty($input['password'])){
-            $input['password'] = Hash::make($input['password']);
-        }else{
-            $input['password'] = $data['password'];
-        }
+        if (Auth::user()->id == $id || Auth::user()->roles[0]->id == 1) {
 
-        // image
-        if(!empty($input['profile_pic'])){
-            // $this->validate($request,['profile_pic'=>'required|image|mimes:jpeg,png,jpg,gif|max:2048']);
-            // delete the previous image
-            if($data['profile_pic']!=""){
-                unlink(public_path('uploads/users/'.$data['profile_pic']));
+            // if active is not set, make it in-active
+            if(!(isset($input['active']))){
+                $input['active'] = 0;
             }
 
-            // upload the new image
-            $image                  = $request->file('profile_pic');
-            $new_name               = rand().'.'.$image->getClientOriginalExtension();
-                                      $image->move(public_path("uploads/users"),$new_name);
-            $input['profile_pic']   = $new_name;
+            // password 
+            if(!empty($input['password'])){
+                $input['password'] = Hash::make($input['password']);
+            }else{
+                $input['password'] = $data['password'];
+            }
+
+            // image
+            if(!empty($input['profile_pic'])){
+                // $this->validate($request,['profile_pic'=>'required|image|mimes:jpeg,png,jpg,gif|max:2048']);
+                // delete the previous image
+                if($data['profile_pic']!=""){
+                    unlink(public_path('uploads/users/'.$data['profile_pic']));
+                }
+
+                // upload the new image
+                $image                  = $request->file('profile_pic');
+                $new_name               = rand().'.'.$image->getClientOriginalExtension();
+                                          $image->move(public_path("uploads/users"),$new_name);
+                $input['profile_pic']   = $new_name;
+            }else{
+                $input['profile_pic']   = $data['profile_pic'];
+            }
+
+            // update the entity
+            $data->update($input);
+
+            // delete previous roles
+            DB::table('model_has_roles')->where('model_id',$id)->delete();
+
+            // assign new roles
+            $data->assignRole($request->input('roles'));
+
+            return response()->json(['success'=>$input['name']. ' updated successfully.']);
+        
         }else{
-            $input['profile_pic']   = $data['profile_pic'];
+            return response()->json(['error'=>'Sorry you cannot update '.$input['name']]);
         }
-
-        // update the entity
-        $data->update($input);
-
-        // delete previous roles
-        DB::table('model_has_roles')->where('model_id',$id)->delete();
-
-        // assign new roles
-        $data->assignRole($request->input('roles'));
-
-        return response()->json(['success'=>$input['name']. ' updated successfully.']);
     }
 
 

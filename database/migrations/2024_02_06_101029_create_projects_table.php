@@ -16,9 +16,11 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->text("job_title")->default('(untitled-job)');
-            $table->integer("delivery_time")->nullable();
+            $table->string("delivery_time")->nullable();
             $table->string("location")->nullable();
             $table->text("description")->nullable();
+            $table->text("job_image")->nullable();
+            $table->text("project_file")->nullable();
             $table->integer("payment_method")->nullable();
             $table->string("price")->nullable();
             $table->integer("role_id")->nullable();

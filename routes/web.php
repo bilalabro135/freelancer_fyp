@@ -46,7 +46,9 @@
 	// BEGIN::Jobs
 		Route::resource('/jobs', ProjectController::class);
 		Route::get('/lst_jobs', [ProjectController::class, 'list']);
-		Route::get('/applicant/{id}', [ProjectController::class, 'applicant_list'])->name('applicant');
+		Route::get('/my_jobs', [ProjectController::class, 'my_list'])->name('my_list');
+		Route::post('/hire_person', [ProjectController::class, 'hire_person'])->name('hire_person');
+		Route::post('/request_completion', [ProjectController::class, 'request_completion'])->name('request_completion');
 		Route::delete('/del_job', [ProjectController::class, 'destroy']);
 	// END::Jobs
 
@@ -98,6 +100,7 @@
 	// BEGIN::users
 		Route::resource('/users', UserController::class);
 		Route::get('/lst_user', [UserController::class, 'list']);
+		Route::post('/categories/{role}', [UserController::class, 'getCategoriesByRole']);
 		Route::delete('/del_user', [UserController::class, 'destroy']);
 	// END::users
 

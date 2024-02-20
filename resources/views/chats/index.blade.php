@@ -31,14 +31,14 @@
 												<h4 class="list-group-item-title">
 													<a href="{{route('chat',['user_id' => $value->from_user_id == Auth::id() ? $value->to_user_id : $value->from_user_id])}}">{{$value->sender_name}}</a>
 												</h4>
-												<p class="list-group-item-text text-truncate"><?php echo $value->read_status == 0 ? '<h3 class="font-weight-bold text-truncate">'.$value->message.'</h3>' : $value->message ?></p>
+												<p class="list-group-item-text text-truncate">{{$value->message}}</p>
 											</div>
 											<div class="col-12 col-lg-2 text-lg-right">
 												<p class="list-group-item-text"> {{ \Carbon\Carbon::parse($value->created_at)->diffForHumans() }} </p>
 											</div>
 										</div>
 									</div>
-									<div class="list-group-item-figure">
+									<!-- <div class="list-group-item-figure">
 										<div class="dropdown">
 											<button class="btn-dropdown" data-toggle="dropdown">
 												<i class="fa fa-ellipsis-v"></i>
@@ -51,7 +51,7 @@
 												<a href="#" class="dropdown-item">Trash</a>
 											</div>
 										</div>
-									</div>
+									</div> -->
 								</div>
 							@endforeach
 						</div>

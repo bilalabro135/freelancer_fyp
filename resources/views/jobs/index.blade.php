@@ -33,6 +33,9 @@
                            <a href="{{ url('jobs/'.$value->id) }}"><h2 class="mb-1 fw-bold">{{$value->job_title}}</h2></a>
                             <p class="text-muted small mb-2">{{date('M,d,Y',strtotime($value->created_at))}}</p>
                             {!! Str::limit($value->description, 100) !!}
+                            @if((Auth::user()->id == $value->user_id) || Auth::user()->id == 1)
+                                <a href="{{route('applicants',['id'=> $value->id])}}" class="badge badge-success">{{count($value->applicants) ?? ""}} Applicants</a>
+                            @endif
                         </div>
                     </div>
                 </div>

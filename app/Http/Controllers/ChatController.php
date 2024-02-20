@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Message;
+use App\Models\Applicants;
 use App\Models\User;
+use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use DB;
@@ -44,7 +46,7 @@ class ChatController extends Controller
 
         $filePaths = [];
         if ($request->hasFile('file_path')) {
-            $files = $request->file('file_path'); // This should retrieve an array of files
+            $files = $request->file('file_path');
             foreach ($files as $file) {
                 $fileName = time().'_'.$file->getClientOriginalName();
                 $destinationPath = public_path('/uploads');
@@ -53,11 +55,9 @@ class ChatController extends Controller
             }
         }
 
-
         if (!empty($filePaths)) {
-            $data['file_path'] = json_encode($filePaths); // Ensure this line executes
+            $data['file_path'] = json_encode($filePaths);
         }
-
 
         try {
             $message = Message::create($data);
@@ -73,38 +73,45 @@ class ChatController extends Controller
     {
         $from_user_id = Auth::id();
         $to_user_id = $userId;
-        $messages = Message::where(function($query) use ($from_user_id, $to_user_id) {
-                        $query->where('from_user_id', $from_user_id)->where('to_user_id', $to_user_id);
-                    })
-                    ->orWhere(function($query) use ($from_user_id, $to_user_id) {
-                        $query->where('from_user_id', $to_user_id)->where('to_user_id', $from_user_id);
-                    })
-                    ->with('sender') // Eager load the sender relationship
-                    ->get()
-                    ->map(function ($message) {
-                        $message->created_at = $message->created_at->diffForHumans();
-                        $now = \Carbon\Carbon::now();
-                        $diff = $message->created_at->diffInMinutes($now);
-                        return [
-                            'id' => $message->id,
-                            'from_user_id' => $message->from_user_id,
-                            'to_user_id' => $message->to_user_id,
-                            'message' => $message->message,
-                            'file_path' => $message->file_path,
-                            'created_at' => $diff < 1 ? 'Just now' : $message->created_at->diffForHumans(),
-                            'sender_name' => $message->sender->name,
-                        ];
-                    });
 
-        $read_it = Message::where('from_user_id',$userId)->latest()->first();
-        $read_it->read_status = 1;
-        $read_it->save();
+        // Retrieve messages between users
+        $messages = Message::where(function($query) use ($from_user_id, $to_user_id) {
+                            $query->where('from_user_id', $from_user_id)->where('to_user_id', $to_user_id);
+                        })
+                        ->orWhere(function($query) use ($from_user_id, $to_user_id) {
+                            $query->where('from_user_id', $to_user_id)->where('to_user_id', $from_user_id);
+                        })
+                        ->with('sender') // Eager load the sender relationship
+                        ->get()
+                        ->map(function ($message) {
+                            $now = \Carbon\Carbon::now();
+                            $diff = $message->created_at->diffInMinutes($now);
+                            return [
+                                'id' => $message->id,
+                                'from_user_id' => $message->from_user_id,
+                                'to_user_id' => $message->to_user_id,
+                                'project_name' => $message->project_name,
+                                'message' => $message->message,
+                                'file_path' => $message->file_path,
+                                'created_at' => $diff < 1 ? 'Just now' : $message->created_at->diffForHumans(),
+                                'sender_name' => optional($message->sender)->name, // Use optional to avoid null errors
+                            ];
+                        });
+
+
         return response()->json($messages);
     }
 
+
     public function chatStart($user_id){
-        $user = User::findorFail($user_id);
-        return view('chat',compact('user'));
+        $user       = User::findorFail($user_id);
+        if (Auth::user()->roles[0]->id == 4) {
+            $applicant  = Applicants::where('user_id',$user->id)->first();
+            $project    = Project::where('id',$applicant->project_id)->firstOrFail();
+            return view('chat',compact('user','applicant','project'));
+        }else{
+            return view('chat',compact('user'));
+        }
     }
 
 

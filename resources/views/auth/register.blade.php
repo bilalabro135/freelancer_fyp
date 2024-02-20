@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group form-floating-label">
@@ -53,6 +53,17 @@
 
 
                         <div class="form-group form-floating-label">
+                            <label for="profile_pic">Profile Pic</label>
+                            <input id="profile_pic" type="file"  class="form-control input-border-bottom @error('profile_pic') is-invalid @enderror" name="profile_pic" required>
+                            @error('profile_pic')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+
+                        <div class="form-group form-floating-label">
                             <select class="p-0 form-control input-border-bottom @error('roles') is-invalid @enderror" id="roles[]" name="roles[]">
                                 <option disabled selected>-- Select your role --</option>
                                 @foreach(\Spatie\Permission\Models\Role::all() as $role)
@@ -73,7 +84,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                                    {{ __('Join Saancha') }}
                                 </button>
                             </div>
                         </div>

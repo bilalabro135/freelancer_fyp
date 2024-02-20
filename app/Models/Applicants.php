@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use App\Models\Project;
 
 class Applicants extends Model
 {
@@ -14,6 +15,7 @@ class Applicants extends Model
         'duration',
         'cover_letter',
         'project_id',
+        'cost',
         'experience',
         'portfolio'
     ];
@@ -74,4 +76,9 @@ class Applicants extends Model
     {
         return $this->created_at->diffForHumans();
     }
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
+
 }

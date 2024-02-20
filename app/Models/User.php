@@ -16,10 +16,13 @@ class User extends Authenticatable
 
     protected $fillable = [
         'name',
+        'tagline',
         'email',
         'password',
         'contact_no',
         'description',
+        'experience',
+        'education',
         'profile_pic',
         'active',
         'created_by',
@@ -55,5 +58,10 @@ class User extends Authenticatable
     public function applicants()
     {
         return $this->hasMany(Applicant::class, 'user_id');
+    }
+
+    public function hiredProjects()
+    {
+        return $this->belongsToMany(Project::class, 'applicants', 'user_id', 'project_id')->where('active', 2);
     }
 }
