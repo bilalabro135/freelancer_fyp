@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->text('education')->nullable();
             $table->text('experience')->nullable();
             $table->string('profile_pic')->nullable();
+            $table->string('balance')->default(0);
             $table->boolean('active')->default(1);
             $table->rememberToken();
             $table->unsignedInteger('created_by')->nullable();
