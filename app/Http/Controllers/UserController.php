@@ -89,7 +89,7 @@ class UserController extends Controller
         if(isset($request['profile_pic'])){
             $image                  = $request->file('profile_pic');
             $new_name               = rand().'.'.$image->getClientOriginalExtension();
-                                        $image->move(public_path("uploads/users"),$new_name);
+                                        $image->move(public_path("uploads"),$new_name);
             $input['profile_pic']   = $new_name;
         }
 

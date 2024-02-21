@@ -12,6 +12,12 @@
                    <div class="card-header">
                       <h4 class="card-title">{{$project->job_title}}</h4>
                    </div>
+                    {{-- Error Message --}}
+                    @if(session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                    <div class="card-body">
                       <div class="row">
                          <div class="col-12 col-md-6">
@@ -36,9 +42,9 @@
                                                             <i class="fas fa-pencil-alt"></i>
                                                         </a>
                                                         &nbsp;
-                                                        <button class="btn btn-danger btn-xs delete_all" data-url="{{url('del_job')}}" data-id="{{$project->id}}">
+                                                        <a  href="{{ route('del_job',['project_id' => $project->id]) }}" class="btn btn-danger btn-xs ml-auto">
                                                             <i class="fas fa-trash-alt"></i>
-                                                        </button>
+                                                        </a>
                                                     </span>
                                                 @endif
                                             </h1>

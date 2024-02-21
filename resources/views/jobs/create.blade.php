@@ -27,6 +27,7 @@
                                 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 row">
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-group">
+                                            {{  Form::hidden('action', "create" ) }}
                                             {!! Html::decode(Form::label('job_title','Title <span class="text-danger">*</span>')) !!}
                                             {{ Form::text('job_title', null, array('placeholder' => 'Title','class' => 'form-control','autofocus' => ''  )) }}
                                             @if ($errors->has('job_title'))
@@ -39,6 +40,9 @@
                                             {!! Html::decode(Form::label('project_file','Project File <span class="text-danger">*</span>')) !!}
                                             <input type="file" id="project_file" class="form-control" name="project_file">
                                         </div>
+                                        @if ($errors->has('project_file'))
+                                            {!! "<span class='span_danger'>". $errors->first('project_file')."</span>"!!} 
+                                        @endif
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-group">
@@ -50,6 +54,9 @@
                                                 @endforeach
                                             </select>
                                         </div>
+                                        @if ($errors->has('role_id'))
+                                            {!! "<span class='span_danger'>". $errors->first('role_id')."</span>"!!} 
+                                        @endif
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-group">
@@ -67,6 +74,9 @@
                                                 <option value="6x">Abount 6 month</option>
                                             </select>
                                         </div>
+                                        @if ($errors->has('delivery_time'))
+                                            {!! "<span class='span_danger'>". $errors->first('delivery_time')."</span>"!!} 
+                                        @endif
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-group">
@@ -78,6 +88,9 @@
                                                 @endforeach
                                             </select>
                                         </div>
+                                        @if ($errors->has('payment_method'))
+                                            {!! "<span class='span_danger'>". $errors->first('payment_method')."</span>"!!} 
+                                        @endif
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-group">
@@ -95,18 +108,24 @@
                                                 <option selected disabled>--Please select--</option>
                                             </select>
                                         </div>
+                                        @if ($errors->has('job_category'))
+                                            {!! "<span class='span_danger'>". $errors->first('job_category')."</span>"!!} 
+                                        @endif
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="form-group">
-                                            {!! Html::decode(Form::label('location','Location <span class="text-danger">*</span>')) !!}
+                                            {!! Html::decode(Form::label('location','Location')) !!}
                                             <textarea class="form-control" name="location" placeholder="Location & address"></textarea>
                                         </div>
+                                        @if ($errors->has('location'))
+                                            {!! "<span class='span_danger'>". $errors->first('location')."</span>"!!} 
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                     <div class="input-file input-file-image float-right" id="kt_profile_avatar" >
                                         <img src="{{asset('uploads/elementor-placeholder-image.webp')}}" style="border-radius: 5px; object-fit: cover;" width="100%" height="300" class="img-upload-preview">
-                                        <input type="file" class="form-control form-control-file" id="uploadImg2" name="job_image" accept="image/*" required="">
+                                        <input type="file" class="form-control form-control-file" id="uploadImg2" name="job_image" accept="image/*">
                                         <label for="uploadImg2" class="label-input-file btn btn-default btn-round">
                                             <span class="btn-label">
                                                 <i class="fa fa-file-image"></i>
@@ -114,12 +133,18 @@
                                             Upload a Image
                                         </label>
                                     </div>
+                                    @if ($errors->has('job_image'))
+                                        {!! "<span class='span_danger'>". $errors->first('job_image')."</span>"!!} 
+                                    @endif
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group">
                                         {!! Html::decode(Form::label('description','Description')) !!}
                                         <textarea id="editor" class="form-control" name="description" placeholder="Description"></textarea>
                                     </div>
+                                    @if ($errors->has('description'))
+                                        {!! "<span class='span_danger'>". $errors->first('description')."</span>"!!} 
+                                    @endif
                                 </div>
                             </div>
                         </div>

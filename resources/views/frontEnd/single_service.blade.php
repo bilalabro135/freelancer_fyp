@@ -179,14 +179,18 @@
 						<h3>PKR {{$job->price}}</h3>
 						<div>
 							<hr class="mr-4 my-4">
-							<h4>About the seller</h4>
+							<h4>About the user</h4>
 							<div class="d-flex my-5" style="gap: 10px;">
 								@if($user->profile_pic)
-									<img src="{{asset('uploads/'.$user->profile_pic)}}" style="width: 60px;border-radius: 30px;">
+									<img src="{{asset('uploads/'.$user->profile_pic)}}" style="width: 60px; height: 60px; object-fit:cover ;border-radius: 30px;">
 								@else
-									<img src="{{asset('uploads/no_image.png')}}" style="width: 60px;border-radius: 30px;">
+									<img src="{{asset('uploads/no_image.png')}}" style="width: 60px; height: 60px; object-fit:cover ;border-radius: 30px;">
 								@endif
-								<p>{{$user->name}}</p>
+								<p>
+									{{$user->name}}<br>
+									<b><small>{{$user->contact_no ? $user->contact_no : ""}}</small></b><br>
+									{{$user->tagline}}
+								</p>
 							</div>
 							<hr class="mr-4 my-4">
 						</div>

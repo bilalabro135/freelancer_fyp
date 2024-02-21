@@ -108,7 +108,7 @@
                                     <!-- <label >Avatar</label> -->
                                     <div class="avatar avatar-xl add_image" id="kt_profile_avatar">
                                         @if($data->profile_pic)
-                                            <img id="blah" src="{{ asset('/uploads/users/'.$data->profile_pic) }}" class="avatar-img rounded-circle" alt="your image"/>
+                                            <img id="blah" src="{{ asset('/uploads/'.$data->profile_pic) }}" class="avatar-img rounded-circle" alt="your image"/>
                                         @else
                                             <img id="blah" src="{{ asset('/uploads/no_image.png') }}" class="avatar-img rounded-circle" alt="your image"/>
                                         @endif

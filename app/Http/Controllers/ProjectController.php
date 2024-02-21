@@ -11,6 +11,7 @@ use App\Models\AccountBook;
 use App\Models\Applicants;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreJobRequest;
 use DataTables;
 use Auth;
 
@@ -62,8 +63,9 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreJobRequest $request)
     {
+        $validated = $request->validated();
         $job_image = "";
 
         if ($request->hasFile('job_image') != null) {
@@ -124,8 +126,7 @@ class ProjectController extends Controller
         //     $project = Project::where('active',1)->where('role_id', Auth::user()->roles[0]->id)->first();
         // }
 
-        $project = Project::where('active',1)->where('id',$id)->first();
-
+        $project = Project::where('active',1)->where('id',$id)->firstOrFail();
         $applicants     = Applicants::where('project_id',$id)->count();
         
         $job_category   = Category::where('id',$project->job_category)->firstOrFail();
@@ -163,8 +164,9 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function update(StoreJobRequest $request, Project $project)
     {
+        $validated = $request->validated();
         $job_image = "";
         if ($request->hasFile('job_image')) {
             $data = $request->input('job_image');
@@ -281,11 +283,16 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $data   = Project::where('id',explode(",", $request->ids))->delete();
-        if ($data) {
-            return response()->route('jobs');
+
+        $project = Project::find($id);
+        if ($project == null) {
+            return back()->with('error', 'Projects cannot be found.');
         }
+
+        $project->delete();
+
+        return redirect()->route('jobs.index')->with('success', 'Project(s) deleted successfully.');
     }
 }

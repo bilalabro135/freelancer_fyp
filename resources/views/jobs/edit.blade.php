@@ -89,7 +89,7 @@
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <div class="form-group">
                                             {!! Html::decode(Form::label('location','Location ')) !!}
-                                            <textarea class="form-control" name="location" placeholder="Location & address"></textarea>
+                                            <textarea class="form-control" name="location" placeholder="Location & address">{{$project->location}}</textarea>
                                         </div>
                                     </div>
                                 </div>

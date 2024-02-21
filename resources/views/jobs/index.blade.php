@@ -5,6 +5,12 @@
     <div class="page-inner">
         <div class="page-header">
             <h4 class="page-title">@yield('title')</h4>
+             {{-- Success Message --}}
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
         </div>
         <div class="page-navs bg-white">
             <div class="nav-scroller">

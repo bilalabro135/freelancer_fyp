@@ -94,13 +94,21 @@
 		font-family: inherit !important;
 		border-radius: 10px !important;
 	}
+	input, textarea, select{
+		padding: 25px 10px !important;
+		background-color: transparent !important;
+		color: #fff !important;
+	}
+	p{
+		color: #fff !important;
+	}
 </style>
 <div class="home-page">
 
 	<!-- Services Section -->
 	<section class="apply-sec pb-0 mb-5">
 		<div class="container">
-			<div class="apply-head">
+			<div class="apply-head text-white">
 				<h2>{{$job->job_title}}</h2>
 				<div class="blog-by d-flex">
 					<p class="mt-4">
@@ -128,7 +136,7 @@
 					</div>
 				@endif
 				<div class="row">
-					<div class="col-12 p-5">
+					<div class="col-12 p-5 text-white">
 						{!! ($job->description) !!}
 						<hr class="mt-5 mb-5">
 						<h3>Empower Your Professional Journey: Connect with Excellence</h3>
@@ -143,7 +151,7 @@
 							@csrf
 							<input type="hidden" name="project_name" value="{{$job->job_title}}">
 							<input type="hidden" name="project_id" value="{{$job->id}}">
-							<div class="col-md-3">
+							<div class="col-md-6">
 								<div>
 									<p class="mb-2">Duration <span class="text-danger">*</span></p>
 									<select class="form-control py-0 " name="duration" required>
@@ -161,22 +169,22 @@
 									</select>
 								</div>
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-6">
 								<p class="mb-2">Upload your portfolio <span class="text-danger">*</span></p>
 								<input type="file" name="portfolio" class="form-control py-0" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-6">
 								<p class="mb-2">Experience? <span class="text-danger">*</span></p>
 								<input type="number" min="0" max="10" name="experience" class="form-control py-0" required>
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-6">
 								<p class="mb-2">Estimated cost? <span class="text-danger">*</span></p>
 								<input type="text"name="cost" class="form-control py-0" required>
 							</div>
 							<div class="col-md-12">
 								<p class="mb-2 mt-4">Cover Letter <span class="text-danger">*</span></p>
-								<textarea class="form-control" name="cover_letter" id="editor" placeholder="Cover Letter"></textarea>
-								<button class="btn text-center mt-4">SUBMIT PROPOSAL</button>
+								<textarea class="form-control" name="cover_letter" id="editor" placeholder="Cover Letter" style="background-color: transparent !important;"></textarea>
+								<button class="btn text-center mt-4 bg-color-theme">SUBMIT PROPOSAL</button>
 							</div>
 						</form>
 					@else
